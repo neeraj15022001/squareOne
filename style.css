@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+:root {
+    --themeRed : #d84311;
+    --themeGrey : #EDECEC;
+}
+body {
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+.wave {
+    position: absolute;
+    right: 0;
+    top: 0;
+    border: none;
+    height: 100vh;
+    width: 90vw;
+}
+.food {
+    position: absolute;
+    right: 10rem;
+    width: 40rem;
+    top: 6rem;
+}
+.customNavbar {
+    padding: 1rem 2rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+}
+.customNavbar-list {
+    display: flex;
+    align-items: center;
+    list-style: none;
+}
+.brand {
+    font-size: xx-large;
+    font-weight: bold;
+    padding: 0 3rem;
+}
+.brand > span {
+    color: var(--themeRed);
+}
+.link-list {
+    display: flex;
+    align-items: center;
+    margin-left: 2.5rem;
+}
+.link-list > li {
+    padding: 0.5rem 1rem;
+}
+.active-link {
+    font-weight: 600;
+    color: var(--themeRed);
+}
+.icon-container {
+    margin-left: 20rem;
+    display: flex;
+    align-items: center;
+}
+.icon {
+    padding: 0 2rem;
+    font-size: large;
+    color: white !important;
+}
+.hero-container {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 5rem;
+}
+.headline {
+    
+    border-left: 3px solid var(--themeRed);
+    padding: 0 1.5rem;
+    user-select: none;
+}
+.main-headline {
+    font-size: 4rem;
+    font-weight: 700;
+}
+.sub-headline {
+    font-size: 2rem;
+    padding: 1rem 0;
+    font-weight: lighter;
+}
+.line-break {
+
+    margin-top: 1rem;
+    border-left: 3px solid var(--themeRed);
+    height: 1.5rem;
+}
+.button-container {
+    padding-top: 1rem;
+    padding-left: 1rem;
+}
+.primary-button {
+    background-color: var(--themeRed);
+    color: white;
+}
+.secondary-button {
+    background-color: var(--themeGrey);
+    color: grey;
+    margin-left: 1rem;
+}
+.custom-button {
+    padding: 1rem 1.5rem;
+    border: none;
+    outline: none;
+    border-radius: 2.5rem;
+    font-weight: 600;
+}

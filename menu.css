@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+:root {
+    --themeRed : #d84311;
+    --themeGrey : #EDECEC;
+}
+body {
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+.customNavbar {
+    padding: 1rem 2rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+}
+.brand {
+    font-size: xx-large;
+    font-weight: bold;
+    padding: 0 3rem;
+}
+.brand > span {
+    color: var(--themeRed);
+}
+.heading {
+    margin-top: 3rem;
+    padding: 2rem 0;
+}
+.main-headline {
+    text-align: center;
+    font-size: 6rem;
+    font-weight: 800;
+}
+.description {
+    text-align: center;
+    color: grey;
+}
+.items-container {
+    margin-top: 4rem;
+    padding: 2rem 5rem;
+    display: flex;  
+    flex-direction: row;
+    align-items: center;    
+    align-items: center;
+    overflow: auto;
+}
+.items-container::-webkit-scrollbar {
+    display: none;
+}
+.food-item-card {
+    flex-shrink: 0;
+    background-color: var(--themeGrey);
+    width: 13rem;
+    text-align: center;
+    padding: 8rem 1rem 2rem 1rem;
+    position: relative;
+    border-radius: 1rem;
+    box-shadow: 0 0.7rem 10px 0px rgba(0,0,0,0.3);
+    margin: 0 2rem;
+}
+.item-name {
+    font-size: large;
+}
+.item-image {
+    width: 15rem;
+    position: absolute;
+    top: -3rem;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.divider {
+    margin: 1rem 0;
+}
+.food-description {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
+}
+.food-description-heading {
+    color: grey;
+    font-size: small;
+}
