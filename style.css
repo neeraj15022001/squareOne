@@ -8,6 +8,9 @@
 :root {
     --themeRed : #d84311;
     --themeGrey : #EDECEC;
+    --themeDarkRed : #980000;
+    --themeBlack : #000000;
+    --themeWhite : #ffffff;
 }
 body {
     height: 100vh;
@@ -117,4 +120,10 @@ body {
     outline: none;
     border-radius: 2.5rem;
     font-weight: 600;
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
+}
+.custom-button:hover {
+    background-color: var(--themeDarkRed);
+    color: var(--themeWhite);
 }

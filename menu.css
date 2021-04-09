@@ -6,7 +6,10 @@
 }
 :root {
     --themeRed : #d84311;
-    --themeGrey : #EDECEC;
+    --themeCardGrey : #f6f6f6;
+    --themeDarkRed : #980000;
+    --themeBlack : #000000;
+    --themeWhite : #ffffff;
 }
 body {
     height: 100vh;
@@ -20,6 +23,10 @@ body {
     left: 0;
     right: 0;
     z-index: 2;
+}
+.brand-logo {
+    text-decoration: none;
+    color: var(--themeBlack);
 }
 .brand {
     font-size: xx-large;
@@ -43,8 +50,8 @@ body {
     color: grey;
 }
 .items-container {
-    margin-top: 4rem;
-    padding: 2rem 5rem;
+    margin-top: 2rem;
+    padding: 3rem 5rem;
     display: flex;  
     flex-direction: row;
     align-items: center;    
@@ -56,7 +63,7 @@ body {
 }
 .food-item-card {
     flex-shrink: 0;
-    background-color: var(--themeGrey);
+    background-color: var(--themeCardGrey);
     width: 13rem;
     text-align: center;
     padding: 8rem 1rem 2rem 1rem;
@@ -69,11 +76,12 @@ body {
     font-size: large;
 }
 .item-image {
-    width: 15rem;
+    width: 12rem;
     position: absolute;
-    top: -3rem;
+    top: -4rem;
     left: 50%;
     transform: translateX(-50%);
+    filter: drop-shadow(0px 10px 5px rgba(0,0,0,0.5));
 }
 .divider {
     margin: 1rem 0;
@@ -87,4 +95,36 @@ body {
 .food-description-heading {
     color: grey;
     font-size: small;
+}
+.food-type-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+.food-type, .food-style {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+.add-to-cart-button {
+    margin-top: 1.5rem;
+    
+}
+.add-to-cart-button > button {
+    border-radius: 2rem;
+    border: none;
+    outline: none;
+    background-color: var(--themeRed);
+    color: var(--themeWhite);
+    padding: 0.7rem 3rem;
+    font-size: large;
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
+}
+.add-to-cart-button > button:hover {
+    background-color: var(--themeDarkRed);
+    box-shadow: 0 3px 10px 0px rgba(0,0,0,0.5);
+    transform: scale(1.1);
 }

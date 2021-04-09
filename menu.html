@@ -13,7 +13,14 @@
   </head>
   <body>
     <nav class="customNavbar">
-      <p class="brand">Square <span>One</span></p>
+      <a
+        href="./index.html"
+        referrerpolicy="no-referrer"
+        rel="next"
+        type="text/html"
+        class="brand brand-logo"
+        >Square <span>One</span></a
+      >
     </nav>
     <div class="heading">
       <p class="main-headline">Food Menu</p>
@@ -23,8 +30,12 @@
     </div>
 
     <div id="items-container" class="items-container">
-      <div class="food-item-card">
-          <img src="./items/aloo-parantha.png" alt="aloo-parantha" class="item-image">
+      <!-- <div class="food-item-card">
+        <img
+          src="./items/aloo-parantha.png"
+          alt="aloo-parantha"
+          class="item-image"
+        />
         <p class="item-name">Aloo Parantha</p>
         <hr class="divider" />
         <div class="food-description">
@@ -37,32 +48,97 @@
             <p>1 person</p>
           </div>
         </div>
-      </div>
+        <div class="food-type-container">
+          <div class="food-type">
+            <p class="food-description-heading">Food Type</p>
+            <p>
+              <i
+                class="fa fa-dot-circle"
+                style="color: green"
+                aria-hidden="true"
+              ></i>
+              Veg
+            </p>
+          </div>
+
+          <div class="food-style">
+            <p class="food-description-heading">Food Style</p>
+            <p>Indian</p>
+          </div>
+        </div>
+        <div class="add-to-cart-button">
+          <button>Add To Cart</button>
+        </div>
+      </div> -->
     </div>
 
-
     <script>
-        let element = `
-        <div class="food-item-card">
-          <img src="./items/aloo-parantha.png" alt="aloo-parantha" class="item-image">
-        <p class="item-name">Aloo Parantha</p>
+      fetch("./menuBreakfastIndianBreads.json")
+        .then((response) => response.json())
+        .then((data) => {
+          getAndInsertData(data);
+        });
+
+      function getAndInsertData(data) {
+        const itemNames = Object.keys(data);
+        console.log(itemNames);
+        itemNames.forEach((itemName) => {
+          const itemData = data[itemName];
+          const price = itemData.price;
+          const portion = itemData.portion;
+          const image = itemData.imagePath;
+          const type = itemData.type;
+          const typeColor = itemData.colors;
+          const style = itemData.style;
+
+          let element = `
+        <div class="food-item-card" data-name="${itemName}">
+        <img
+          src="${image}"
+          alt="${itemName}"
+          class="item-image"
+        />
+        <p class="item-name">${itemName}</p>
         <hr class="divider" />
         <div class="food-description">
           <div class="price">
             <p class="food-description-heading">Price</p>
-            <p>Rs 30</p>
+            <p>${price}</p>
           </div>
           <div class="portion">
             <p class="food-description-heading">Portion</p>
-            <p>1 person</p>
+            <p>${portion} person</p>
           </div>
         </div>
+        <div class="food-type-container">
+          <div class="food-type">
+            <p class="food-description-heading">Food Type</p>
+            <p>
+              <i
+                class="fa fa-dot-circle"
+                style="color: ${typeColor}"
+                aria-hidden="true"
+              ></i>
+              ${type}
+            </p>
+          </div>
+
+          <div class="food-style">
+            <p class="food-description-heading">Food Style</p>
+            <p>
+              ${style}
+            </p>
+          </div>
+        </div>
+        <div class="add-to-cart-button">
+          <button>Add To Cart</button>
+        </div>
       </div>
-        `
-      let container = document.getElementById("items-container");
-        for(let i = 0 ; i < 10; i++) {
-            container.innerHTML += element
-        }
+        `;
+          let container = document.getElementById("items-container");
+          container.innerHTML += element;
+        });
+      }
     </script>
   </body>
 </html>
