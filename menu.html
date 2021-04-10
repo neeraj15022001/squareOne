@@ -29,16 +29,25 @@
       </p>
     </div>
 
-    <div id="items-container" class="items-container"></div>
+    <div class="menu-container">
+      <h1 class="category-heading"><span>Indian</span> Food</h1>
+      <div id="items-container" class="items-container"></div>
+      <h1 class="category-heading"><span>Drinks</span></h1>
+      <div id="drinks-container" class="items-container"></div>
+    </div>
 
     <script>
       fetch("./menuBreakfastIndianBreads.json")
         .then((response) => response.json())
         .then((data) => {
-          getAndInsertData(data);
+          getAndInsertData(data, "items-container", "item-image item-position");
         });
+      
+      fetch("./drinks.json")
+      .then(response => response.json())
+      .then(data => getAndInsertData(data, "drinks-container", "item-image drink-position"))
 
-      function getAndInsertData(data) {
+      function getAndInsertData(data , id, imageClass) {
         const itemNames = Object.keys(data);
         console.log(itemNames);
         itemNames.forEach((itemName) => {
@@ -55,7 +64,7 @@
         <img
           src="${image}"
           alt="${itemName}"
-          class="item-image"
+          class="${imageClass}"
         />
         <p class="item-name">${itemName}</p>
         <hr class="divider" />
@@ -94,7 +103,7 @@
         </div>
       </div>
         `;
-          let container = document.getElementById("items-container");
+          let container = document.getElementById(id);
           container.innerHTML += element;
         });
       }
