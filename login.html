@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="./login.css" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://kit.fontawesome.com/dabf4ff9a0.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="main-container col-12 d-flex "> 
+            <nav class="navbar navbar-expand-sm navbar-light position-fixed py-3">
+                <div class="container-fluid">
+                    <a class="navbar-brand font-weight-bold" style="font-size: x-large;" href="#">Square<span class="text-danger">One</span></a>
+                </div>
+            </nav>
+      <div
+        class="form-container col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6  d-flex align-items-center justify-content-center"
+      >
+        <form action="" class="d-flex flex-column align-items-md-center col-12 col-sm-12 col-md-12 col-lg-7">
+          <p class="heading font-weight-bold text-center">
+            Let's Make Your Order
+          </p>
+          <div class="input-group input-group-lg mt-5 input-main-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text bg-warning text-light border-0"
+                ><i class="fa fa-envelope" aria-hidden="true"></i
+              ></span>
+            </div>
+            <input
+              type="email"
+              class="form-control input-field input-border"
+              placeholder="Enter your email"
+            />
+          </div>
+          <div class="input-group input-group-lg mt-4">
+            <div class="input-group-prepend">
+              <span class="input-group-text bg-warning text-light border-0"
+                ><i class="fa fa-lock" aria-hidden="true"></i
+              ></span>
+            </div>
+            <input
+              type="password"
+              class="form-control input-field input-border"
+              placeholder="Enter Your Password"
+            />
+          </div>
+          <button class="text-light font-weight-bold btn btn-warning badge-pill col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 mt-5 py-3" id="sign-in-button">Sign In</button>
+
+          <!-- <p class="mt-4 text-muted text-center">Already have an account? <a class="text-decoration-none text-warning">Sign in</a></p> -->
+        </form>
+      </div>
+
+      <div class="image-container col-6 col-sm-6 d-none d-sm-none d-md-none d-lg-block d-xl-block"></div>
+    </div>
+    <script>
+        var signInButton = document.getElementById("sign-in-button")
+        signInButton.addEventListener("click", function(e) {
+            event.preventDefault()
+            console.log('hello')
+            window.location.assign("./index.html")
+        })
+    </script>
+  </body>
+</html>
