@@ -37,7 +37,7 @@ body {
     color: var(--themeRed);
 }
 .heading {
-    margin-top: 3rem;
+    margin-top: 1rem;
     padding: 2rem 0;
 }
 .main-headline {
@@ -50,8 +50,8 @@ body {
     color: grey;
 }
 .items-container {
-    margin-top: 2rem;
-    padding: 3rem 5rem;
+    margin-top: -0.5rem;
+    padding: 4rem 5rem;
     display: flex;  
     flex-direction: row;
     align-items: center;    
@@ -66,7 +66,7 @@ body {
     background-color: var(--themeCardGrey);
     width: 13rem;
     text-align: center;
-    padding: 8rem 1rem 2rem 1rem;
+    padding: 7rem 1rem 2rem 1rem;
     position: relative;
     border-radius: 1rem;
     box-shadow: 0 0.7rem 10px 0px rgba(0,0,0,0.3);
