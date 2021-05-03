@@ -1,0 +1,146 @@
+{
+  "Aloo Parantha": {
+    "price": "Rs 30",
+    "portion": "1",
+    "imagePath": "./images/items/gobhi-parantha.png",
+    "type": "Veg",
+    "colors": "green",
+    "style": "Indian"
+  },
+  "Gobhi Parantha": {
+    "price": "Rs 30",
+    "portion": "1",
+    "imagePath": "./images/items/gobhi-parantha.png",
+    "type": "Veg",
+    "colors": "green",
+    "style": "Indian"
+  },
+  "Paneer Parantha": {
+    "price": "Rs 40",
+    "portion": "1",
+    "imagePath": "./images/items/gobhi-parantha.png",
+    "type": "Veg",
+    "colors": "green",
+    "style": "Indian"
+  },
+  "Curd": {
+    "price": "MRP",
+    "portion": "-",
+    "imagePath": "./images/items/curd.png",
+    "type": "Veg",
+    "colors": "green",
+    "style": "Indian"
+  },
+  "Veg Kathi Roll": {
+    "price": "Rs 30",
+    "portion": "2",
+    "imagePath": "./images/items/kathi-roll.png",
+    "type": "Veg",
+    "colors": "green",
+    "style": "Indian"
+  },
+  "Egg Kathi Roll": {
+    "price": "Rs 40",
+    "portion": "2",
+    "imagePath": "./images/items/kathi-roll-egg.png",
+    "type": "Non-Veg",
+    "colors": "red",
+    "style": "Indian"
+  },
+  "Boiled Eggs": {
+    "price": "Rs 15",
+    "portion": "2",
+    "imagePath": "./images/items/boiled-egg.png",
+    "type": "Non-Veg",
+    "colors": "red",
+    "style": "Indian"
+  },
+  "Maggi": {
+    "price": "Rs 25",
+    "portion": "1",
+    "imagePath": "./images/items/maggi.png",
+    "type": "Veg",
+    "colors": "green",
+    "style": "Indian"
+  },
+  "Chole Bhature": {
+    "price": "Rs 50",
+    "portion": "1",
+    "imagePath": "./images/items/chole-bhature.png",
+    "type": "Veg",
+    "colors": "green",
+    "style": "Indian"
+  },
+  "Pav Bhaji": {
+    "price": "Rs 40",
+    "portion": "1",
+    "imagePath": "./images/items/pav-bhaji.png",
+    "type": "Veg",
+    "colors": "green",
+    "style": "Indian"
+  },
+  "Thali Small": {
+    "price": "Rs 55",
+    "portion": "1",
+    "imagePath": "./images/items/thali-small.png",
+    "type": "Veg",
+    "colors": "green",
+    "style": "Indian"
+  },
+  "Thali Large": {
+    "price": "Rs 100",
+    "portion": "2",
+    "imagePath": "./images/items/thali-large.png",
+    "type": "Veg",
+    "colors": "green",
+    "style": "Indian"
+  },
+  "Thali Non-Veg": {
+    "price": "Rs 110",
+    "portion": "2",
+    "imagePath": "./images/items/thali-nonveg.png",
+    "type": "Non-Veg",
+    "colors": "red",
+    "style": "Indian"
+  },
+  "Dal Makhani": {
+    "price": "Rs 40",
+    "portion": "2",
+    "imagePath": "./images/items/dal-makhani.png",
+    "type": "Veg",
+    "colors": "green",
+    "style": "Indian"
+  },
+  "Chana Masala": {
+    "price": "Rs 40",
+    "portion": "2",
+    "imagePath": "./images/items/channa-masala.png",
+    "type": "Veg",
+    "colors": "green",
+    "style": "Indian"
+  },
+  "Shahi Paneer": {
+    "price": "Rs 60",
+    "portion": "2",
+    "imagePath": "./images/items/paneer-shahi.png",
+    "type": "Veg",
+    "colors": "green",
+    "style": "Indian"
+  },
+  "Plain Roti": {
+    "price": "Rs 8",
+    "portion": "1",
+    "imagePath": "./images/items/plain-roti.png",
+    "type": "Veg",
+    "colors": "green",
+    "style": "Indian"
+  },
+  "Stuffed Aloo Naan": {
+    "price": "Rs 25",
+    "portion": "1",
+    "imagePath": "./images/items/tandoori-naan.png",
+    "type": "Veg",
+    "colors": "green",
+    "style": "Indian"
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "Beer": {
+    "price": "Rs 180",
+    "portion": "1",
+    "imagePath": "./images/Drinks/beer.png",
+    "type": "Beverage",
+    "colors": "grey",
+    "style": "-"
+  },
+  "Coffee": {
+    "price": "Rs 30",
+    "portion": "1",
+    "imagePath": "./images/Drinks/coffee.png",
+    "type": "Beverage",
+    "colors": "grey",
+    "style": "-"
+  },
+  "Juice": {
+    "price": "MRP",
+    "portion": "1",
+    "imagePath": "./images/Drinks/juice.png",
+    "type": "Beverage",
+    "colors": "grey",
+    "style": "-"
+  },
+  "Milk": {
+    "price": "MRP",
+    "portion": "1",
+    "imagePath": "./images/Drinks/milk.png",
+    "type": "Beverage",
+    "colors": "grey",
+    "style": "-"
+  },
+  "Soft Drink": {
+    "price": "MRP",
+    "portion": "-",
+    "imagePath": "./images/Drinks/soft-drink.png",
+    "type": "Beverage",
+    "colors": "grey",
+    "style": "-"
+  },
+  "Tea": {
+    "price": "Rs 25",
+    "portion": "1",
+    "imagePath": "./images/Drinks/tea.png",
+    "type": "Beverage",
+    "colors": "grey",
+    "style": "-"
+  },
+  "Water": {
+    "price": "MRP",
+    "portion": "-",
+    "imagePath": "./images/Drinks/water.png",
+    "type": "Beverage",
+    "colors": "grey",
+    "style": "-"
+  }
+}
