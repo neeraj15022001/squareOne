@@ -81,6 +81,7 @@ body {
   top: 50%;
   transform: translateY(-50%);
   left: 5rem;
+  transition: 0.3s ease-in-out;
 }
 .headline {
   border-left: 3px solid var(--themeRed);
@@ -101,8 +102,8 @@ body {
   padding-left: 1rem;
 }
 .primary-button {
-  background-color: var(--themeRed);
-  color: white;
+  background-color: var(--themeRed) !important;
+  color: white !important;
 }
 .secondary-button {
   background-color: var(--themeGrey);
@@ -126,6 +127,16 @@ body {
   position: absolute;
   top: 1rem;
   right: 1rem;
+}
+@media screen and (min-device-width:426px) and (max-device-width:1000px) {
+  .hero-container {
+    margin-top: 3rem;
+  }
+}
+@media screen and (min-device-width:1000px) and (max-device-width:1200px) {
+  .hero-container {
+    margin-top: 4rem;
+  }
 }
 @media screen and (max-device-width: 1400px) {
   .wave {
@@ -152,6 +163,9 @@ body {
   #signOutButton {
     position: relative;
   }
+  .customNavbar {
+    position: relative;
+  }
   .customNavbar-list {
     display: flex;
     flex-direction: column;
@@ -159,9 +173,25 @@ body {
     align-items: center;
     align-self: center;
   }
+  .hero-container {
+    position: relative;
+    top:0;
+    margin-top: 2rem;
+    transform: none;
+  }
 }
 @media screen and (max-device-width: 320px) {
   .hero-container {
     left: 0.5rem;
+  }
+  .customNavbar {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  #signOutButton {
+    padding: 0.8rem;
+  }
+  .brand {
+    font-size: 2rem;
   }
 }

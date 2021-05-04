@@ -45,6 +45,7 @@ body {
   font-size: xx-large;
   font-weight: bold;
   padding: 0 3rem;
+  transition: 0.3s ease-in-out;
 }
 .brand > span {
   color: var(--themeRed);
@@ -171,7 +172,13 @@ body {
     padding: 1rem;
   }
 }
-
+@media screen and (max-device-width:1100px) {
+  .customNavbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
 @media screen and (max-device-width: 320px) {
   .brand {
     font-size: 1.6rem;
