@@ -78,9 +78,6 @@ function getAndInsertData(data, id, imageClass) {
             </p>
           </div>
         </div>
-        <div class="add-to-cart-button">
-          <button>Add To Cart</button>
-        </div>
       </div>
         `;
     let container = document.getElementById(id);
@@ -97,3 +94,8 @@ $("#drinks-container").mousewheel(function(event, delta) {
   this.scrollLeft -= (delta * 30)
   event.preventDefault()
 });
+
+
+{/* <div class="add-to-cart-button">
+          <button>Add To Cart</button>
+        </div> */}

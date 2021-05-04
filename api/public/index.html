@@ -27,8 +27,8 @@
         </li>
       </ul>
     </nav>
-    <img src="./images/wave.svg" alt="wave" class="wave" />
-    <img src="./images/food.png" alt="food" class="food" />
+    <img src="./images/wave.svg" alt="wave" class="wave" draggable="false" />
+    <img src="./images/food.png" alt="food" class="food" draggable="false" />
     <div class="hero-container">
       <div class="headline">
         <p class="main-headline">
@@ -74,16 +74,21 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">...</div>
+          <div class="modal-body">
+            <label for="cardNumber" class="form-label">Enter Card Number</label>
+            <input type="text" class="form-control mb-2">
+            <label for="amount" class="form-label">Enter Amount</label>
+            <input type="text" class="form-control">
+          </div>
           <div class="modal-footer">
             <button
               type="button"
               class="custom-button secondary-button"
               data-dismiss="modal"
             >
-              Close
+              Cancel
             </button>
-            <button type="button" class="custom-button primary-button">Save changes</button>
+            <button type="button" class="custom-button primary-button">Proceed</button>
           </div>
         </div>
       </div>
