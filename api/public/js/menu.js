@@ -78,6 +78,9 @@ function getAndInsertData(data, id, imageClass) {
             </p>
           </div>
         </div>
+        <div class="add-to-cart-button">
+          <button>Add To Cart</button>
+        </div>
       </div>
         `;
     let container = document.getElementById(id);
@@ -96,6 +99,3 @@ $("#drinks-container").mousewheel(function(event, delta) {
 });
 
 
-{/* <div class="add-to-cart-button">
-          <button>Add To Cart</button>
-        </div> */}

@@ -1,5 +1,7 @@
 const errorBox = document.querySelector(".error");
 errorBox.style.visibility= "hidden"
+const fakeloader = $("#fakeloader-overlay")
+fakeloader.hide()
 initializeApp();
 var signInButton = document.getElementById("sign-in-button");
 const emailField = document.getElementById("emailField");
@@ -23,6 +25,7 @@ signInButton.addEventListener("click", function (e) {
   e.preventDefault();
   if (emailField.value !== "" && passwordField.value !== "") {
     signInButton.setAttribute("disabled", "true");
+    fakeloader.show()
     signIn(emailField.value, passwordField.value);
   }
 });
@@ -47,9 +50,10 @@ function checkUser() {
     fetch("http://localhost:8000/getCurrentUser").then((res) => {
       let statusCode = res.status;
       if (statusCode === 200) {
+        fakeloader.hide()
         window.location.assign("./index.html");
       }
-    });
+    }); 
   } catch (error) {
     console.log(error);
   }

@@ -1,4 +1,6 @@
 //jshint:esversion:6
+const fakeloader = $("#fakeloader-overlay")
+fakeloader.hide()
 fetch("http://localhost:8000/").then((res) => {
   console.log(res.status);
   getUser();
@@ -22,9 +24,11 @@ menuButton.addEventListener("click", () => {
 });
 
 signOutButton.addEventListener("click", () => {
+  fakeloader.show()
   fetch("http://localhost:8000/signOut").then((res) => {
     const statusCode = res.status
     if (statusCode === 200) {
+      fakeloader.hide()
       window.location.assign("./login.html");
     }
   });
