@@ -1,0 +1,138 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+  user-select: none;
+}
+:root {
+  --themeRed: #d84311;
+  --themeCardGrey: #f6f6f6;
+  --themeLightRed: #ff6756;
+  --themeBlack: #000000;
+  --themeWhite: #ffffff;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  height: 100vh;
+  width: 100vw;
+  overflow: auto;
+}
+
+::-webkit-scrollbar {
+  background-color: var(--themeWhite);
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--themeRed);
+}
+.customNavbar {
+  padding: 1rem 5rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.brand-logo {
+  text-decoration: none;
+  color: var(--themeBlack);
+}
+.brand {
+  font-size: xx-large;
+  font-weight: bold;
+  transition: 0.3s ease-in-out;
+}
+.brand > span {
+  color: var(--themeRed);
+}
+.cart-icon {
+  font-size: 1.5rem;
+  color: var(--themeRed);
+  cursor:pointer;
+}
+.heading {
+  margin-top: 5rem;
+  padding: 2rem 0;
+}
+.main-headline {
+  text-align: center;
+  font-size: 6rem;
+  font-weight: 800;
+}
+.bag {
+    background-color: var(--themeWhite);
+    height: 100%;
+    margin: 0 5rem;
+    padding: 2rem 0;
+    display: flex;
+}
+.items-container {
+    flex: 2;
+    background-color: var(--themeCardGrey);
+}
+.item-card {
+    height: 8.5rem;
+    background-color: var(--themeWhite);
+    border-bottom: 1px solid var(--themeCardGrey);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1.5rem;
+  }
+  .main-image-text-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .image-container {
+    width: 7rem;
+    height: 7rem;
+    background: url("../images/items/aloo-parantha.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  .text-container {
+    margin-left: 1.3rem;
+    font-size: x-large;
+    font-weight: 700;
+  }
+  .amount-container {
+    width: 6rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .increment-decrement-button {
+    border: none;
+    outline: none;
+    background-color: var(--themeRed);
+    color: var(--themeWhite);
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    font-size: x-large;
+  }
+  .quantity {
+    font-size: x-large;
+    font-weight: bold;
+  }
+  .cart-card::-webkit-scrollbar {
+    display: none;
+  }
+  .bill-container {
+      width: 25rem;
+      padding: 0 0 0 3rem;
+  }
+  .bill {
+      background-color: var(--themeLightRed);
+      height: 100%;
+      width: 100%;
+  }

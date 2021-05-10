@@ -1,3 +1,4 @@
+$(".cart-card").hide()
 fetch("http://localhost:8000/").then((res) => {
   console.log(res.status);
   getUser();
@@ -79,7 +80,7 @@ function getAndInsertData(data, id, imageClass) {
           </div>
         </div>
         <div class="add-to-cart-button">
-          <button>Add To Cart</button>
+          <button onclick="addToCartClicked(event)">Add To Cart</button>
         </div>
       </div>
         `;
@@ -88,14 +89,54 @@ function getAndInsertData(data, id, imageClass) {
   });
 }
 
-$("#items-container").mousewheel(function(event, delta) {
-  this.scrollLeft -= (delta * 30)
-  event.preventDefault()
+function addToCartClicked(event) {
+  let itemName = event.target.parentElement.parentElement.dataset.name;
+  var myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+
+  var raw = JSON.stringify({
+    itemName: itemName,
+  });
+
+  var requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: raw,
+    redirect: "follow",
+  };
+
+  fetch("http://localhost:8000/addToCart", requestOptions)
+    .then((response) => console.log(response))
+    .catch((error) => console.log("error", error));
+}
+
+$("#items-container").mousewheel(function (event, delta) {
+  this.scrollLeft -= delta * 30;
+  event.preventDefault();
 });
 
-$("#drinks-container").mousewheel(function(event, delta) {
-  this.scrollLeft -= (delta * 30)
-  event.preventDefault()
+$("#drinks-container").mousewheel(function (event, delta) {
+  this.scrollLeft -= delta * 30;
+  event.preventDefault();
 });
 
+$(".cart-icon").mouseover(() => {
+    $(".cart-card").show()
+})
 
+$(".cart-card").mouseover(function () { 
+  $(".cart-card").show()
+});
+
+// $(".cart-icon").mouseleave(function () { 
+//   $(".cart-card").hide()
+// });
+
+$(".cart-card").mouseleave(function () { 
+  $(".cart-card").hide()
+});
+
+$(".cart-icon").click(function (e) { 
+  e.preventDefault();
+  
+});

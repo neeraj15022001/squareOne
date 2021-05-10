@@ -140,7 +140,7 @@ app.post("/addToCart", (req, res) => {
   console.log(itemNameStr);
   const result = addItemToDb(cartTableName, "gneeraj32595@gmail.com", itemNameStr)
   console.log(`adding item to db ${result}`)
-  if(result)
+  if(!result)
   {
     res.sendStatus(200);
   }
@@ -165,6 +165,11 @@ app.post("/removeFromCart", (req, res) => {
   }
 });
 
+app.post('/getDocumentLength', (req, res) => {
+  const collectionName = req.body.collectionName
+
+})
+
 function addItemToDb(colName, docName, itemName) {
   console.log(`Print Check ${itemName}`);
   const data = {
@@ -175,12 +180,14 @@ function addItemToDb(colName, docName, itemName) {
       if (!res) 
       {
         console.log("Creating new entry");
-        const res = db.collection(colName).doc(docName).set(data);
+        db.collection(colName).doc(docName).set(data);
+        setDbFieldCount("items", "count", "itemsInCart", 1)
       } 
       else 
       {
         console.log("Old entry increment");
         setDbFieldCount(colName, docName, itemName, 1);
+        setDbFieldCount("items", "count", "itemsInCart", 1)
       }
       return 1;
     })
@@ -214,6 +221,7 @@ async function removeItemFromDb(colName, docName, fieldName) {
         }).then((res) => {
           if(res) {
             console.log(JSON.stringify(res))
+            setDbFieldCount("items", "count", "itemsInCart", -1) // check in case of value greater tha 1 of field
             result = 1
           }
         })

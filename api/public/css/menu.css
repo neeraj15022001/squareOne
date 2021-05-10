@@ -167,6 +167,70 @@ body {
   box-shadow: 0 3px 10px 0px rgba(0, 0, 0, 0.5);
   transform: scale(1.1);
 }
+.cart-container {
+  position: relative;
+}
+
+.cart-card {
+  position: absolute;
+  overflow: scroll;
+  background-color: var(--themeWhite);
+  right: 1rem;
+  top: 2.2rem;
+  width: 35rem;
+  height: 20rem;
+  border-radius: 1rem 0 1rem 1rem;
+  box-shadow: 0 5px 20px 1px rgba(0, 0, 0, 0.5);
+  transition: 0.3s linear;
+}
+.item-card {
+  height: 8.5rem;
+  background-color: var(--themeWhite);
+  border-bottom: 1px solid var(--themeCardGrey);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.5rem;
+}
+.main-image-text-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.image-container {
+  width: 7rem;
+  height: 7rem;
+  background: url("../images/items/aloo-parantha.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.text-container {
+  margin-left: 1.3rem;
+  font-size: x-large;
+}
+.amount-container {
+  width: 6rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.increment-decrement-button {
+  border: none;
+  outline: none;
+  background-color: var(--themeRed);
+  color: var(--themeWhite);
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  font-size: x-large;
+}
+.quantity {
+  font-size: x-large;
+}
+.cart-card::-webkit-scrollbar {
+  display: none;
+}
 
 @media screen and (max-device-width: 425px) {
   .main-headline {

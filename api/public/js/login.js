@@ -82,6 +82,7 @@ function signIn(email, password) {
         window.location.assign("./index.html");
         console.log(data.user.uid);
         signInButton.removeAttribute("disabled");
+        fakeloader.hide()
       }
       else {
         errorBox.style.visibility= "visible"
@@ -89,6 +90,7 @@ function signIn(email, password) {
         setTimeout(() => {
           errorBox.style.visibility= "hidden";
           signInButton.removeAttribute("disabled");
+          fakeloader.hide()
         }, 3000)
       }
     })
