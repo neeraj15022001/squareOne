@@ -11,7 +11,9 @@ require("firebase/auth");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-const cartTableName = "userCart";
+const CART_TABLE_NAME = "userCart";
+const CART_ITEM_COUNT = "cartItemCount";
+const ITEMS_COUNT = "itemsCount"
 
 /**
  * Initialize Firestore configuration
@@ -135,10 +137,16 @@ app.get("/signOut", (req, res) => {
     });
 });
 
+function getCurrentUserEmail()
+{
+  console.log(`Current User Email = ${firebase.auth().currentUser.email}`)
+  return firebase.auth().currentUser.email
+}
+
 app.post("/addToCart", (req, res) => {
   const itemNameStr = req.body.itemName;
   console.log(itemNameStr);
-  const result = addItemToDb(cartTableName, "gneeraj32595@gmail.com", itemNameStr)
+  const result = addItemToDb(CART_TABLE_NAME, getCurrentUserEmail(), itemNameStr)
   console.log(`adding item to db ${result}`)
   if(!result)
   {
@@ -153,7 +161,23 @@ app.post("/addToCart", (req, res) => {
 app.post("/removeFromCart", (req, res) => {
   const itemNameStr = req.body.itemName;
   console.log(itemNameStr);
-  const result = removeItemFromDb(cartTableName, "gneeraj32595@gmail.com", itemNameStr);
+  const result = removeItemFromDb(CART_TABLE_NAME, getCurrentUserEmail(), itemNameStr);
+  console.log(`print result valur from remove ${result}`)
+  if(result)
+  {
+    setDbFieldCount(CART_ITEM_COUNT, getCurrentUserEmail(), ITEMS_COUNT, -1)
+    res.sendStatus(200);
+  }
+  else
+  {
+    res.sendStatus(500);
+  }
+});
+
+app.post("/clearCart", (req, res) => {
+  const itemNameStr = req.body.itemName;
+  console.log(itemNameStr);
+  const result = clearAllItemsFromDb(CART_TABLE_NAME, getCurrentUserEmail);
   console.log(`print result valur from remove ${result}`)
   if(result)
   {
@@ -164,6 +188,34 @@ app.post("/removeFromCart", (req, res) => {
     res.sendStatus(500);
   }
 });
+
+app.post('/getItemCountInCart', (req, res) => {
+  const docRef = db.collection(CART_ITEM_COUNT).doc(getCurrentUserEmail());
+  const doc =  docRef.get();
+  if (!doc.exists) 
+  {
+    console.log('No such document!');
+  }
+  else
+  {
+    console.log('Document data:', doc.data());
+    res.send(doc.data())
+  }
+})
+
+app.post('/getUserCartData', (req, res) => {
+  const docRef = db.collection(CART_TABLE_NAME).doc(getCurrentUserEmail());
+  const doc =  docRef.get();
+  if (!doc.exists) 
+  {
+    console.log('No such document!');
+  }
+  else
+  {
+    console.log('Document data:', doc.data());
+    res.send(doc.data())
+  }
+})
 
 app.post('/getDocumentLength', (req, res) => {
   const collectionName = req.body.collectionName
@@ -181,13 +233,13 @@ function addItemToDb(colName, docName, itemName) {
       {
         console.log("Creating new entry");
         db.collection(colName).doc(docName).set(data);
-        setDbFieldCount("items", "count", "itemsInCart", 1)
+        setDbFieldCount("items", getCurrentUserEmail(), ITEMS_COUNT, 1)
       } 
       else 
       {
         console.log("Old entry increment");
         setDbFieldCount(colName, docName, itemName, 1);
-        setDbFieldCount("items", "count", "itemsInCart", 1)
+        setDbFieldCount("items", getCurrentUserEmail(), ITEMS_COUNT, 1)
       }
       return 1;
     })
@@ -198,7 +250,7 @@ function addItemToDb(colName, docName, itemName) {
     return 0
 }
 
-async function removeItemFromDb(colName, docName, fieldName) {
+async function clearAllItemsFromDb(colName, docName) {
   let returnResult
   await checkIfDocExistsInDb(colName, docName)
     .then(async (res) => {
@@ -213,19 +265,43 @@ async function removeItemFromDb(colName, docName, fieldName) {
         const FieldValue = admin.firestore.FieldValue;
 
         // Create a document reference
-        const docRef = db.collection(colName).doc(docName);
+        const docRef = db.collection(colName).doc(docName).delete;
         const result = 0
-        // Remove the 'capital' field from the document
-        await docRef.update({
-          [fieldName]: FieldValue.delete(),
-        }).then((res) => {
+
+        await db.collection(colName).doc(docName).delete().then((res) => {
           if(res) {
             console.log(JSON.stringify(res))
-            setDbFieldCount("items", "count", "itemsInCart", -1) // check in case of value greater tha 1 of field
+            setDbFieldCount("items", getCurrentUserEmail(), ITEMS_COUNT, 0) // check in case of value greater than 1 of field
             result = 1
           }
         })
         return result
+      }
+    })
+    .then(res => {
+      console.log(`printing result from remove from database ${res}`)
+      returnResult = res
+    })
+    .catch((err) => {
+      console.log(err)
+      return 0
+    }); 
+    console.log(`value of returnResult is ${returnResult}`)
+}
+
+async function removeItemFromDb(colName, docName, fieldName) {
+  let returnResult
+  await checkIfDocExistsInDb(colName, docName)
+    .then(async (res) => {
+      if (!res) 
+      {
+        console.log("No document present in DB to remove");
+        return 0
+      }
+      else 
+      {
+        setDbFieldCount(colName, docName, fieldName, -1)
+        return 1
       }
     })
     .then(res => {
