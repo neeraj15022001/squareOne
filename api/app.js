@@ -139,8 +139,11 @@ app.get("/signOut", (req, res) => {
 
 function getCurrentUserEmail()
 {
-  console.log(`Current User Email = ${firebase.auth().currentUser.email}`)
-  return firebase.auth().currentUser.email
+  if(firebase.auth().currentUser)
+  {
+    console.log(`Current User Email = ${firebase.auth().currentUser.email}`)
+    return firebase.auth().currentUser.email
+  }
 }
 
 app.post("/addToCart", (req, res) => {
@@ -175,9 +178,7 @@ app.post("/removeFromCart", (req, res) => {
 });
 
 app.post("/clearCart", (req, res) => {
-  const itemNameStr = req.body.itemName;
-  console.log(itemNameStr);
-  const result = clearAllItemsFromDb(CART_TABLE_NAME, getCurrentUserEmail);
+  const result = clearAllItemsFromDb(CART_TABLE_NAME, getCurrentUserEmail());
   console.log(`print result valur from remove ${result}`)
   if(result)
   {
@@ -189,37 +190,44 @@ app.post("/clearCart", (req, res) => {
   }
 });
 
-app.post('/getItemCountInCart', (req, res) => {
-  const docRef = db.collection(CART_ITEM_COUNT).doc(getCurrentUserEmail());
-  const doc =  docRef.get();
-  if (!doc.exists) 
-  {
-    console.log('No such document!');
-  }
-  else
-  {
-    console.log('Document data:', doc.data());
-    res.send(doc.data())
-  }
-})
-
-app.post('/getUserCartData', (req, res) => {
-  const docRef = db.collection(CART_TABLE_NAME).doc(getCurrentUserEmail());
-  const doc =  docRef.get();
-  if (!doc.exists) 
-  {
-    console.log('No such document!');
-  }
-  else
-  {
-    console.log('Document data:', doc.data());
-    res.send(doc.data())
+app.post('/getCartItemCount', async function(req, res) {
+  try 
+  {  
+    const docRef = db.collection(CART_ITEM_COUNT).doc(getCurrentUserEmail());
+    const doc =  await docRef.get();
+    if (!doc.exists) 
+    {
+      console.log('No such document!');
+      res.sendStatus(500)
+    }
+    else
+    {
+      console.log('Document data:', doc.data());
+      res.send(doc.data())
+    }
+  } catch (e) {
+    res.end(e.message || e.toString());
   }
 })
 
-app.post('/getDocumentLength', (req, res) => {
-  const collectionName = req.body.collectionName
-
+app.post('/getUserCartData', async function(req, res) {
+  try 
+  {  
+    const docRef = db.collection(CART_TABLE_NAME).doc(getCurrentUserEmail());
+    const doc =  await docRef.get();
+    if (!doc.exists) 
+    {
+      console.log('No such document!');
+      res.sendStatus(500)
+    }
+    else
+    {
+      console.log('Document data:', doc.data());
+      res.send(doc.data())
+    }
+  } catch (e) {
+    res.end(e.message || e.toString());
+  }
 })
 
 function addItemToDb(colName, docName, itemName) {
@@ -233,13 +241,13 @@ function addItemToDb(colName, docName, itemName) {
       {
         console.log("Creating new entry");
         db.collection(colName).doc(docName).set(data);
-        setDbFieldCount("items", getCurrentUserEmail(), ITEMS_COUNT, 1)
+        setDbFieldCount(CART_ITEM_COUNT, getCurrentUserEmail(), ITEMS_COUNT, 1)
       } 
       else 
       {
         console.log("Old entry increment");
         setDbFieldCount(colName, docName, itemName, 1);
-        setDbFieldCount("items", getCurrentUserEmail(), ITEMS_COUNT, 1)
+        setDbFieldCount(CART_ITEM_COUNT, getCurrentUserEmail(), ITEMS_COUNT, 1)
       }
       return 1;
     })
@@ -266,12 +274,18 @@ async function clearAllItemsFromDb(colName, docName) {
 
         // Create a document reference
         const docRef = db.collection(colName).doc(docName).delete;
-        const result = 0
+
+        let clearData = {
+          [ITEMS_COUNT] : 0
+        }
+
+        db.collection(CART_ITEM_COUNT).doc(getCurrentUserEmail()).set(clearData);
+        let result = 0
 
         await db.collection(colName).doc(docName).delete().then((res) => {
           if(res) {
             console.log(JSON.stringify(res))
-            setDbFieldCount("items", getCurrentUserEmail(), ITEMS_COUNT, 0) // check in case of value greater than 1 of field
+            // check in case of value greater than 1 of field
             result = 1
           }
         })
