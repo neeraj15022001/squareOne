@@ -75,7 +75,8 @@ body {
 }
 .items-container {
     flex: 2;
-    background-color: var(--themeCardGrey);
+    height: 80%;
+    overflow: scroll;
 }
 .item-card {
     height: 8.5rem;
@@ -129,10 +130,46 @@ body {
   }
   .bill-container {
       width: 25rem;
+      height: 80%;
       padding: 0 0 0 3rem;
   }
   .bill {
-      background-color: var(--themeLightRed);
       height: 100%;
       width: 100%;
+      padding: 1rem 1rem 0 1rem ;
+      border-left: 1px solid var(--themeCardGrey);
+  }
+  .bill-heading {
+    font-size: xx-large;
+    font-weight: 700;
+    padding: 1rem 0;
+  }
+  .bill-description {
+    padding: 1rem 0;
+    width: 100%;
+  }
+  .align-left {
+    text-align: left;
+  }
+  .align-right {
+    text-align: right;
+  }
+  .align-center {
+    text-align: center;
+  }
+  .text-themeRed {
+    color: var(--themeRed);
+  }
+  .font-large {
+    font-size: x-large;
+  }
+  .font-bold {
+    font-weight: 700;
+  }
+  hr {
+    background-color: var(--themeCardGrey);
+    border: none;;
+  }
+  td {
+    padding: 0.5rem 0;
   }
