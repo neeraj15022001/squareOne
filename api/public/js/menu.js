@@ -94,21 +94,38 @@ function addToCartClicked(event) {
     .catch((error) => console.log("error", error));
 }
 
-$("#items-container").mousewheel(function (event, delta) {
-  this.scrollLeft -= delta * 10;
-  console.log(`Value of this.scrolLeft ${this.scrollLeft}`)
-  let totalContainerWidth = $('#items-container')[0].scrollWidth - $("#items-container")[0].clientWidth
-  console.log(`value of items container scroll left is ${totalContainerWidth}`)
-  if(this.scrollLeft === totalContainerWidth) {
-    $(this).off("mousewheel")
-  }
-  event.preventDefault();
-});
+// $("#items-container").mousewheel(function (event, delta) {
+//   this.scrollLeft -= delta * 10;
+//   console.log(`Value of this.scrolLeft ${this.scrollLeft}`)
+//   let totalContainerWidth = $('#items-container')[0].scrollWidth - $("#items-container")[0].clientWidth
+//   console.log(`value of items container scroll left is ${totalContainerWidth}`)
+//   if(this.scrollLeft === totalContainerWidth) {
+//     $(this).off("mousewheel")
+//   }
+//   event.preventDefault();
+// });
 
-$("#drinks-container").mousewheel(function (event, delta) {
-  this.scrollLeft -= delta * 30;
-  event.preventDefault();
-});
+// $("#drinks-container").mousewheel(function (event, delta) {
+//   this.scrollLeft -= delta * 30;
+//   event.preventDefault();
+// });
+
+$("#next-items-button").click(() => {
+  var container = document.getElementById('items-container');
+    sideScroll(container,'right',25,100,20);
+})
+$("#prev-items-button").click(() => {
+  var container = document.getElementById('items-container');
+    sideScroll(container,'left',25,100,20)
+})
+$("#next-drinks-button").click(() => {
+  var container = document.getElementById('drinks-container');
+    sideScroll(container,'right',25,100,20);
+})
+$("#prev-drinks-button").click(() => {
+  var container = document.getElementById('drinks-container');
+    sideScroll(container,'left',25,100,20)
+})
 
 $(".cart-icon").mouseover(() => {
     $(".cart-card").show()
@@ -130,3 +147,18 @@ $(".cart-icon").click(function (e) {
   e.preventDefault();
   
 });
+
+function sideScroll(element,direction,speed,distance,step){
+  scrollAmount = 0;
+  var slideTimer = setInterval(function(){
+      if(direction == 'left'){
+          element.scrollLeft -= step;
+      } else {
+          element.scrollLeft += step;
+      }
+      scrollAmount += step;
+      if(scrollAmount >= distance){
+          window.clearInterval(slideTimer);
+      }
+  }, speed);
+}

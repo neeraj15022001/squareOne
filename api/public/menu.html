@@ -120,12 +120,26 @@
 
     <div class="menu-container">
       <h1 class="category-heading"><span>Indian</span> Food</h1>
-      <div id="items-container" class="items-container">
-        <button class="next-prev-button">Next</button>
-        <button class="next-prev-button">Previous</button>
+      <div class="parent-items-container">
+        <div id="items-container" class="items-container"></div>
+        <button class="next-prev-button next-button" id="next-items-button">
+          <i class="bi bi-caret-right-fill next-prev-icon"></i>
+        </button>
+        <button class="next-prev-button prev-button" id="prev-items-button">
+          <i class="bi bi-caret-left-fill next-prev-icon"></i>
+        </button>
       </div>
       <h1 class="category-heading"><span>Drinks</span></h1>
-      <div id="drinks-container" class="items-container"></div>
+      <div class="parent-items-container">
+        <div id="drinks-container" class="items-container"></div>
+        <button class="next-prev-button next-button" id="next-drinks-button">
+          <i class="bi bi-caret-right-fill next-prev-icon"></i>
+        </button>
+        <button class="next-prev-button prev-button" id="prev-drinks-button">
+          <i class="bi bi-caret-left-fill next-prev-icon"></i>
+        </button>
+      </div>
+      
     </div>
 
     <script src="./js/menu.js"></script>
