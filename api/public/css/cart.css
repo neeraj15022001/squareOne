@@ -95,10 +95,6 @@ body {
   .image-container {
     width: 7rem;
     height: 7rem;
-    background: url("../images/items/aloo-parantha.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
   }
   .text-container {
     margin-left: 1.3rem;
@@ -172,4 +168,15 @@ body {
   }
   td {
     padding: 0.5rem 0;
+  }
+  @media screen and (max-device-width:425px) {
+    .bill-container {
+      display: none;
+    }
+    .items-container {
+      width: 100%;
+    }
+    .bag {
+      display: block;
+    }
   }

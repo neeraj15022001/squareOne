@@ -1,20 +1,4 @@
 $(".cart-card").hide()
-fetch("http://localhost:8000/").then((res) => {
-  console.log(res.status);
-  getUser();
-});
-function getUser() {
-  try {
-    fetch("http://localhost:8000/getCurrentUser").then((res) => {
-      let statusCode = res.status;
-      if (statusCode === 404) {
-        window.location.assign("./login.html");
-      }
-    });
-  } catch (error) {
-    console.log(error);
-  }
-}
 fetch("./json/menuBreakfastIndianBreads.json")
   .then((response) => response.json())
   .then((data) => {
@@ -111,7 +95,13 @@ function addToCartClicked(event) {
 }
 
 $("#items-container").mousewheel(function (event, delta) {
-  this.scrollLeft -= delta * 30;
+  this.scrollLeft -= delta * 10;
+  console.log(`Value of this.scrolLeft ${this.scrollLeft}`)
+  let totalContainerWidth = $('#items-container')[0].scrollWidth - $("#items-container")[0].clientWidth
+  console.log(`value of items container scroll left is ${totalContainerWidth}`)
+  if(this.scrollLeft === totalContainerWidth) {
+    $(this).off("mousewheel")
+  }
   event.preventDefault();
 });
 

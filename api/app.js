@@ -7,13 +7,25 @@ var session = require("express-session");
 var https = require("https");
 var http = require("http");
 const fs = require("fs");
-require("firebase/auth");
+app.use(express.static(__dirname + "/public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+var sess = {
+  secret: "squareOne",
+  cookie: {},
+};
+
+if (app.get("env") === "production") {
+  app.set("trust proxy", 1); // trust first proxy
+  sess.cookie.secure = true; // serve secure cookies
+}
+
+app.use(session(sess));
 
 const CART_TABLE_NAME = "userCart";
 const CART_ITEM_COUNT = "cartItemCount";
-const ITEMS_COUNT = "itemsCount"
+const ITEMS_COUNT = "itemsCount";
+var USER_EMAIL = ""
 
 /**
  * Initialize Firestore configuration
@@ -21,7 +33,6 @@ const ITEMS_COUNT = "itemsCount"
 const admin = require("firebase-admin");
 
 const serviceAccount = require("./service_account.json");
-const { urlencoded } = require("express");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -38,125 +49,92 @@ var options = {
 var httpServer = http.createServer(app);
 var httpsServer = https.createServer(options, app);
 app.set("x-powered-by", false);
-app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
-app.get("/", (req, res) => {
-  var firebaseConfig = {
-    apiKey: "AIzaSyCW9ekkIVgp3gYw96FRSjfkU03g2iJn1h0",
-    authDomain: "squareone-11442.firebaseapp.com",
-    projectId: "squareone-11442",
-    storageBucket: "squareone-11442.appspot.com",
-    messagingSenderId: "478348457006",
-    appId: "1:478348457006:web:78f2b28bfdc3ef7908dbbf",
-  };
-  try {
-    firebase.initializeApp(firebaseConfig);
-    res.sendStatus(200);
-  } catch (error) {
-    console.log(`Error is ${error}`);
-    res.sendStatus(200);
-  }
-
-  // res.json({ status: 200 });
+app.post("/createSession", (req, res) => {
+  const uid = req.body.uid.toString();
+  const email = req.body.email.toString();
+  USER_EMAIL = email
+  console.log(uid, email);
+  req.session.token = uid;
+  req.session.email = email;
+  res.sendStatus(200);
 });
 
-app.get("/getCurrentUser", (req, res) => {
-  console.log(req.sessionID);
-  var user = firebase.auth().currentUser;
-  if (user) {
-    // console.log(user)
-    return res.sendStatus(200);
+app.get("/home", (req, res) => {
+  if (req.session.token) {
+    res.sendFile(__dirname + "/public/index.html");
   } else {
-    return res.sendStatus(404);
+    res.redirect("/login");
   }
 });
 
-app.post("/createUser", (req, res) => {
-  const email = req.body.email;
-  const password = req.body.password;
-  firebase
-    .auth()
-    .createUserWithEmailAndPassword(email, password)
-    .then((userCredential) => {
-      // Signed in
-      var user = userCredential.user;
-      res.send(user);
-    })
-    .catch((error) => {
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      res.send(`errorCode: ${errorCode} errorMessage: ${errorMessage}`);
-    });
+app.get("/checkUser", (req, res) => {
+  console.log(req.session.token);
+  if (req.session.token) {
+    res.sendStatus(200);
+  } else {
+    res.sendStatus(500);
+  }
 });
-
-app.post("/login", (req, res) => {
-  const email = req.body.email;
-  console.log(typeof email);
-  console.log(email);
-  const password = req.body.password;
-  firebase
-    .auth()
-    .signInWithEmailAndPassword(email, password)
-    .then((userCredential) => {
-      // Signed in
-      var user = userCredential.user;
-      if (user) {
-        session({
-          genid: function (req) {
-            return user.uid; // use UUIDs for session IDs
-          },
-          secret: "avishka",
-        });
-        return res.json({ status: 200, user: user });
-      }
-    })
-    .catch((error) => {
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      // res.send(`errorCode: ${errorCode} errorMessage: ${errorMessage}`);
-      res.json({
-        status: 404,
-        errorCode: errorCode,
-        errorMessage: errorMessage,
-      });
-    });
+app.get("/login", (req, res) => {
+  if (req.session.token) {
+    res.redirect("/home");
+  }
+  res.sendFile(__dirname + "/public/login.html");
+});
+app.get("/register", (req, res) => {
+  res.sendFile(__dirname + "/public/register.html");
+});
+app.get("/menu", (req, res) => {
+  if (req.session.token) {
+    res.sendFile(__dirname + "/public/menu.html");
+  } else {
+    res.redirect("/login");
+  }
+});
+app.get("/cart", (req, res) => {
+  if (!req.session.token) {
+    console.log("in /cart");
+    res.redirect("/login");
+    return;
+  }
+  res.sendFile(__dirname + "/public/cart.html");
+});
+app.get("/getCurrentUser", (req, res) => {
+  if (USER_EMAIL) {
+    res.send(USER_EMAIL);
+  } else {
+    res.sendStatus(404);
+  }
 });
 
 app.get("/signOut", (req, res) => {
-  firebase
-    .auth()
-    .signOut()
-    .then(() => {
-      // Sign-out successful.
-      res.sendStatus(200);
-    })
-    .catch((error) => {
-      // An error happened.
-      res.sendStatus(500);
-    });
+  if (req.session.token) {
+    req.session.destroy();
+    res.sendStatus(200);
+  }
 });
 
-function getCurrentUserEmail()
-{
-  if(firebase.auth().currentUser)
-  {
-    console.log(`Current User Email = ${firebase.auth().currentUser.email}`)
-    return firebase.auth().currentUser.email
+function getCurrentUserEmail() {
+  if (firebase.auth().currentUser) {
+    console.log(`Current User Email = ${firebase.auth().currentUser.email}`);
+    return firebase.auth().currentUser.email;
   }
 }
 
 app.post("/addToCart", (req, res) => {
   const itemNameStr = req.body.itemName;
   console.log(itemNameStr);
-  const result = addItemToDb(CART_TABLE_NAME, getCurrentUserEmail(), itemNameStr)
-  console.log(`adding item to db ${result}`)
-  if(!result)
-  {
+  const result = addItemToDb(
+    CART_TABLE_NAME,
+    USER_EMAIL,
+    itemNameStr
+  );
+  console.log(`adding item to db ${result}`);
+  if (!result) {
     res.sendStatus(200);
-  }
-  else
-  {
+  } else {
     res.sendStatus(500);
   }
 });
@@ -164,71 +142,61 @@ app.post("/addToCart", (req, res) => {
 app.post("/removeFromCart", (req, res) => {
   const itemNameStr = req.body.itemName;
   console.log(itemNameStr);
-  const result = removeItemFromDb(CART_TABLE_NAME, getCurrentUserEmail(), itemNameStr);
-  console.log(`print result valur from remove ${result}`)
-  if(result)
-  {
-    setDbFieldCount(CART_ITEM_COUNT, getCurrentUserEmail(), ITEMS_COUNT, -1)
+  const result = removeItemFromDb(
+    CART_TABLE_NAME,
+    USER_EMAIL,
+    itemNameStr
+  );
+  console.log(`print result valur from remove ${result}`);
+  if (result) {
+    setDbFieldCount(CART_ITEM_COUNT, USER_EMAIL, ITEMS_COUNT, -1);
     res.sendStatus(200);
-  }
-  else
-  {
+  } else {
     res.sendStatus(500);
   }
 });
 
 app.post("/clearCart", (req, res) => {
-  const result = clearAllItemsFromDb(CART_TABLE_NAME, getCurrentUserEmail());
-  console.log(`print result valur from remove ${result}`)
-  if(result)
-  {
+  const result = clearAllItemsFromDb(CART_TABLE_NAME, USER_EMAIL);
+  console.log(`print result valur from remove ${result}`);
+  if (result) {
     res.sendStatus(200);
-  }
-  else
-  {
+  } else {
     res.sendStatus(500);
   }
 });
 
-app.post('/getCartItemCount', async function(req, res) {
-  try 
-  {  
-    const docRef = db.collection(CART_ITEM_COUNT).doc(getCurrentUserEmail());
-    const doc =  await docRef.get();
-    if (!doc.exists) 
-    {
-      console.log('No such document!');
-      res.sendStatus(500)
-    }
-    else
-    {
-      console.log('Document data:', doc.data());
-      res.send(doc.data())
+app.post("/getCartItemCount", async function (req, res) {
+  try {
+    const docRef = db.collection(CART_ITEM_COUNT).doc(USER_EMAIL);
+    const doc = await docRef.get();
+    if (!doc.exists) {
+      console.log("No such document!");
+      res.sendStatus(500);
+    } else {
+      console.log("Document data:", doc.data());
+      res.send(doc.data());
     }
   } catch (e) {
     res.end(e.message || e.toString());
   }
-})
+});
 
-app.post('/getUserCartData', async function(req, res) {
-  try 
-  {  
-    const docRef = db.collection(CART_TABLE_NAME).doc(getCurrentUserEmail());
-    const doc =  await docRef.get();
-    if (!doc.exists) 
-    {
-      console.log('No such document!');
-      res.sendStatus(500)
-    }
-    else
-    {
-      console.log('Document data:', doc.data());
-      res.send(doc.data())
+app.post("/getUserCartData", async function (req, res) {
+  try {
+    const docRef = db.collection(CART_TABLE_NAME).doc(USER_EMAIL);
+    const doc = await docRef.get();
+    if (!doc.exists) {
+      console.log("No such document!");
+      res.sendStatus(500);
+    } else {
+      console.log("Document data:", doc.data());
+      res.send(doc.data());
     }
   } catch (e) {
     res.end(e.message || e.toString());
   }
-})
+});
 
 function addItemToDb(colName, docName, itemName) {
   console.log(`Print Check ${itemName}`);
@@ -237,38 +205,32 @@ function addItemToDb(colName, docName, itemName) {
   };
   checkIfDocExistsInDb(colName, docName)
     .then((res) => {
-      if (!res) 
-      {
+      if (!res) {
         console.log("Creating new entry");
         db.collection(colName).doc(docName).set(data);
-        setDbFieldCount(CART_ITEM_COUNT, getCurrentUserEmail(), ITEMS_COUNT, 1)
-      } 
-      else 
-      {
+        setDbFieldCount(CART_ITEM_COUNT, USER_EMAIL, ITEMS_COUNT, 1);
+      } else {
         console.log("Old entry increment");
         setDbFieldCount(colName, docName, itemName, 1);
-        setDbFieldCount(CART_ITEM_COUNT, getCurrentUserEmail(), ITEMS_COUNT, 1)
+        setDbFieldCount(CART_ITEM_COUNT, USER_EMAIL, ITEMS_COUNT, 1);
       }
       return 1;
     })
     .catch((err) => {
-      console.log(err)
-      return 0
+      console.log(err);
+      return 0;
     });
-    return 0
+  return 0;
 }
 
 async function clearAllItemsFromDb(colName, docName) {
-  let returnResult
+  let returnResult;
   await checkIfDocExistsInDb(colName, docName)
     .then(async (res) => {
-      if (!res) 
-      {
+      if (!res) {
         console.log("No document present in DB to remove");
-        return 0
-      }
-      else 
-      {
+        return 0;
+      } else {
         // Get the `FieldValue` object
         const FieldValue = admin.firestore.FieldValue;
 
@@ -276,65 +238,67 @@ async function clearAllItemsFromDb(colName, docName) {
         const docRef = db.collection(colName).doc(docName).delete;
 
         let clearData = {
-          [ITEMS_COUNT] : 0
-        }
+          [ITEMS_COUNT]: 0,
+        };
 
-        db.collection(CART_ITEM_COUNT).doc(getCurrentUserEmail()).set(clearData);
-        let result = 0
+        db.collection(CART_ITEM_COUNT)
+          .doc(USER_EMAIL)
+          .set(clearData);
+        let result = 0;
 
-        await db.collection(colName).doc(docName).delete().then((res) => {
-          if(res) {
-            console.log(JSON.stringify(res))
-            // check in case of value greater than 1 of field
-            result = 1
-          }
-        })
-        return result
+        await db
+          .collection(colName)
+          .doc(docName)
+          .delete()
+          .then((res) => {
+            if (res) {
+              console.log(JSON.stringify(res));
+              // check in case of value greater than 1 of field
+              result = 1;
+            }
+          });
+        return result;
       }
     })
-    .then(res => {
-      console.log(`printing result from remove from database ${res}`)
-      returnResult = res
+    .then((res) => {
+      console.log(`printing result from remove from database ${res}`);
+      returnResult = res;
     })
     .catch((err) => {
-      console.log(err)
-      return 0
-    }); 
-    console.log(`value of returnResult is ${returnResult}`)
+      console.log(err);
+      return 0;
+    });
+  console.log(`value of returnResult is ${returnResult}`);
 }
 
 async function removeItemFromDb(colName, docName, fieldName) {
-  let returnResult
+  let returnResult;
   await checkIfDocExistsInDb(colName, docName)
     .then(async (res) => {
-      if (!res) 
-      {
+      if (!res) {
         console.log("No document present in DB to remove");
-        return 0
-      }
-      else 
-      {
-        setDbFieldCount(colName, docName, fieldName, -1)
-        return 1
+        return 0;
+      } else {
+        setDbFieldCount(colName, docName, fieldName, -1);
+        return 1;
       }
     })
-    .then(res => {
-      console.log(`printing result from remove from database ${res}`)
-      returnResult = res
+    .then((res) => {
+      console.log(`printing result from remove from database ${res}`);
+      returnResult = res;
     })
     .catch((err) => {
-      console.log(err)
-      return 0
-    }); 
-    console.log(`value of returnResult is ${returnResult}`)
+      console.log(err);
+      return 0;
+    });
+  console.log(`value of returnResult is ${returnResult}`);
 }
 
-async function setDbFieldCount(colName, docName, fieldName, fieldCount)
-{
+async function setDbFieldCount(colName, docName, fieldName, fieldCount) {
   const docRef = db.collection(colName).doc(docName);
 
   // Atomically increment the population of the city by fieldCount.
-  
+
   const res = await docRef.update({
     [fieldName]: admin.firestore.FieldValue.increment(fieldCount),
   });
@@ -343,13 +307,10 @@ async function setDbFieldCount(colName, docName, fieldName, fieldCount)
 async function checkIfDocExistsInDb(colName, docName) {
   const docRef = db.collection(colName).doc(docName);
   const doc = await docRef.get();
-  if (!doc.exists) 
-  {
+  if (!doc.exists) {
     console.log("No such document!");
     return 0;
-  } 
-  else
-  {
+  } else {
     console.log("Document data:", doc.data());
     return 1;
   }

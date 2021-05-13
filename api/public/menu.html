@@ -16,7 +16,7 @@
   <body>
     <nav class="customNavbar">
       <a
-        href="./index.html"
+        href="http://localhost:8000/home"
         referrerpolicy="no-referrer"
         rel="next"
         type="text/html"
@@ -24,7 +24,10 @@
         >Square <span>One</span></a
       >
       <div class="cart-container">
-        <i class="bi bi-bag-fill cart-icon" onclick="window.location.assign('./cart.html')"></i>
+        <i
+          class="bi bi-bag-fill cart-icon"
+          onclick="window.location.assign('/cart')"
+        ></i>
         <div class="cart-card">
           <div class="item-card">
             <div class="main-image-text-container">
@@ -32,9 +35,13 @@
               <div class="text-container">Dal Makhani</div>
             </div>
             <div class="amount-container">
-              <button class="increment-decrement-button"><i class="bi bi-plus"></i></button>
+              <button class="increment-decrement-button">
+                <i class="bi bi-plus"></i>
+              </button>
               <div class="quantity">1</div>
-              <button class="increment-decrement-button"><i class="bi bi-dash"></i></button>
+              <button class="increment-decrement-button">
+                <i class="bi bi-dash"></i>
+              </button>
             </div>
           </div>
 
@@ -44,9 +51,13 @@
               <div class="text-container">Dal Makhani</div>
             </div>
             <div class="amount-container">
-              <button class="increment-decrement-button"><i class="bi bi-plus"></i></button>
+              <button class="increment-decrement-button">
+                <i class="bi bi-plus"></i>
+              </button>
               <div class="quantity">1</div>
-              <button class="increment-decrement-button"><i class="bi bi-dash"></i></button>
+              <button class="increment-decrement-button">
+                <i class="bi bi-dash"></i>
+              </button>
             </div>
           </div>
 
@@ -56,9 +67,13 @@
               <div class="text-container">Dal Makhani</div>
             </div>
             <div class="amount-container">
-              <button class="increment-decrement-button"><i class="bi bi-plus"></i></button>
+              <button class="increment-decrement-button">
+                <i class="bi bi-plus"></i>
+              </button>
               <div class="quantity">1</div>
-              <button class="increment-decrement-button"><i class="bi bi-dash"></i></button>
+              <button class="increment-decrement-button">
+                <i class="bi bi-dash"></i>
+              </button>
             </div>
           </div>
 
@@ -68,9 +83,13 @@
               <div class="text-container">Dal Makhani</div>
             </div>
             <div class="amount-container">
-              <button class="increment-decrement-button"><i class="bi bi-plus"></i></button>
+              <button class="increment-decrement-button">
+                <i class="bi bi-plus"></i>
+              </button>
               <div class="quantity">1</div>
-              <button class="increment-decrement-button"><i class="bi bi-dash"></i></button>
+              <button class="increment-decrement-button">
+                <i class="bi bi-dash"></i>
+              </button>
             </div>
           </div>
 
@@ -80,9 +99,13 @@
               <div class="text-container">Dal Makhani</div>
             </div>
             <div class="amount-container">
-              <button class="increment-decrement-button"><i class="bi bi-plus"></i></button>
+              <button class="increment-decrement-button">
+                <i class="bi bi-plus"></i>
+              </button>
               <div class="quantity">1</div>
-              <button class="increment-decrement-button"><i class="bi bi-dash"></i></button>
+              <button class="increment-decrement-button">
+                <i class="bi bi-dash"></i>
+              </button>
             </div>
           </div>
         </div>
@@ -97,7 +120,10 @@
 
     <div class="menu-container">
       <h1 class="category-heading"><span>Indian</span> Food</h1>
-      <div id="items-container" class="items-container"></div>
+      <div id="items-container" class="items-container">
+        <button class="next-prev-button">Next</button>
+        <button class="next-prev-button">Previous</button>
+      </div>
       <h1 class="category-heading"><span>Drinks</span></h1>
       <div id="drinks-container" class="items-container"></div>
     </div>
