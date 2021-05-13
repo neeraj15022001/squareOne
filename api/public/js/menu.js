@@ -94,22 +94,6 @@ function addToCartClicked(event) {
     .catch((error) => console.log("error", error));
 }
 
-// $("#items-container").mousewheel(function (event, delta) {
-//   this.scrollLeft -= delta * 10;
-//   console.log(`Value of this.scrolLeft ${this.scrollLeft}`)
-//   let totalContainerWidth = $('#items-container')[0].scrollWidth - $("#items-container")[0].clientWidth
-//   console.log(`value of items container scroll left is ${totalContainerWidth}`)
-//   if(this.scrollLeft === totalContainerWidth) {
-//     $(this).off("mousewheel")
-//   }
-//   event.preventDefault();
-// });
-
-// $("#drinks-container").mousewheel(function (event, delta) {
-//   this.scrollLeft -= delta * 30;
-//   event.preventDefault();
-// });
-
 $("#next-items-button").click(() => {
   var container = document.getElementById("items-container");
   sideScroll(container, "right", 25, 100, 20);
@@ -160,4 +144,62 @@ function sideScroll(element, direction, speed, distance, step) {
       window.clearInterval(slideTimer);
     }
   }, speed);
+}
+
+var requestOptions = {
+  method: "POST",
+  redirect: "follow",
+};
+fetch("../json/menuBreakfastIndianBreads.json")
+  .then((res) => res.json())
+  .then((res) => {
+    let itemsData = res;
+    fetch("../json/drinks.json")
+      .then((response) => response.json())
+      .then((response) => {
+        itemsData = {
+          ...itemsData,
+          ...response,
+        };
+        fetch("http://localhost:8000/getUserCartData", requestOptions)
+          .then((response) => response.json())
+          .then((result) => {
+            console.log(result);
+            let keys = Object.keys(result);
+            let values = Object.values(result);
+            // console.log(keys);
+            // console.log(values)
+            keys.forEach((item, index) => {
+              // console.log(itemsData[item], index);
+              generateCartItem({
+                imagePath: itemsData[item].imagePath,
+                name: item,
+                quantity: values[index],
+              });
+            });
+          })
+          .catch((error) => console.log("error", error));
+      });
+  });
+
+function generateCartItem({ imagePath, name, quantity }) {
+  let element = `
+    <div class="item-card">
+            <div class="main-image-text-container">
+              <div class="image-container" style="background:url(${imagePath});background-size: contain;background-repeat: no-repeat;background-position:center;"></div>
+              <div class="text-container">${name}</div>
+            </div>
+            <div class="amount-container">
+              <button class="increment-decrement-button">
+                <i class="bi bi-plus"></i>
+              </button>
+              <div class="quantity">${quantity}</div>
+              <button class="increment-decrement-button">
+                <i class="bi bi-dash"></i>
+              </button>
+            </div>
+          </div>
+  `;
+
+  $("#cart-card-container").append(element);
 }

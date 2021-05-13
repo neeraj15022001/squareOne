@@ -199,10 +199,6 @@ body {
 .image-container {
   width: 7rem;
   height: 7rem;
-  background: url("../images/items/aloo-parantha.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
 }
 .text-container {
   margin-left: 1.3rem;
@@ -267,7 +263,30 @@ body {
   left: 2rem;
   z-index: 1000;
 }
-
+.heading-container {
+  background-color: var(--themeRed);
+  color: var(--themeWhite);
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+.heading-container > button {
+  border: none;
+  outline: none;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  background-color: var(--themeWhite);
+  color: var(--themeRed);
+  transition: 0.3s ease-in-out;
+}
+.heading-container > button:hover {
+  font-weight: bold;
+}
 @media screen and (max-device-width: 425px) {
   .main-headline {
     font-size: 2.5rem;
