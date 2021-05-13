@@ -5,15 +5,15 @@ fakeloader.hide();
 var registerButton = document.getElementById("register-button");
 // event listeners
 initializeFirebaseApp();
-makeEventListeners({button: registerButton})
+makeEventListeners({ button: registerButton });
 registerButton.addEventListener("click", function (e) {
-    e.preventDefault();
-    if (emailField.value !== "" && passwordField.value !== "") {
-      registerButton.setAttribute("disabled", "true");
-      fakeloader.show();
-      createUserWithEmailAndPassword({
-        email: emailField.value,
-        password: passwordField.value,
-      });
-    }
-  });
+  e.preventDefault();
+  if (emailField.value !== "" && passwordField.value !== "") {
+    registerButton.setAttribute("disabled", "true");
+    fakeloader.show();
+    createUserWithEmailAndPassword({
+      email: emailField.value,
+      password: passwordField.value,
+    });
+  }
+});

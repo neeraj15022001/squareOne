@@ -5,7 +5,7 @@ fakeloader.hide();
 var signInButton = document.getElementById("sign-in-button");
 // event listeners
 initializeFirebaseApp();
-makeEventListeners({button: signInButton})
+makeEventListeners({ button: signInButton });
 signInButton.addEventListener("click", function (e) {
   e.preventDefault();
   if (emailField.value !== "" && passwordField.value !== "") {
@@ -18,5 +18,3 @@ signInButton.addEventListener("click", function (e) {
     });
   }
 });
-
-

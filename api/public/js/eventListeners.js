@@ -1,8 +1,11 @@
 function makeEventListeners({ button }) {
   const emailField = document.getElementById("emailField");
   const passwordField = document.getElementById("passwordField");
-  const isEmpty = checkInputFields({emailField: emailField, passwordField:passwordField});
-  buttonCurrentState({isEmpty:isEmpty, button: button});
+  const isEmpty = checkInputFields({
+    emailField: emailField,
+    passwordField: passwordField,
+  });
+  buttonCurrentState({ isEmpty: isEmpty, button: button });
   emailField.addEventListener("change", () => {
     let isEmpty = checkInputFields({
       emailField: emailField,

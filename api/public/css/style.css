@@ -128,12 +128,12 @@ body {
   top: 1rem;
   right: 1rem;
 }
-@media screen and (min-device-width:426px) and (max-device-width:1000px) {
+@media screen and (min-device-width: 426px) and (max-device-width: 1000px) {
   .hero-container {
     margin-top: 3rem;
   }
 }
-@media screen and (min-device-width:1000px) and (max-device-width:1200px) {
+@media screen and (min-device-width: 1000px) and (max-device-width: 1200px) {
   .hero-container {
     margin-top: 4rem;
   }
@@ -175,7 +175,7 @@ body {
   }
   .hero-container {
     position: relative;
-    top:0;
+    top: 0;
     margin-top: 2rem;
     transform: none;
   }

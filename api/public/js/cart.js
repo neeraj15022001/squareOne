@@ -6,29 +6,34 @@ var requestOptions = {
 fetch("../json/menuBreakfastIndianBreads.json")
   .then((res) => res.json())
   .then((res) => {
-    let itemsData = res
+    let itemsData = res;
     fetch("../json/drinks.json")
-    .then(response => response.json())
-    .then(response => {
-      itemsData = {
-        ...itemsData, ...response
-      }
-      fetch("http://localhost:8000/getUserCartData", requestOptions)
       .then((response) => response.json())
-      .then((result) => {
-        console.log(result)
-        let keys = Object.keys(result);
-        let values = Object.values(result)
-        // console.log(keys);
-        // console.log(values)
-        keys.forEach((item, index) => {
-          // console.log(itemsData[item], index);
-          generateCartItem({imagePath:itemsData[item].imagePath,name:item, quantity:values[index]})
-        });
-      })
-      .catch((error) => console.log("error", error));
-    })
-  })
+      .then((response) => {
+        itemsData = {
+          ...itemsData,
+          ...response,
+        };
+        fetch("http://localhost:8000/getUserCartData", requestOptions)
+          .then((response) => response.json())
+          .then((result) => {
+            console.log(result);
+            let keys = Object.keys(result);
+            let values = Object.values(result);
+            // console.log(keys);
+            // console.log(values)
+            keys.forEach((item, index) => {
+              // console.log(itemsData[item], index);
+              generateCartItem({
+                imagePath: itemsData[item].imagePath,
+                name: item,
+                quantity: values[index],
+              });
+            });
+          })
+          .catch((error) => console.log("error", error));
+      });
+  });
 
 function generateCartItem({ imagePath, name, quantity }) {
   let element = `

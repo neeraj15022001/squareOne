@@ -1,4 +1,4 @@
-$(".cart-card").hide()
+$(".cart-card").hide();
 fetch("./json/menuBreakfastIndianBreads.json")
   .then((response) => response.json())
   .then((data) => {
@@ -111,54 +111,53 @@ function addToCartClicked(event) {
 // });
 
 $("#next-items-button").click(() => {
-  var container = document.getElementById('items-container');
-    sideScroll(container,'right',25,100,20);
-})
+  var container = document.getElementById("items-container");
+  sideScroll(container, "right", 25, 100, 20);
+});
 $("#prev-items-button").click(() => {
-  var container = document.getElementById('items-container');
-    sideScroll(container,'left',25,100,20)
-})
+  var container = document.getElementById("items-container");
+  sideScroll(container, "left", 25, 100, 20);
+});
 $("#next-drinks-button").click(() => {
-  var container = document.getElementById('drinks-container');
-    sideScroll(container,'right',25,100,20);
-})
+  var container = document.getElementById("drinks-container");
+  sideScroll(container, "right", 25, 100, 20);
+});
 $("#prev-drinks-button").click(() => {
-  var container = document.getElementById('drinks-container');
-    sideScroll(container,'left',25,100,20)
-})
-
-$(".cart-icon").mouseover(() => {
-    $(".cart-card").show()
-})
-
-$(".cart-card").mouseover(function () { 
-  $(".cart-card").show()
+  var container = document.getElementById("drinks-container");
+  sideScroll(container, "left", 25, 100, 20);
 });
 
-// $(".cart-icon").mouseleave(function () { 
+$(".cart-icon").mouseover(() => {
+  $(".cart-card").show();
+});
+
+$(".cart-card").mouseover(function () {
+  $(".cart-card").show();
+});
+
+// $(".cart-icon").mouseleave(function () {
 //   $(".cart-card").hide()
 // });
 
-$(".cart-card").mouseleave(function () { 
-  $(".cart-card").hide()
+$(".cart-card").mouseleave(function () {
+  $(".cart-card").hide();
 });
 
-$(".cart-icon").click(function (e) { 
+$(".cart-icon").click(function (e) {
   e.preventDefault();
-  
 });
 
-function sideScroll(element,direction,speed,distance,step){
+function sideScroll(element, direction, speed, distance, step) {
   scrollAmount = 0;
-  var slideTimer = setInterval(function(){
-      if(direction == 'left'){
-          element.scrollLeft -= step;
-      } else {
-          element.scrollLeft += step;
-      }
-      scrollAmount += step;
-      if(scrollAmount >= distance){
-          window.clearInterval(slideTimer);
-      }
+  var slideTimer = setInterval(function () {
+    if (direction == "left") {
+      element.scrollLeft -= step;
+    } else {
+      element.scrollLeft += step;
+    }
+    scrollAmount += step;
+    if (scrollAmount >= distance) {
+      window.clearInterval(slideTimer);
+    }
   }, speed);
 }

@@ -25,7 +25,7 @@ app.use(session(sess));
 const CART_TABLE_NAME = "userCart";
 const CART_ITEM_COUNT = "cartItemCount";
 const ITEMS_COUNT = "itemsCount";
-var USER_EMAIL = ""
+var USER_EMAIL = "";
 
 /**
  * Initialize Firestore configuration
@@ -54,7 +54,7 @@ app.use(cors());
 app.post("/createSession", (req, res) => {
   const uid = req.body.uid.toString();
   const email = req.body.email.toString();
-  USER_EMAIL = email
+  USER_EMAIL = email;
   console.log(uid, email);
   req.session.token = uid;
   req.session.email = email;
@@ -126,11 +126,7 @@ function getCurrentUserEmail() {
 app.post("/addToCart", (req, res) => {
   const itemNameStr = req.body.itemName;
   console.log(itemNameStr);
-  const result = addItemToDb(
-    CART_TABLE_NAME,
-    USER_EMAIL,
-    itemNameStr
-  );
+  const result = addItemToDb(CART_TABLE_NAME, USER_EMAIL, itemNameStr);
   console.log(`adding item to db ${result}`);
   if (!result) {
     res.sendStatus(200);
@@ -142,11 +138,7 @@ app.post("/addToCart", (req, res) => {
 app.post("/removeFromCart", (req, res) => {
   const itemNameStr = req.body.itemName;
   console.log(itemNameStr);
-  const result = removeItemFromDb(
-    CART_TABLE_NAME,
-    USER_EMAIL,
-    itemNameStr
-  );
+  const result = removeItemFromDb(CART_TABLE_NAME, USER_EMAIL, itemNameStr);
   console.log(`print result valur from remove ${result}`);
   if (result) {
     setDbFieldCount(CART_ITEM_COUNT, USER_EMAIL, ITEMS_COUNT, -1);
@@ -241,9 +233,7 @@ async function clearAllItemsFromDb(colName, docName) {
           [ITEMS_COUNT]: 0,
         };
 
-        db.collection(CART_ITEM_COUNT)
-          .doc(USER_EMAIL)
-          .set(clearData);
+        db.collection(CART_ITEM_COUNT).doc(USER_EMAIL).set(clearData);
         let result = 0;
 
         await db

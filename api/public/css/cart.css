@@ -55,7 +55,7 @@ body {
 .cart-icon {
   font-size: 1.5rem;
   color: var(--themeRed);
-  cursor:pointer;
+  cursor: pointer;
 }
 .heading {
   margin-top: 5rem;
@@ -67,116 +67,116 @@ body {
   font-weight: 800;
 }
 .bag {
-    background-color: var(--themeWhite);
-    height: 100%;
-    margin: 0 5rem;
-    padding: 2rem 0;
-    display: flex;
+  background-color: var(--themeWhite);
+  height: 100%;
+  margin: 0 5rem;
+  padding: 2rem 0;
+  display: flex;
 }
 .items-container {
-    flex: 2;
-    height: 80%;
-    overflow: scroll;
+  flex: 2;
+  height: 80%;
+  overflow: scroll;
 }
 .item-card {
-    height: 8.5rem;
-    background-color: var(--themeWhite);
-    border-bottom: 1px solid var(--themeCardGrey);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 1.5rem;
-  }
-  .main-image-text-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .image-container {
-    width: 7rem;
-    height: 7rem;
-  }
-  .text-container {
-    margin-left: 1.3rem;
-    font-size: x-large;
-    font-weight: 700;
-  }
-  .amount-container {
-    width: 6rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .increment-decrement-button {
-    border: none;
-    outline: none;
-    background-color: var(--themeRed);
-    color: var(--themeWhite);
-    width: 2rem;
-    height: 2rem;
-    border-radius: 50%;
-    font-size: x-large;
-  }
-  .quantity {
-    font-size: x-large;
-    font-weight: bold;
-  }
-  .cart-card::-webkit-scrollbar {
+  height: 8.5rem;
+  background-color: var(--themeWhite);
+  border-bottom: 1px solid var(--themeCardGrey);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.5rem;
+}
+.main-image-text-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.image-container {
+  width: 7rem;
+  height: 7rem;
+}
+.text-container {
+  margin-left: 1.3rem;
+  font-size: x-large;
+  font-weight: 700;
+}
+.amount-container {
+  width: 6rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.increment-decrement-button {
+  border: none;
+  outline: none;
+  background-color: var(--themeRed);
+  color: var(--themeWhite);
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  font-size: x-large;
+}
+.quantity {
+  font-size: x-large;
+  font-weight: bold;
+}
+.cart-card::-webkit-scrollbar {
+  display: none;
+}
+.bill-container {
+  width: 25rem;
+  height: 80%;
+  padding: 0 0 0 3rem;
+}
+.bill {
+  height: 100%;
+  width: 100%;
+  padding: 1rem 1rem 0 1rem;
+  border-left: 1px solid var(--themeCardGrey);
+}
+.bill-heading {
+  font-size: xx-large;
+  font-weight: 700;
+  padding: 1rem 0;
+}
+.bill-description {
+  padding: 1rem 0;
+  width: 100%;
+}
+.align-left {
+  text-align: left;
+}
+.align-right {
+  text-align: right;
+}
+.align-center {
+  text-align: center;
+}
+.text-themeRed {
+  color: var(--themeRed);
+}
+.font-large {
+  font-size: x-large;
+}
+.font-bold {
+  font-weight: 700;
+}
+hr {
+  background-color: var(--themeCardGrey);
+  border: none;
+}
+td {
+  padding: 0.5rem 0;
+}
+@media screen and (max-device-width: 425px) {
+  .bill-container {
     display: none;
   }
-  .bill-container {
-      width: 25rem;
-      height: 80%;
-      padding: 0 0 0 3rem;
-  }
-  .bill {
-      height: 100%;
-      width: 100%;
-      padding: 1rem 1rem 0 1rem ;
-      border-left: 1px solid var(--themeCardGrey);
-  }
-  .bill-heading {
-    font-size: xx-large;
-    font-weight: 700;
-    padding: 1rem 0;
-  }
-  .bill-description {
-    padding: 1rem 0;
+  .items-container {
     width: 100%;
   }
-  .align-left {
-    text-align: left;
+  .bag {
+    display: block;
   }
-  .align-right {
-    text-align: right;
-  }
-  .align-center {
-    text-align: center;
-  }
-  .text-themeRed {
-    color: var(--themeRed);
-  }
-  .font-large {
-    font-size: x-large;
-  }
-  .font-bold {
-    font-weight: 700;
-  }
-  hr {
-    background-color: var(--themeCardGrey);
-    border: none;;
-  }
-  td {
-    padding: 0.5rem 0;
-  }
-  @media screen and (max-device-width:425px) {
-    .bill-container {
-      display: none;
-    }
-    .items-container {
-      width: 100%;
-    }
-    .bag {
-      display: block;
-    }
-  }
+}
