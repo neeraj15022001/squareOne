@@ -64,7 +64,7 @@ function getAndInsertData(data, id, imageClass) {
           </div>
         </div>
         <div class="add-to-cart-button">
-          <button onclick="addToCartClicked(event)">Add To Cart</button>
+          <button onclick="addToCartClicked(event),window.location.reload()">Add To Cart</button>
         </div>
       </div>
         `;
@@ -93,6 +93,7 @@ function addToCartClicked(event) {
     .then((response) => console.log(response))
     .catch((error) => console.log("error", error));
 }
+getDataFromDB();
 
 $("#next-items-button").click(() => {
   var container = document.getElementById("items-container");
@@ -146,41 +147,43 @@ function sideScroll(element, direction, speed, distance, step) {
   }, speed);
 }
 
-var requestOptions = {
-  method: "POST",
-  redirect: "follow",
-};
-fetch("../json/menuBreakfastIndianBreads.json")
-  .then((res) => res.json())
-  .then((res) => {
-    let itemsData = res;
-    fetch("../json/drinks.json")
-      .then((response) => response.json())
-      .then((response) => {
-        itemsData = {
-          ...itemsData,
-          ...response,
-        };
-        fetch("http://localhost:8000/getUserCartData", requestOptions)
-          .then((response) => response.json())
-          .then((result) => {
-            console.log(result);
-            let keys = Object.keys(result);
-            let values = Object.values(result);
-            // console.log(keys);
-            // console.log(values)
-            keys.forEach((item, index) => {
-              // console.log(itemsData[item], index);
-              generateCartItem({
-                imagePath: itemsData[item].imagePath,
-                name: item,
-                quantity: values[index],
+function getDataFromDB() {
+  var requestOptions = {
+    method: "POST",
+    redirect: "follow",
+  };
+  fetch("../json/menuBreakfastIndianBreads.json")
+    .then((res) => res.json())
+    .then((res) => {
+      let itemsData = res;
+      fetch("../json/drinks.json")
+        .then((response) => response.json())
+        .then((response) => {
+          itemsData = {
+            ...itemsData,
+            ...response,
+          };
+          fetch("http://localhost:8000/getUserCartData", requestOptions)
+            .then((response) => response.json())
+            .then((result) => {
+              console.log(result);
+              let keys = Object.keys(result);
+              let values = Object.values(result);
+              // console.log(keys);
+              // console.log(values)
+              keys.forEach((item, index) => {
+                // console.log(itemsData[item], index);
+                generateCartItem({
+                  imagePath: itemsData[item].imagePath,
+                  name: item,
+                  quantity: values[index],
+                });
               });
-            });
-          })
-          .catch((error) => console.log("error", error));
-      });
-  });
+            })
+            .catch((error) => console.log("error", error));
+        });
+    });
+}
 
 function generateCartItem({ imagePath, name, quantity }) {
   let element = `

@@ -22,14 +22,30 @@ fetch("../json/menuBreakfastIndianBreads.json")
             let values = Object.values(result);
             // console.log(keys);
             // console.log(values)
+            let totalQuantity = 0;
+            let totalPrice = 0;
             keys.forEach((item, index) => {
+              totalQuantity += values[index];
+              let currentItemPrice = 0;
+              if (itemsData[item].price === "MRP") {
+                currentItemPrice = 30;
+              } else {
+                currentItemPrice = itemsData[item].price.split(" ")[1];
+              }
+              totalPrice += eval(values[index] * currentItemPrice);
+              console.log(`price of ${item} is ${currentItemPrice}`);
               // console.log(itemsData[item], index);
               generateCartItem({
                 imagePath: itemsData[item].imagePath,
                 name: item,
                 quantity: values[index],
               });
+              console.log(`Total Quantity is ${totalQuantity}`);
+              console.log(`Total Price is ${totalPrice}`);
             });
+            $("#totalQuantity").html(totalQuantity);
+            $("#totalPrice").html(`Rs${totalPrice}`);
+            $("#bagTotalPrice").html(`Rs${totalPrice + 100}`);
           })
           .catch((error) => console.log("error", error));
       });
