@@ -166,7 +166,7 @@ app.post("/removeFromCart", (req, res) => {
   }
 });
 
-app.post("/clearCart", (req, res) => {
+app.get("/clearCart", (req, res) => {
   const result = clearAllItemsFromDb(CART_TABLE_NAME, USER_EMAIL);
   // console.log(`print result valur from remove ${result}`);
   if (result) {
