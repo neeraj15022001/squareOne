@@ -1,6 +1,7 @@
 var express = require("express");
 var app = express();
 const port = process.env.PORT || 8000;
+const httpsport = process.env.PORT || 8001;
 var cors = require("cors");
 var firebase = require("firebase/app");
 var session = require("express-session");
@@ -319,6 +320,6 @@ async function checkIfDocExistsInDb(colName, docName) {
 httpServer.listen(port, () => {
   console.log("App is now running on PORT 8000");
 });
-httpsServer.listen(port, () => {
+httpsServer.listen(httpsport, () => {
   console.log(`App is now running on port 8001}`);
 });
