@@ -17,7 +17,7 @@ var sess = {
   secret: "squareOne",
   cookie: {
     secure:true,
-    maxAge:60000
+    maxAge:31536000000
   },
   saveUninitialized: true,
   resave: false
