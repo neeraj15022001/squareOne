@@ -55,8 +55,10 @@ app.use(cors());
 app.get("/", (res, req) => {
   if (req.session.token) {
     res.sendFile(__dirname + "/public/index.html");
+    return
   } else {
     res.redirect("/login");
+    return
   }
 });
 app.post("/createSession", (req, res) => {
@@ -72,8 +74,10 @@ app.post("/createSession", (req, res) => {
 app.get("/home", (req, res) => {
   if (req.session.token) {
     res.sendFile(__dirname + "/public/index.html");
+    return
   } else {
     res.redirect("/login");
+    return
   }
 });
 
@@ -88,17 +92,22 @@ app.get("/checkUser", (req, res) => {
 app.get("/login", (req, res) => {
   if (req.session.token) {
     res.redirect("/home");
+    return
   }
   res.sendFile(__dirname + "/public/login.html");
+  return
 });
 app.get("/register", (req, res) => {
   res.sendFile(__dirname + "/public/register.html");
+  return
 });
 app.get("/menu", (req, res) => {
   if (req.session.token) {
     res.sendFile(__dirname + "/public/menu.html");
+    return
   } else {
     res.redirect("/login");
+    return
   }
 });
 app.get("/cart", (req, res) => {
@@ -108,6 +117,7 @@ app.get("/cart", (req, res) => {
     return;
   }
   res.sendFile(__dirname + "/public/cart.html");
+  return
 });
 app.get("/getCurrentUser", (req, res) => {
   if (USER_EMAIL) {
