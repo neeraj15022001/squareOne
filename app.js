@@ -306,9 +306,9 @@ async function checkIfDocExistsInDb(colName, docName) {
   }
 }
 
-httpServer.listen(8000, () => {
+httpServer.listen(port, () => {
   console.log("App is now running on PORT 8000");
 });
-httpsServer.listen(8001, () => {
+httpsServer.listen(port, () => {
   console.log(`App is now running on port 8001}`);
 });
