@@ -1,11 +1,11 @@
 var express = require("express");
 var app = express();
 const port = process.env.PORT || 8000;
-const httpsport = process.env.PORT || 8001;
+// const httpsport = process.env.PORT || 8001;
 var cors = require("cors");
 var firebase = require("firebase/app");
 var session = require("express-session");
-var https = require("https");
+// var https = require("https");
 var http = require("http");
 const fs = require("fs");
 app.use(express.static(__dirname + "/public"));
@@ -48,7 +48,7 @@ var options = {
   cert: cert,
 };
 var httpServer = http.createServer(app);
-var httpsServer = https.createServer(options, app);
+// var httpsServer = https.createServer(options, app);
 app.set("x-powered-by", false);
 app.use(cors());
 
@@ -320,6 +320,6 @@ async function checkIfDocExistsInDb(colName, docName) {
 httpServer.listen(port, () => {
   console.log("App is now running on PORT 8000");
 });
-httpsServer.listen(httpsport, () => {
-  console.log(`App is now running on port 8001}`);
-});
+// httpsServer.listen(httpsport, () => {
+//   console.log(`App is now running on port 8001}`);
+// });
