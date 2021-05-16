@@ -51,6 +51,16 @@ var httpsServer = https.createServer(options, app);
 app.set("x-powered-by", false);
 app.use(cors());
 
+app.get("/", (res,req) => {
+  if (req.session.token) {
+    res.sendFile(__dirname + "/public/index.html");
+  } else {
+    res.redirect("/login");
+  }
+})
+app.get("/favicon.icon", (res, req) => {
+  res.sendStatus(200)
+})
 app.post("/createSession", (req, res) => {
   const uid = req.body.uid.toString();
   const email = req.body.email.toString();
