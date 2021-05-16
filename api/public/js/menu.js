@@ -13,7 +13,7 @@ fetch("./json/drinks.json")
 
 function getAndInsertData(data, id, imageClass) {
   const itemNames = Object.keys(data);
-  console.log(itemNames);
+  // console.log(itemNames);
   itemNames.forEach((itemName) => {
     const itemData = data[itemName];
     const price = itemData.price;

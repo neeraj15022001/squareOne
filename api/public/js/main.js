@@ -2,7 +2,7 @@
 const fakeloader = $("#fakeloader-overlay");
 fakeloader.hide();
 fetch("/checkUser").then((status) => {
-  console.log(status);
+  // console.log(status);
   if (status.status == 500) {
     window.location.assign("http://localhost:8000/login");
   }

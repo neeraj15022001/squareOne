@@ -55,7 +55,7 @@ app.post("/createSession", (req, res) => {
   const uid = req.body.uid.toString();
   const email = req.body.email.toString();
   USER_EMAIL = email;
-  console.log(uid, email);
+  // console.log(uid, email);
   req.session.token = uid;
   req.session.email = email;
   res.sendStatus(200);
@@ -70,7 +70,7 @@ app.get("/home", (req, res) => {
 });
 
 app.get("/checkUser", (req, res) => {
-  console.log(req.session.token);
+  // console.log(req.session.token);
   if (req.session.token) {
     res.sendStatus(200);
   } else {
@@ -95,7 +95,7 @@ app.get("/menu", (req, res) => {
 });
 app.get("/cart", (req, res) => {
   if (!req.session.token) {
-    console.log("in /cart");
+    // console.log("in /cart");
     res.redirect("/login");
     return;
   }
@@ -118,16 +118,16 @@ app.get("/signOut", (req, res) => {
 
 function getCurrentUserEmail() {
   if (firebase.auth().currentUser) {
-    console.log(`Current User Email = ${firebase.auth().currentUser.email}`);
+    // console.log(`Current User Email = ${firebase.auth().currentUser.email}`);
     return firebase.auth().currentUser.email;
   }
 }
 
 app.post("/addToCart", (req, res) => {
   const itemNameStr = req.body.itemName;
-  console.log(itemNameStr);
+  // console.log(itemNameStr);
   const result = addItemToDb(CART_TABLE_NAME, USER_EMAIL, itemNameStr);
-  console.log(`adding item to db ${result}`);
+  // console.log(`adding item to db ${result}`);
   if (!result) {
     res.sendStatus(200);
   } else {
@@ -137,9 +137,9 @@ app.post("/addToCart", (req, res) => {
 
 app.post("/removeFromCart", (req, res) => {
   const itemNameStr = req.body.itemName;
-  console.log(itemNameStr);
+  // console.log(itemNameStr);
   const result = removeItemFromDb(CART_TABLE_NAME, USER_EMAIL, itemNameStr);
-  console.log(`print result valur from remove ${result}`);
+  // console.log(`print result valur from remove ${result}`);
   if (result) {
     setDbFieldCount(CART_ITEM_COUNT, USER_EMAIL, ITEMS_COUNT, -1);
     res.sendStatus(200);
@@ -150,7 +150,7 @@ app.post("/removeFromCart", (req, res) => {
 
 app.post("/clearCart", (req, res) => {
   const result = clearAllItemsFromDb(CART_TABLE_NAME, USER_EMAIL);
-  console.log(`print result valur from remove ${result}`);
+  // console.log(`print result valur from remove ${result}`);
   if (result) {
     res.sendStatus(200);
   } else {
@@ -163,10 +163,10 @@ app.post("/getCartItemCount", async function (req, res) {
     const docRef = db.collection(CART_ITEM_COUNT).doc(USER_EMAIL);
     const doc = await docRef.get();
     if (!doc.exists) {
-      console.log("No such document!");
+      // console.log("No such document!");
       res.sendStatus(500);
     } else {
-      console.log("Document data:", doc.data());
+      // console.log("Document data:", doc.data());
       res.send(doc.data());
     }
   } catch (e) {
@@ -179,10 +179,10 @@ app.post("/getUserCartData", async function (req, res) {
     const docRef = db.collection(CART_TABLE_NAME).doc(USER_EMAIL);
     const doc = await docRef.get();
     if (!doc.exists) {
-      console.log("No such document!");
+      // console.log("No such document!");
       res.sendStatus(500);
     } else {
-      console.log("Document data:", doc.data());
+      // console.log("Document data:", doc.data());
       res.send(doc.data());
     }
   } catch (e) {
@@ -191,25 +191,25 @@ app.post("/getUserCartData", async function (req, res) {
 });
 
 function addItemToDb(colName, docName, itemName) {
-  console.log(`Print Check ${itemName}`);
+  // console.log(`Print Check ${itemName}`);
   const data = {
     [itemName]: 1,
   };
   checkIfDocExistsInDb(colName, docName)
     .then((res) => {
       if (!res) {
-        console.log("Creating new entry");
+        // console.log("Creating new entry");
         db.collection(colName).doc(docName).set(data);
         setDbFieldCount(CART_ITEM_COUNT, USER_EMAIL, ITEMS_COUNT, 1);
       } else {
-        console.log("Old entry increment");
+        // console.log("Old entry increment");
         setDbFieldCount(colName, docName, itemName, 1);
         setDbFieldCount(CART_ITEM_COUNT, USER_EMAIL, ITEMS_COUNT, 1);
       }
       return 1;
     })
     .catch((err) => {
-      console.log(err);
+      // console.log(err);
       return 0;
     });
   return 0;
@@ -220,7 +220,7 @@ async function clearAllItemsFromDb(colName, docName) {
   await checkIfDocExistsInDb(colName, docName)
     .then(async (res) => {
       if (!res) {
-        console.log("No document present in DB to remove");
+        // console.log("No document present in DB to remove");
         return 0;
       } else {
         // Get the `FieldValue` object
@@ -242,7 +242,7 @@ async function clearAllItemsFromDb(colName, docName) {
           .delete()
           .then((res) => {
             if (res) {
-              console.log(JSON.stringify(res));
+              // console.log(JSON.stringify(res));
               // check in case of value greater than 1 of field
               result = 1;
             }
@@ -251,14 +251,14 @@ async function clearAllItemsFromDb(colName, docName) {
       }
     })
     .then((res) => {
-      console.log(`printing result from remove from database ${res}`);
+      // console.log(`printing result from remove from database ${res}`);
       returnResult = res;
     })
     .catch((err) => {
-      console.log(err);
+      // console.log(err);
       return 0;
     });
-  console.log(`value of returnResult is ${returnResult}`);
+  // console.log(`value of returnResult is ${returnResult}`);
 }
 
 async function removeItemFromDb(colName, docName, fieldName) {
@@ -266,7 +266,7 @@ async function removeItemFromDb(colName, docName, fieldName) {
   await checkIfDocExistsInDb(colName, docName)
     .then(async (res) => {
       if (!res) {
-        console.log("No document present in DB to remove");
+        // console.log("No document present in DB to remove");
         return 0;
       } else {
         setDbFieldCount(colName, docName, fieldName, -1);
@@ -274,14 +274,14 @@ async function removeItemFromDb(colName, docName, fieldName) {
       }
     })
     .then((res) => {
-      console.log(`printing result from remove from database ${res}`);
+      // console.log(`printing result from remove from database ${res}`);
       returnResult = res;
     })
     .catch((err) => {
-      console.log(err);
+      // console.log(err);
       return 0;
     });
-  console.log(`value of returnResult is ${returnResult}`);
+  // console.log(`value of returnResult is ${returnResult}`);
 }
 
 async function setDbFieldCount(colName, docName, fieldName, fieldCount) {
@@ -298,10 +298,10 @@ async function checkIfDocExistsInDb(colName, docName) {
   const docRef = db.collection(colName).doc(docName);
   const doc = await docRef.get();
   if (!doc.exists) {
-    console.log("No such document!");
+    // console.log("No such document!");
     return 0;
   } else {
-    console.log("Document data:", doc.data());
+    // console.log("Document data:", doc.data());
     return 1;
   }
 }

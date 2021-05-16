@@ -17,7 +17,7 @@ fetch("../json/menuBreakfastIndianBreads.json")
         fetch("http://localhost:8000/getUserCartData", requestOptions)
           .then((response) => response.json())
           .then((result) => {
-            console.log(result);
+            // console.log(result);
             let keys = Object.keys(result);
             let values = Object.values(result);
             // console.log(keys);
@@ -33,15 +33,15 @@ fetch("../json/menuBreakfastIndianBreads.json")
                 currentItemPrice = itemsData[item].price.split(" ")[1];
               }
               totalPrice += eval(values[index] * currentItemPrice);
-              console.log(`price of ${item} is ${currentItemPrice}`);
+              // console.log(`price of ${item} is ${currentItemPrice}`);
               // console.log(itemsData[item], index);
               generateCartItem({
                 imagePath: itemsData[item].imagePath,
                 name: item,
                 quantity: values[index],
               });
-              console.log(`Total Quantity is ${totalQuantity}`);
-              console.log(`Total Price is ${totalPrice}`);
+              // console.log(`Total Quantity is ${totalQuantity}`);
+              // console.log(`Total Price is ${totalPrice}`);
             });
             $("#totalQuantity").html(totalQuantity);
             $("#totalPrice").html(`Rs${totalPrice}`);

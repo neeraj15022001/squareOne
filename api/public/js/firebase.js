@@ -12,14 +12,14 @@ function initializeFirebaseApp() {
   firebase.initializeApp(firebaseConfig);
 }
 function signInUserWithEmailAndPassword({ email, password }) {
-  console.log("signing in user");
+  // console.log("signing in user");
   firebase
     .auth()
     .signInWithEmailAndPassword(email, password)
     .then((userCredential) => {
       var user = userCredential.user;
-      console.log(`Firebase User is ${JSON.stringify(user)}`);
-      console.log(user.uid);
+      // console.log(`Firebase User is ${JSON.stringify(user)}`);
+      // console.log(user.uid);
       if (user) {
         fetch("/createSession", {
           method: "POST",
@@ -50,9 +50,9 @@ function createUserWithEmailAndPassword({ email, password }) {
     .createUserWithEmailAndPassword(email, password)
     .then((userCredential) => {
       var user = userCredential.user;
-      console.log(`Firebase User is ${JSON.stringify(user)}`);
-      console.log(user.uid);
-      console.log(user.email);
+      // console.log(`Firebase User is ${JSON.stringify(user)}`);
+      // console.log(user.uid);
+      // console.log(user.email);
       if (user) {
         fetch("/createSession", {
           method: "POST",
