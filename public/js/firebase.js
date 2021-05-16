@@ -33,7 +33,7 @@ function signInUserWithEmailAndPassword({ email, password }) {
         }).then((status) => {
           if (status.status == 200) {
             // signOutFirebaseUser()
-            window.location.assign("http://localhost:8000/home");
+            window.location.assign("/home");
           }
         });
       }
@@ -66,7 +66,7 @@ function createUserWithEmailAndPassword({ email, password }) {
         }).then((status) => {
           if (status.status == 200) {
             // signOutFirebaseUser()
-            window.location.assign("http://localhost:8000/home");
+            window.location.assign("/home");
           }
         });
       }

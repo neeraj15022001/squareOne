@@ -14,7 +14,7 @@ fetch("../json/menuBreakfastIndianBreads.json")
           ...itemsData,
           ...response,
         };
-        fetch("http://localhost:8000/getUserCartData", requestOptions)
+        fetch("/getUserCartData", requestOptions)
           .then((response) => response.json())
           .then((result) => {
             // console.log(result);

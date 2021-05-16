@@ -1,14 +1,15 @@
 var express = require("express");
 var app = express();
 const port = process.env.PORT || 8000;
-// const httpsport = process.env.PORT || 8001;
+const httpsport = process.env.PORT || 7000;
 var cors = require("cors");
 var firebase = require("firebase/app");
 var session = require("express-session");
-// var https = require("https");
-var http = require("http");
+var https = require("https");
+const path = require('path')
+// var http = require("http");
 const fs = require("fs");
-app.use(express.static(__dirname + "/public"));
+app.use(express.static(__dirname + "/public/"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 var sess = {
@@ -40,15 +41,11 @@ admin.initializeApp({
 });
 
 const db = admin.firestore();
-
-var key = fs.readFileSync(__dirname + "/selfsigned.key", "utf8");
-var cert = fs.readFileSync(__dirname + "/selfsigned.crt", "utf8");
-var options = {
-  key: key,
-  cert: cert,
-};
-var httpServer = http.createServer(app);
-// var httpsServer = https.createServer(options, app);
+// var httpServer = http.createServer(app);
+var httpsServer = https.createServer({
+  key:fs.readFileSync(path.join(__dirname,'cert','key.pem')),
+  cert:fs.readFileSync(path.join(__dirname,'cert','cert.pem'))
+}, app);
 app.set("x-powered-by", false);
 app.use(cors());
 
@@ -58,9 +55,6 @@ app.get("/", (res,req) => {
   } else {
     res.redirect("/login");
   }
-})
-app.get("/favicon.icon", (res, req) => {
-  res.sendStatus(200)
 })
 app.post("/createSession", (req, res) => {
   const uid = req.body.uid.toString();
@@ -317,9 +311,9 @@ async function checkIfDocExistsInDb(colName, docName) {
   }
 }
 
-httpServer.listen(port, () => {
-  console.log("App is now running on PORT 8000");
-});
-// httpsServer.listen(httpsport, () => {
-//   console.log(`App is now running on port 8001}`);
+// httpServer.listen(port, () => {
+//   console.log("App is now running on PORT 8000");
 // });
+httpsServer.listen(httpsport, () => {
+  console.log(`App is now running on port ${httpsport}}`);
+});

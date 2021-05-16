@@ -166,7 +166,7 @@ function getDataFromDB() {
           fetch("/getUserCartData", requestOptions)
             .then((response) => response.json())
             .then((result) => {
-              // console.log(result);
+              console.log(result);
               let keys = Object.keys(result);
               let values = Object.values(result);
               // console.log(keys);
