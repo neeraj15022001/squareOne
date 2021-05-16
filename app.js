@@ -6,22 +6,22 @@ var cors = require("cors");
 var firebase = require("firebase/app");
 var session = require("express-session");
 var https = require("https");
-const path = require('path')
+const path = require("path");
 // var http = require("http");
 const fs = require("fs");
 app.use(express.static(__dirname + "/public/"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.set("trust proxy", 1); // trust first proxy
 var sess = {
   secret: "squareOne",
-  cookie: {},
+  cookie: {
+    secure:true,
+    maxAge:60000
+  },
+  saveUninitialized: true,
+  resave: false
 };
-
-if (app.get("env") === "production") {
-  app.set("trust proxy", 1); // trust first proxy
-  sess.cookie.secure = true; // serve secure cookies
-}
-
 app.use(session(sess));
 
 const CART_TABLE_NAME = "userCart";
@@ -42,20 +42,23 @@ admin.initializeApp({
 
 const db = admin.firestore();
 // var httpServer = http.createServer(app);
-var httpsServer = https.createServer({
-  key:fs.readFileSync(path.join(__dirname,'cert','key.pem')),
-  cert:fs.readFileSync(path.join(__dirname,'cert','cert.pem'))
-}, app);
+var httpsServer = https.createServer(
+  {
+    key: fs.readFileSync(path.join(__dirname, "cert", "key.pem")),
+    cert: fs.readFileSync(path.join(__dirname, "cert", "cert.pem")),
+  },
+  app
+);
 app.set("x-powered-by", false);
 app.use(cors());
 
-app.get("/", (res,req) => {
+app.get("/", (res, req) => {
   if (req.session.token) {
     res.sendFile(__dirname + "/public/index.html");
   } else {
     res.redirect("/login");
   }
-})
+});
 app.post("/createSession", (req, res) => {
   const uid = req.body.uid.toString();
   const email = req.body.email.toString();
