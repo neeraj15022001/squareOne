@@ -42,6 +42,13 @@ function signInUserWithEmailAndPassword({ email, password }) {
       var errorCode = error.code;
       var errorMessage = error.message;
       console.log(`erroCode: ${errorCode} and errorMessage: ${errorMessage}`);
+      errorBox.innerHTML = errorMessage;
+      fakeloader.hide();
+      errorBox.style.visibility = "visible";
+      setTimeout(() => {
+        signInButton.removeAttribute("disabled");
+        errorBox.style.visibility = "hidden";
+      }, 3000);
     });
 }
 function createUserWithEmailAndPassword({ email, password }) {
@@ -64,6 +71,7 @@ function createUserWithEmailAndPassword({ email, password }) {
             email: user.email,
           }),
         }).then((status) => {
+          console.log(status);
           if (status.status == 200) {
             // signOutFirebaseUser()
             window.location.assign("http://localhost:8000/home");

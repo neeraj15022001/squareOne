@@ -78,6 +78,21 @@ body {
   height: 80%;
   overflow: scroll;
 }
+#clear-cart-button {
+  margin-left: 2.5rem;
+  padding: 1rem 1.5rem;
+  border: none;
+  outline: none;
+  border-radius: 2.5rem;
+  font-weight: 600;
+  transition: 0.3s ease-in-out;
+  cursor: pointer;
+  padding-top: 1rem;
+  padding-left: 1rem;
+  background-color: var(--themeRed) !important;
+  color: white !important;
+  margin-bottom: 1rem;
+}
 .item-card {
   height: 8.5rem;
   background-color: var(--themeWhite);
@@ -170,6 +185,19 @@ td {
   padding: 0.5rem 0;
 }
 @media screen and (max-device-width: 425px) {
+  .customNavbar {
+    padding: 2rem 0;
+    text-align: center;
+  }
+  .brand {
+    width: 100%;
+  }
+  .heading {
+    padding: 1rem 0;
+  }
+  .main-headline {
+    font-size: 4rem;
+  }
   .bill-container {
     display: none;
   }
@@ -178,5 +206,28 @@ td {
   }
   .bag {
     display: block;
+    padding: 0.5rem;
+    margin: 0;
+  }
+  .text-container {
+    font-size: 1rem;
+  }
+  .image-container {
+    width: 4rem;
+    height: 4rem;
+  }
+  .item-card {
+    padding: 0;
+  }
+  .increment-decrement-button {
+    width: 1.5rem;
+    height: 1.5rem;
+    font-size: 1rem;
+  }
+  .quantity {
+    font-size: 1rem;
+  }
+  .amount-container {
+    width: 5rem;
   }
 }

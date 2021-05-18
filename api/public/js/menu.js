@@ -132,6 +132,13 @@ $(".cart-icon").click(function (e) {
   e.preventDefault();
 });
 
+$("#clear-cart-button").click(() => {
+  console.log("Clear Cart Button clicked");
+  fetch("/clearCart")
+    .then((status) => window.location.reload())
+    .catch((err) => console.log(err));
+});
+
 function sideScroll(element, direction, speed, distance, step) {
   scrollAmount = 0;
   var slideTimer = setInterval(function () {
@@ -193,11 +200,11 @@ function generateCartItem({ imagePath, name, quantity }) {
               <div class="text-container">${name}</div>
             </div>
             <div class="amount-container">
-              <button class="increment-decrement-button">
+              <button class="increment-decrement-button" onclick="incrementItem(event)">
                 <i class="bi bi-plus"></i>
               </button>
               <div class="quantity">${quantity}</div>
-              <button class="increment-decrement-button">
+              <button class="increment-decrement-button" onclick="decrementItem(event)">
                 <i class="bi bi-dash"></i>
               </button>
             </div>
@@ -205,4 +212,57 @@ function generateCartItem({ imagePath, name, quantity }) {
   `;
 
   $("#cart-card-container").append(element);
+}
+
+function incrementItem(event) {
+  const itemNameString =
+    event.target.parentElement.parentElement.parentElement.children[0]
+      .children[1].innerHTML;
+  console.log(itemNameString);
+  var myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+
+  var raw = JSON.stringify({
+    itemName: itemNameString,
+  });
+
+  var requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: raw,
+    redirect: "follow",
+  };
+
+  fetch("http://localhost:8000/addToCart", requestOptions)
+    .then((response) => {
+      response.status;
+      window.location.reload();
+    })
+    .catch((error) => console.log("error", error));
+}
+function decrementItem(event) {
+  const itemNameString =
+    event.target.parentElement.parentElement.parentElement.children[0]
+      .children[1].innerHTML;
+  console.log(itemNameString);
+  var myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+
+  var raw = JSON.stringify({
+    itemName: itemNameString,
+  });
+
+  var requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: raw,
+    redirect: "follow",
+  };
+
+  fetch("http://localhost:8000/removeFromCart", requestOptions)
+    .then((response) => {
+      console.log(response.status);
+      window.location.reload();
+    })
+    .catch((error) => console.log("error", error));
 }
