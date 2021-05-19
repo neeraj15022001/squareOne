@@ -312,3 +312,61 @@ httpServer.listen(8000, () => {
 httpsServer.listen(8001, () => {
   console.log(`App is now running on port 8001}`);
 });
+
+
+//Admin Panel Routing
+app.post("/deleteUser", (req, res) => {
+
+  var email = req.body.email
+
+  admin.auth().getUserByEmail(email)
+  .then(function(userRecord) {
+    // See the tables above for the contents of userRecord
+    console.log("Successfully fetched user data:", userRecord.toJSON());
+    console.log("User Id = ",userRecord.uid)
+
+    var userUid = userRecord.uid
+    admin.auth().deleteUser(userUid).then(() => {
+      console.log('Successfully deleted user');
+    })
+    .catch((error) => {
+      console.log('Error deleting user:', error);
+      res.sendStatus(500);
+    });
+    return res.sendStatus(200);
+  })
+  .catch(function(error) {
+    console.log("Error fetching user data:", error);
+    res.sendStatus(500);
+  });
+
+});
+
+app.get("/listAllUsers", (req, res) => {
+  admin.auth().listUsers().then(
+    function(listUsersResult)
+    {
+      listUsersResult.users.forEach(function(userRecord) 
+      {
+        console.log('user Data Read : ', userRecord.toJSON());
+      });
+      return res.sendStatus(500)
+    }
+  )
+  .catch(function(error) {
+    console.log('Error listing users:', error);
+    return res.sendStatus(500)
+  });
+});
+
+app.get("/getUserCartData",(req, res) => {
+});
+
+app.get("/getUserPreviousOrderData",(req, res) => {
+});
+
+app.get("/getUserRechargeHistory",(req, res) => {
+});
+
+app.get("/getUserCartData",(req, res) => {
+});
