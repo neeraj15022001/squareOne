@@ -25,6 +25,13 @@ app.use(session(sess));
 const CART_TABLE_NAME = "userCart";
 const CART_ITEM_COUNT = "cartItemCount";
 const ITEMS_COUNT = "itemsCount";
+const USERS_TABLE_NAME = "Users"
+const CURRENT_BALANCE = "CurrentBalance"
+const NAME_STR = "Name"
+const CARD_STR = "Card"
+const EMAIL_STR = "Email"
+const CARD_RECHARGE_RECORD = "cardRechargeRecord"
+const ORDER_HISTORY = "orderHistory"
 var USER_EMAIL = "";
 
 /**
@@ -306,6 +313,49 @@ async function checkIfDocExistsInDb(colName, docName) {
   }
 }
 
+async function getFieldDataFromDb(colName, docName, fieldName) 
+{
+  const docRef = db.collection(colName).doc(docName);
+  const doc = await docRef.get();
+  if (!doc.exists) 
+  {
+    return 0;
+  }
+  else 
+  {
+    console.log("Document data:", doc.data());
+    let docData = doc.data()
+    let finalResult = docData[fieldName]
+    console.log(finalResult)
+    return finalResult;
+  }
+}
+
+async function getDocumentDataFromDb(colName, docName) 
+{
+  const docRef = db.collection(colName).doc(docName);
+  const doc = await docRef.get();
+  if (!doc.exists) 
+  {
+    return 0;
+  }
+  else 
+  {
+    console.log("Document data:", doc.data());
+    return doc.data()
+  }
+}
+
+function updateDocumentFieldData(colName, docName, fieldName, fieldData)
+{
+  var docRef = db.collection(colName).doc(docName)
+  docRef.update(
+    {
+      [fieldName] : fieldData
+    }
+  )
+}
+
 httpServer.listen(8000, () => {
   console.log("App is now running on PORT 8000");
 });
@@ -315,18 +365,33 @@ httpsServer.listen(8001, () => {
 
 
 //Admin Panel Routing
-app.post("/deleteUser", (req, res) => {
+app.post("/deleteUser", async function (req, res) {
 
   var email = req.body.email
+
+  await db.collection(USERS_TABLE_NAME).doc(email).delete().then((res) => 
+  {
+    if(res) 
+    {
+      console.log("User deleted")
+      console.log(JSON.stringify(res));
+    }
+    else
+    {
+      console.log("Not deleted")
+    }
+  });
 
   admin.auth().getUserByEmail(email)
   .then(function(userRecord) {
     // See the tables above for the contents of userRecord
     console.log("Successfully fetched user data:", userRecord.toJSON());
+
     console.log("User Id = ",userRecord.uid)
 
     var userUid = userRecord.uid
-    admin.auth().deleteUser(userUid).then(() => {
+    admin.auth().deleteUser(userUid).then(() => 
+    {
       console.log('Successfully deleted user');
     })
     .catch((error) => {
@@ -339,7 +404,6 @@ app.post("/deleteUser", (req, res) => {
     console.log("Error fetching user data:", error);
     res.sendStatus(500);
   });
-
 });
 
 app.get("/listAllUsers", (req, res) => {
@@ -350,7 +414,7 @@ app.get("/listAllUsers", (req, res) => {
       {
         console.log('user Data Read : ', userRecord.toJSON());
       });
-      return res.sendStatus(500)
+      return res.send(userRecord.toJSON)
     }
   )
   .catch(function(error) {
@@ -359,14 +423,77 @@ app.get("/listAllUsers", (req, res) => {
   });
 });
 
-app.get("/getUserCartData",(req, res) => {
+app.post("/getParticularUserCartData",(req, res) => 
+{
+  userEmail = req.body.email
+  let userCartData = getDocumentDataFromDb(CART_TABLE_NAME, userEmail)
+  return res.json(userCartData)
 });
 
-app.get("/getUserPreviousOrderData",(req, res) => {
+app.post("/getCardCurrentBalance", (req, res) => 
+{
+  userEmail = req.body.email
+  let balance =  getFieldDataFromDb(USERS_TABLE_NAME, userEmail, CURRENT_BALANCE)
+  return res.send(balance.toJSON)
 });
 
-app.get("/getUserRechargeHistory",(req, res) => {
+app.post("/addBalanceToCard", (req, res) => 
+{
+  userEmail = req.body.email
+  balanceToAdd = req.body.amount
+  setDbFieldCount(USERS_TABLE_NAME, userEmail, CURRENT_BALANCE, balanceToAdd)
+  return res.sendStatus(200)
 });
 
-app.get("/getUserCartData",(req, res) => {
+app.post("/removeBalanceFromCard", (req, res) => 
+{
+  userEmail = req.body.email
+  balanceToAdd = -(req.body.amount)
+  setDbFieldCount(USERS_TABLE_NAME, userEmail, CURRENT_BALANCE, balanceToAdd)
+  return res.sendStatus(200)
+});
+
+app.post("/getUserData", (req, res) => 
+{
+  userEmail = req.body.email
+  let userData = getDocumentDataFromDb(USERS_TABLE_NAME, userEmail)
+  return res.json(userData)
+});
+
+app.post("/updateUserName", (req, res) => 
+{
+  userEmail = req.body.email
+  userName = req.body.userName
+  updateDocumentFieldData(USERS_TABLE_NAME, userEmail, NAME_STR, userName)
+  return res.sendStatus(200)
+});
+
+app.post("/updateCardNo", (req, res) => 
+{
+  userEmail = req.body.email
+  cardNo = req.body.cardNo
+  updateDocumentFieldData(USERS_TABLE_NAME, userEmail, CARD_STR, cardNo)
+  return res.sendStatus(200)
+});
+
+app.post("/updateUserEmail", (req, res) => 
+{
+  userEmail = req.body.email
+  newEmail = req.body.newEmail
+  updateDocumentFieldData(USERS_TABLE_NAME, userEmail, EMAIL_STR, newEmail)
+  return res.sendStatus(200)
+});
+
+app.post("/getCardRechargeData", (req, res) =>
+{
+  cardNo = req.body.cardNo
+  let cardRechargeData = getDocumentDataFromDb(CARD_RECHARGE_RECORD, cardNo)
+  return res.json(cardRechargeData)
+});
+
+app.post("/getOrderHistory", (req, res) =>
+{
+  orderNo = req.body.orderNo
+  let orderHistoryData = getDocumentDataFromDb(ORDER_HISTORY, orderNo)
+  return res.json(orderHistoryData)
 });
