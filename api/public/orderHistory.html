@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Square One</title>
+    <link rel="stylesheet" href="./css/admin.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+    />
+    <link rel="stylesheet" href="./css/fakeloader.css" />
+  </head>
+  <body class="bg-themeGrey d-flex align-content-center">
+    <div id="fakeloader-overlay" class="visible incoming">
+      <div class="loader-wrapper-outer">
+        <div class="loader-wrapper-inner">
+          <div class="loader"></div>
+        </div>
+      </div>
+    </div>
+    <div class="sidebar bg-themeRed text-white" id="sidebar">
+      <div class="d-flex align-items-center justify-content-start">
+        <div class="avatar rounded-circle bg-white"></div>
+        <div
+          class="
+            ms-4
+            d-flex
+            align-items-start
+            justify-content-around
+            flex-column
+          "
+        >
+          <p class="fs-5 fw-bold mb-1">Neeraj Gupta</p>
+          <p class="fs-6 p-0 m-0">Admin</p>
+        </div>
+      </div>
+      <hr />
+      <div class="p-3 fs-5">Users</div>
+      <hr class="p-0 m-0" />
+      <div class="p-3 fs-5">Payment History</div>
+      <hr class="p-0 m-0" />
+      <div class="p-3 fs-5 activePage">Order History</div>
+    </div>
+    <div class="flex-fill">
+      <nav
+        class="
+          py-3
+          px-4
+          elevation-1
+          d-flex
+          align-items-center
+          justify-content-between
+          bg-white
+        "
+      >
+        <div
+          class="
+            customBrand
+            d-flex
+            align-content-center
+            justify-content-between
+          "
+        >
+          <button
+            class="
+              border-0
+              bg-themeGrey
+              d-flex
+              align-items-center
+              justify-content-center
+              px-2
+              rounded-circle
+            "
+            id="menu-toggle-button"
+          >
+            <i class="m-0 p-0 bi bi-list fs-3"></i>
+          </button>
+          <p class="m-0 p-0 ms-3 fs-3 fw-bold">
+            Square<span class="text-themeRed"> One</span>
+          </p>
+        </div>
+        <div class="d-flex align-items-center justify-content-between">
+          <div class="avatar rounded-circle bg-themeRed"></div>
+          <div class="ms-3 dropdown">
+            <button
+              class="btn btn-light rounded-circle"
+              type="button"
+              id="dropdownMenuButton"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <i class="m-0 p-0 bi bi-caret-up-fill" id="dropdown-icon"></i>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <li><a class="dropdown-item" href="#">Sign Out</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <div class="content container py-4 mx-auto overflow-hidden">
+        <div class="contentCard card text-dark bg-white mb-3">
+          <div
+            class="
+              card-header
+              d-flex
+              align-items-center
+              justify-content-between
+              px-4
+              py-2
+            "
+          >
+            <p class="fs-2 fw-bold m-0">Orders History</p>
+          </div>
+          <div class="card-body py-3 px-4 overflow-auto">
+            <div class="container h-100 overflow-auto">
+              <div class="row h-100 overflow-auto">
+                <div class="col-4 h-100 border-end overflow-auto">
+                  <ul class=" list-group list-group-flush h-100 overflow-auto customList">
+                    <li class="list-group-item active">An item</li>
+                    <li class="list-group-item">A second item</li>
+                    <li class="list-group-item">A third item</li>
+                    <li class="list-group-item">A fourth item</li>
+                    <li class="list-group-item">And a fifth one</li>
+                    <li class="list-group-item">An item</li>
+                    <li class="list-group-item">A second item</li>
+                    <li class="list-group-item">A third item</li>
+                    <li class="list-group-item">A fourth item</li>
+                    <li class="list-group-item">And a fifth one</li>
+                    <li class="list-group-item">An item</li>
+                    <li class="list-group-item">A second item</li>
+                    <li class="list-group-item">A third item</li>
+                    <li class="list-group-item">A fourth item</li>
+                    <li class="list-group-item">And a fifth one</li>
+                    <li class="list-group-item">An item</li>
+                    <li class="list-group-item">A second item</li>
+                    <li class="list-group-item">A third item</li>
+                    <li class="list-group-item">A fourth item</li>
+                    <li class="list-group-item">And a fifth one</li>
+                  </ul>
+                </div>
+                <div class="col-8 h-100 overflow-auto customList">
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item">An item</li>
+                    <li class="list-group-item active">A second item</li>
+                    <li class="list-group-item">A third item</li>
+                    <li class="list-group-item">A fourth item</li>
+                    <li class="list-group-item">And a fifth one</li>
+                    <li class="list-group-item">An item</li>
+                    <li class="list-group-item">A second item</li>
+                    <li class="list-group-item">A third item</li>
+                    <li class="list-group-item">A fourth item</li>
+                    <li class="list-group-item">And a fifth one</li>
+                    <li class="list-group-item">An item</li>
+                    <li class="list-group-item">A second item</li>
+                    <li class="list-group-item">A third item</li>
+                    <li class="list-group-item">A fourth item</li>
+                    <li class="list-group-item">And a fifth one</li>
+                    <li class="list-group-item">An item</li>
+                    <li class="list-group-item">A second item</li>
+                    <li class="list-group-item">A third item</li>
+                    <li class="list-group-item">A fourth item</li>
+                    <li class="list-group-item">And a fifth one</li>
+                    <li class="list-group-item">An item</li>
+                    <li class="list-group-item">A second item</li>
+                    <li class="list-group-item">A third item</li>
+                    <li class="list-group-item">A fourth item</li>
+                    <li class="list-group-item">And a fifth one</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="./js/jquery-3.6.0.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+      crossorigin="anonymous"
+    ></script>
+    <script src="./js/orderHistory.js"></script>
+  </body>
+</html>

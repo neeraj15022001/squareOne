@@ -19,13 +19,13 @@
     <link rel="stylesheet" href="./css/fakeloader.css" />
   </head>
   <body class="bg-themeGrey overflow-hidden d-flex align-content-center">
-    <div id="fakeloader-overlay" class="visible incoming">
+    <!-- <div id="fakeloader-overlay" class="visible incoming">
       <div class="loader-wrapper-outer">
         <div class="loader-wrapper-inner">
           <div class="loader"></div>
         </div>
       </div>
-    </div>
+    </div> -->
     <div class="sidebar bg-themeRed text-white" id="sidebar">
       <div class="d-flex align-items-center justify-content-start">
         <div class="avatar rounded-circle bg-white"></div>
@@ -43,11 +43,11 @@
         </div>
       </div>
       <hr />
-      <div class="p-3 fs-5 activePage">Users</div>
+      <div class="p-3 fs-5">Users</div>
       <hr class="p-0 m-0" />
-      <div class="p-3 fs-5"  onclick="window.location.assign('http://localhost:8000/paymentHistory')">Payment History</div>
+      <div class="p-3 fs-5 activePage">Payment History</div>
       <hr class="p-0 m-0" />
-      <div class="p-3 fs-5"  onclick="window.location.assign('http://localhost:8000/orderHistory')">Order History</div>
+      <div class="p-3 fs-5">Order History</div>
     </div>
     <div class="flex-fill">
       <nav
@@ -118,53 +118,10 @@
               py-2
             "
           >
-            <p class="fs-2 fw-bold m-0">Users</p>
-            <div class="input-group w-25">
-              <span class="input-group-text" id="search"
-                ><i class="bi bi-search"></i
-              ></span>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Search"
-                aria-label="Search"
-                aria-describedby="search"
-              />
-            </div>
+            <p class="fs-2 fw-bold m-0">Payments History</p>
           </div>
           <div class="card-body py-3 px-4">
-            <table class="table table-striped overflow-auto">
-              <thead>
-                <tr>
-                  <th scope="col">Name</th>
-                  <th scope="col">Email</th>
-                  <th scope="col">Card Number</th>
-                  <th scope="col">Actions</th>
-                </tr>
-              </thead>
-              <tbody id="user-data-container">
-                <!-- <tr>
-                  <td>Neeraj</td>
-                  <td>gneeraj32595@gmail.com</td>
-                  <td>12345678</td>
-                  <td>
-                    <button class="btn btn-themeBlue">Update</button>
-                    <button class="btn btn-themeRed ms-2">Remove</button>
-                    <button class="btn btn-themePurple ms-2">More</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Aman</td>
-                  <td>abansal619@gmail.com</td>
-                  <td>87654321</td>
-                  <td>
-                    <button class="btn btn-themeBlue">Update</button>
-                    <button class="btn btn-themeRed ms-2">Remove</button>
-                    <button class="btn btn-themePurple ms-2">More</button>
-                  </td>
-                </tr> -->
-              </tbody>
-            </table>
+            
           </div>
         </div>
       </div>

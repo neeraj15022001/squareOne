@@ -5,11 +5,16 @@
 }
 :root {
   --themeRed: #d84311;
+  --themeSecondaryRed: #d33906;
   --themeGrey: #edecec;
   --themeDarkRed: #980000;
   --themeBlack: #000000;
   --themeWhite: #ffffff;
   --themeYellow: #e0a83d;
+  --themeBlue: #33618F;
+  --themeSecondaryBlue: #295a8a;
+  --themePurple: #616AE0;
+  --themeSeondaryPurple: #535cde;
 }
 
 .elevation-1 {
@@ -21,8 +26,39 @@
 .bg-themeWhite {
     background-color: var(--themeWhite) !important;
 }
+.bg-themeRed {
+    background-color: var(--themeRed) !important;
+}
 .text-themeRed {
     color: var(--themeRed) !important;
+}
+.btn-themeRed {
+    background-color: var(--themeRed) !important;
+    color: var(--themeWhite) !important;
+}
+.btn-themeBlue {
+    background-color: var(--themeBlue) !important;
+    color: var(--themeWhite) !important;
+}
+.btn-themeBlue:hover {
+    background-color: var(--themeSecondaryBlue) !important;
+    color: var(--themeWhite) !important;
+}
+.btn-themeRed:hover {
+    background-color: var(--themeSecondaryRed) !important;
+    color: var(--themeWhite) !important;
+}
+.btn-themePurple {
+    background-color: var(--themePurple) !important;
+    color: var(--themeWhite) !important;
+}
+.btn-themePurple:hover {
+    background-color: var(--themeSeondaryPurple) !important;
+    color: var(--themeWhite) !important;
+}
+.activePage {
+    background-color: var(--themeSecondaryRed) !important;
+    font-weight: bold !important;
 }
 .avatar {
     width: 2.5rem;
@@ -42,4 +78,16 @@
     width: 0 !important;
     transition: 0.3s ease;
 }
-
+.customList::-webkit-scrollbar {
+    width: 8px;
+}
+.customList::-webkit-scrollbar-thumb {
+    background-color: var(--themeGrey);
+    border-radius: 1rem;
+}
+.customList::-webkit-scrollbar-thumb:hover {
+    background-color: var(--themeSecondaryRed);
+}
+body::-webkit-scrollbar {
+    display: none;
+}
