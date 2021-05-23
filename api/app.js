@@ -33,6 +33,7 @@ const EMAIL_STR = "Email";
 const CARD_RECHARGE_RECORD = "cardRechargeRecord";
 const ORDER_HISTORY = "orderHistory";
 var USER_EMAIL = "";
+const USER_TABLE = "Users"
 
 /**
  * Initialize Firestore configuration
@@ -40,6 +41,7 @@ var USER_EMAIL = "";
 const admin = require("firebase-admin");
 
 const serviceAccount = require("./service_account.json");
+const { response } = require("express");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -367,16 +369,10 @@ async function getDocumentFromDb(colName) {
     .collection(colName)
     .get()
     .then((querySnapshot) => {
-      console.log("in promise")
-      console.log(typeof querySnapshot)
-      console.log(querySnapshot)
       querySnapshot.forEach((doc) => {
-          // doc.data() is never undefined for query doc snapshots
-          console.log(doc.id, " => ", doc.data());
+          data[doc.id] = doc.data()
       });
-      data = querySnapshot
     });
-    console.log("outside promise")
   return JSON.stringify(data)
 }
 
@@ -513,12 +509,18 @@ app.post("/updateUserEmail", (req, res) => {
 
 app.get("/getCardRechargeData", (req, res) => {
   let cardRechargeData = getDocumentFromDb(CARD_RECHARGE_RECORD);
-  return res.send(cardRechargeData)
+  cardRechargeData.then(response => res.send(JSON.parse(response)))
+  return
 });
 
 app.get("/getOrderHistory", (req, res) => {
   let orderHistoryData = getDocumentFromDb(ORDER_HISTORY);
-  // console.log(orderHistoryData)
   orderHistoryData.then(response => res.send(JSON.parse(response)))
   return
 });
+
+app.get("/userTable", (req, res) => {
+  let usersData = getDocumentFromDb(USER_TABLE);
+  usersData.then(response => res.send(response))
+  return
+})

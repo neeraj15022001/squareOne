@@ -1,15 +1,5 @@
-$("#menu-toggle-button").click(() => {
-  $("#sidebar").toggleClass("w-25").toggleClass("p-3");
-});
-
-$("#dropdownMenuButton").click(() => {
-  $("#dropdown-icon")
-    .toggleClass("bi-caret-up-fill")
-    .toggleClass("bi-caret-down-fill");
-});
-
 const removeUser = (e) => {
-  fakeloader.show()
+  fakeloader.show();
   const email = e.target.parentElement.parentElement.children[1].innerHTML;
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
@@ -27,8 +17,8 @@ const removeUser = (e) => {
 
   fetch("http://localhost:8000/deleteUser", requestOptions)
     .then((response) => {
-      console.log(response.status)
-      window.location.reload()
+      console.log(response.status);
+      window.location.reload();
     })
     .catch((error) => console.log("error", error));
 };

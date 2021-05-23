@@ -19,13 +19,13 @@
     <link rel="stylesheet" href="./css/fakeloader.css" />
   </head>
   <body class="bg-themeGrey overflow-hidden d-flex align-content-center">
-    <!-- <div id="fakeloader-overlay" class="visible incoming">
+    <div id="fakeloader-overlay" class="visible incoming">
       <div class="loader-wrapper-outer">
         <div class="loader-wrapper-inner">
           <div class="loader"></div>
         </div>
       </div>
-    </div> -->
+    </div>
     <div class="sidebar bg-themeRed text-white" id="sidebar">
       <div class="d-flex align-items-center justify-content-start">
         <div class="avatar rounded-circle bg-white"></div>
@@ -43,11 +43,15 @@
         </div>
       </div>
       <hr />
-      <div class="p-3 fs-5">Users</div>
+      <div class="p-3 fs-5 cursor-pointer" id="adminUsers">Users</div>
       <hr class="p-0 m-0" />
-      <div class="p-3 fs-5 activePage">Payment History</div>
+      <div class="p-3 fs-5 cursor-pointer activePage" id="adminPayment">
+        Payment History
+      </div>
       <hr class="p-0 m-0" />
-      <div class="p-3 fs-5">Order History</div>
+      <div class="p-3 fs-5 cursor-pointer" id="adminOrder">
+        Order History
+      </div>
     </div>
     <div class="flex-fill">
       <nav
@@ -106,7 +110,7 @@
         </div>
       </nav>
 
-      <div class="content container py-4 overflow-hidden mx-auto">
+      <div class="content container py-4 mx-auto overflow-hidden">
         <div class="contentCard card text-dark bg-white mb-3">
           <div
             class="
@@ -120,8 +124,40 @@
           >
             <p class="fs-2 fw-bold m-0">Payments History</p>
           </div>
-          <div class="card-body py-3 px-4">
-            
+          <div class="card-body py-3 px-4 overflow-auto">
+            <div class="container h-100 overflow-auto">
+              <div class="row h-100 overflow-auto">
+                <div class="col-3 h-100 border-end overflow-auto">
+                  <ul
+                    class="
+                      list-group list-group-flush
+                      h-100
+                      overflow-auto
+                      customList
+                    "
+                    id="collectionContainer"
+                  ></ul>
+                </div>
+                <div class="col-3 h-100 overflow-auto customList border-end">
+                  <ul
+                    class="list-group list-group-flush"
+                    id="parentContainer"
+                  ></ul>
+                </div>
+                <div class="col-3 h-100 overflow-auto customList border-end">
+                  <ul
+                    class="list-group list-group-flush"
+                    id="childContainer"
+                  ></ul>
+                </div>
+                <div class="col-3 h-100 overflow-auto customList">
+                  <ul
+                    class="list-group list-group-flush"
+                    id="subChildContainer"
+                  ></ul>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -132,6 +168,7 @@
       integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
       crossorigin="anonymous"
     ></script>
-    <script src="./js/admin.js"></script>
+    <script src="./js/common/adminEvents.js"></script>
+    <script src="./js/paymentHistory.js"></script>
   </body>
 </html>

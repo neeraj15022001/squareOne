@@ -43,11 +43,15 @@
         </div>
       </div>
       <hr />
-      <div class="p-3 fs-5 activePage">Users</div>
+      <div class="p-3 fs-5 activePage cursor-pointer" id="adminUsers">
+        Users
+      </div>
       <hr class="p-0 m-0" />
-      <div class="p-3 fs-5"  onclick="window.location.assign('http://localhost:8000/paymentHistory')">Payment History</div>
+      <div class="p-3 fs-5 cursor-pointer" id="adminPayment">
+        Payment History
+      </div>
       <hr class="p-0 m-0" />
-      <div class="p-3 fs-5"  onclick="window.location.assign('http://localhost:8000/orderHistory')">Order History</div>
+      <div class="p-3 fs-5 cursor-pointer" id="adminOrder">Order History</div>
     </div>
     <div class="flex-fill">
       <nav
@@ -175,6 +179,7 @@
       integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
       crossorigin="anonymous"
     ></script>
+    <script src="./js/common/adminEvents.js"></script>
     <script src="./js/admin.js"></script>
   </body>
 </html>
