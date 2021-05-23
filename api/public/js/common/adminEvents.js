@@ -16,3 +16,15 @@ $("#adminPayment").click(() => {
 $("#adminOrder").click(() => {
   window.location.assign("http://localhost:8000/orderHistory");
 });
+
+const signOutButton = document.getElementById("sign-out-button")
+  signOutButton.addEventListener("click", () => {
+    fakeloader.show();
+    fetch("http://localhost:8000/signOut").then((res) => {
+      const statusCode = res.status;
+      if (statusCode === 200) {
+        fakeloader.hide();
+        window.location.assign("/login");
+      }
+    });
+  });

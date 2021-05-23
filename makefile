@@ -1,4 +1,4 @@
 git:
 	git add .
 	git commit -m "$m"
-	git push origin backend
+	git push origin AdminPanel
