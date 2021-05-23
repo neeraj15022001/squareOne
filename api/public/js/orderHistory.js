@@ -75,6 +75,7 @@ fetch("http://localhost:8000/userTable")
       const activeItemData = userData[activeItem].OrderIds;
       // console.log(activeItemData)
       $("#parentContainer").empty();
+      $("#childContainer").empty()
       await activeItemData.forEach(id => {
         const element = `<li class="list-group-item list-group-item-action cursor-pointer" data-index=${id}>${id}</li>`
         $("#parentContainer").append(element)
