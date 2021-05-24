@@ -104,7 +104,11 @@
               <i class="m-0 p-0 bi bi-caret-up-fill" id="dropdown-icon"></i>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <li><a class="dropdown-item" href="#" id="sign-out-button">Sign Out</a></li>
+              <li>
+                <a class="dropdown-item" href="#" id="sign-out-button"
+                  >Sign Out</a
+                >
+              </li>
             </ul>
           </div>
         </div>
@@ -125,9 +129,10 @@
             <p class="fs-2 fw-bold m-0">Users</p>
             <div class="input-group w-25">
               <span class="input-group-text" id="search"
-                ><i class="bi bi-search"></i
+                ><i class="bi bi-search" onclick="searchUsers()"></i
               ></span>
               <input
+                id="searchbar"
                 type="text"
                 class="form-control"
                 placeholder="Search"
