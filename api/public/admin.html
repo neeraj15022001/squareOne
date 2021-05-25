@@ -129,7 +129,7 @@
             <p class="fs-2 fw-bold m-0">Users</p>
             <div class="input-group w-25">
               <span class="input-group-text" id="search"
-                ><i class="bi bi-search" onclick="searchUsers()"></i
+                ><i class="bi bi-search"></i
               ></span>
               <input
                 id="searchbar"
@@ -138,6 +138,7 @@
                 placeholder="Search"
                 aria-label="Search"
                 aria-describedby="search"
+                onkeyup ="searchUsers(event)"
               />
             </div>
           </div>

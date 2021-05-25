@@ -1,8 +1,8 @@
 let users;
 
-const consoleUsers = () => {
-  console.log(users);
-};
+// const consoleUsers = () => {
+//   console.log(users);
+// };
 
 const emptyTable = () => {
   $("#user-data-container").empty();
@@ -37,9 +37,9 @@ const addUserDataToTable = (user) => {
   $("#user-data-container").append(element);
 };
 
-const searchUsers = () => {
+const searchUsers = (event) => {
   fakeloader.show();
-  let value = document.getElementById("searchbar").value;
+  const value = event.target.value
   emptyTable();
   users.forEach((user) => {
     if (
@@ -71,7 +71,7 @@ const removeUser = (e) => {
 
   fetch("http://localhost:8000/deleteUser", requestOptions)
     .then((response) => {
-      console.log(response.status);
+      // console.log(response.status);
       window.location.reload();
     })
     .catch((error) => console.log("error", error));

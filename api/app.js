@@ -442,7 +442,7 @@ app.get("/listAllUsers", (req, res) => {
   let userData = getDocumentFromDb("Users");
   userData
     .then((response) => {
-      console.log(Object.values(response));
+      // console.log(Object.values(response));
       res.send(Object.values(response));
       return;
     })
