@@ -33,7 +33,7 @@ const EMAIL_STR = "Email";
 const CARD_RECHARGE_RECORD = "cardRechargeRecord";
 const ORDER_HISTORY = "orderHistory";
 var USER_EMAIL = "";
-const USER_TABLE = "Users"
+const USER_TABLE = "Users";
 
 /**
  * Initialize Firestore configuration
@@ -364,16 +364,19 @@ async function getDocumentDataFromDb(colName, docName) {
 }
 
 async function getDocumentFromDb(colName) {
-  let data = {}
+  let data = {};
   await db
     .collection(colName)
     .get()
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
-          data[doc.id] = doc.data()
+        data[doc.id] = doc.data();
       });
     });
-  return JSON.stringify(data)
+  if (colName == "Users") {
+    return data;
+  }
+  return JSON.stringify(data);
 }
 
 function updateDocumentFieldData(colName, docName, fieldName, fieldData) {
@@ -436,13 +439,22 @@ app.post("/deleteUser", async function (req, res) {
 });
 
 app.get("/listAllUsers", (req, res) => {
-  admin
-    .auth()
-    .listUsers()
-    .then(function (listUsersResult) {
-      res.send(listUsersResult);
+  let userData = getDocumentFromDb("Users");
+  userData
+    .then((response) => {
+      // console.log(Object.values(response));
+      res.send(Object.values(response));
       return;
     })
+
+    // admin
+    //   .auth()
+    //   .listUsers()
+    //   .then(function (listUsersResult) {
+    //     console.log(listUsersResult);
+    //     res.send(listUsersResult);
+    //     return;
+    //   })
     .catch(function (error) {
       console.log("Error listing users:", error);
       res.sendStatus(500);
@@ -509,18 +521,18 @@ app.post("/updateUserEmail", (req, res) => {
 
 app.get("/getCardRechargeData", (req, res) => {
   let cardRechargeData = getDocumentFromDb(CARD_RECHARGE_RECORD);
-  cardRechargeData.then(response => res.send(JSON.parse(response)))
-  return
+  cardRechargeData.then((response) => res.send(JSON.parse(response)));
+  return;
 });
 
 app.get("/getOrderHistory", (req, res) => {
   let orderHistoryData = getDocumentFromDb(ORDER_HISTORY);
-  orderHistoryData.then(response => res.send(JSON.parse(response)))
-  return
+  orderHistoryData.then((response) => res.send(JSON.parse(response)));
+  return;
 });
 
 app.get("/userTable", (req, res) => {
   let usersData = getDocumentFromDb(USER_TABLE);
-  usersData.then(response => res.send(response))
-  return
-})
+  usersData.then((response) => res.send(response));
+  return;
+});
