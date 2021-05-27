@@ -52,6 +52,7 @@ fetch("http://localhost:8000/userTable")
           $(this).addClass("active");
           const activeItem = $(this).data("index");
           console.log(activeItem)
+          console.log(balanceData,userData);
           const activeItemData = balanceData[activeItem];
           console.log(activeItemData)
           $("#childContainer").empty();

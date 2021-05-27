@@ -373,7 +373,7 @@ async function getDocumentFromDb(colName) {
         data[doc.id] = doc.data();
       });
     });
-  if (colName == "Users") {
+  if (colName == USERS_TABLE_NAME) {
     return data;
   }
   return JSON.stringify(data);
