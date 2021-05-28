@@ -39,7 +39,7 @@ const addUserDataToTable = (user) => {
 
 const searchUsers = (event) => {
   fakeloader.show();
-  const value = event.target.value
+  const value = event.target.value;
   emptyTable();
   users.forEach((user) => {
     if (

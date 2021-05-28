@@ -6,14 +6,21 @@ var firebase = require("firebase/app");
 var session = require("express-session");
 var https = require("https");
 var http = require("http");
+var Razorpay = require("razorpay");
 const fs = require("fs");
 app.use(express.static(__dirname + "/public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 var sess = {
   secret: "squareOne",
   cookie: {},
 };
+
+let razorpayInstance = new Razorpay({
+  key_id: "rzp_test_rS3Rd4fFQbZQvT", // your `KEY_ID`
+  key_secret: "1zhIw352r6y3EdZi1V2VhAd4", // your `KEY_SECRET`
+});
 
 if (app.get("env") === "production") {
   app.set("trust proxy", 1); // trust first proxy
@@ -386,13 +393,6 @@ function updateDocumentFieldData(colName, docName, fieldName, fieldData) {
   });
 }
 
-httpServer.listen(8000, () => {
-  console.log("App is now running on PORT 8000");
-});
-httpsServer.listen(8001, () => {
-  console.log(`App is now running on port 8001}`);
-});
-
 //Admin Panel Routing
 app.post("/deleteUser", async function (req, res) {
   var email = req.body.email;
@@ -536,3 +536,25 @@ app.get("/userTable", (req, res) => {
   usersData.then((response) => res.send(response));
   return;
 });
+
+//RazorPay Payement Gateway Handling
+
+app.post("/order", (req, res) => {
+  params = req.body;
+  razorpayInstance.orders
+    .create(params)
+    .then((data) => {
+      res.send({ sub: data, status: "success" });
+    })
+    .catch((error) => {
+      res.send({ sub: error, status: "failed" });
+    });
+});
+
+// PORT Listening
+httpServer.listen(8000, () => {
+  console.log("App is now running on PORT 8000");
+});
+// httpsServer.listen(8001, () => {
+//   console.log(`App is now running on port 8001}`);
+// });
