@@ -13,6 +13,7 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="./css/fakeloader.css" />
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   </head>
   <body>
     <div id="fakeloader-overlay" class="visible incoming">
@@ -80,10 +81,10 @@
             </button>
           </div>
           <div class="modal-body">
-            <label for="cardNumber" class="form-label">Enter Card Number</label>
-            <input type="text" class="form-control mb-2" />
+            <!-- <label for="cardNumber" class="form-label">Enter Card Number</label>
+            <input type="text" class="form-control mb-2" /> -->
             <label for="amount" class="form-label">Enter Amount</label>
-            <input type="text" class="form-control" />
+            <input type="text" class="form-control" id="amount-field" />
           </div>
           <div class="modal-footer">
             <button
@@ -93,7 +94,7 @@
             >
               Cancel
             </button>
-            <button type="button" class="custom-button primary-button">
+            <button type="button" class="custom-button primary-button" id="proceed-button">
               Proceed
             </button>
           </div>

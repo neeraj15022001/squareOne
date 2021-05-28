@@ -1,14 +1,16 @@
 //jshint:esversion:6
 const fakeloader = $("#fakeloader-overlay");
 fakeloader.hide();
+var menuButton = document.getElementById("menu-button");
+var signOutButton = document.getElementById("signOutButton");
+const proceedButton = document.getElementById("proceed-button");
 fetch("/checkUser").then((status) => {
   // console.log(status);
   if (status.status == 500) {
     window.location.assign("http://localhost:8000/login");
   }
 });
-var menuButton = document.getElementById("menu-button");
-var signOutButton = document.getElementById("signOutButton");
+
 menuButton.addEventListener("click", () => {
   window.location.assign("http://localhost:8000/menu");
 });
@@ -22,4 +24,40 @@ signOutButton.addEventListener("click", () => {
       window.location.assign("/login");
     }
   });
+});
+
+proceedButton.addEventListener("click", () => {
+  const amount = document.getElementById("amount-field").value;
+  console.log(amount);
+  var myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+
+  var raw = JSON.stringify({
+    amount: amount,
+    currency: "INR",
+    receipt: "su001",
+    payment_capture: "1",
+  });
+
+  var requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: raw,
+    redirect: "follow",
+  };
+
+  fetch("http://localhost:8000/order", requestOptions)
+    .then((response) => response.json())
+    .then((result) => {
+      const order_id = result.sub.id;
+      const options = {
+        "key": "rzp_test_rS3Rd4fFQbZQvT",
+        "order_id": order_id,
+        "name": "Square One",
+        "description": "Square One Test Payment",
+      };
+      var rzp1 = new Razorpay(options);
+      rzp1.open();
+    })
+    .catch((error) => console.log("error", error));
 });

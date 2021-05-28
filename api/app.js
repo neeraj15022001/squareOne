@@ -29,6 +29,8 @@ if (app.get("env") === "production") {
 
 app.use(session(sess));
 
+
+
 const CART_TABLE_NAME = "userCart";
 const CART_ITEM_COUNT = "cartItemCount";
 const ITEMS_COUNT = "itemsCount";
