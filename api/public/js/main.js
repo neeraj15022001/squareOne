@@ -1,5 +1,9 @@
 //jshint:esversion:6
 const fakeloader = $("#fakeloader-overlay");
+const body = document.getElementById("main-body");
+const mainHeadline = document.querySelector(".main-headline");
+const subHeadline = document.querySelector(".sub-headline");
+
 fakeloader.hide();
 var menuButton = document.getElementById("menu-button");
 var signOutButton = document.getElementById("signOutButton");
@@ -21,6 +25,7 @@ signOutButton.addEventListener("click", () => {
     const statusCode = res.status;
     if (statusCode === 200) {
       fakeloader.hide();
+      localStorage.clear();
       window.location.assign("/login");
     }
   });
@@ -67,4 +72,43 @@ proceedButton.addEventListener("click", () => {
     })
     .catch((error) => console.log("error", error));
 });
+
+
+const mediaQueryRules = () => {
+  console.log("calling function")
+  if (window.innerWidth <= 1200) {
+    body.style.background = "url('../images/Home/md.jpg')";
+    body.style.backgroundSize = "cover";
+    body.style.backgroundAttachment = "fixed";
+    body.style.backgroundColor = "none";
+    mainHeadline.style.color = "white";
+    subHeadline.style.color = "white";
+    brand.style.color = "white";
+  } else {
+    body.style.background = "#ffffff";
+    mainHeadline.style.color = "black";
+    subHeadline.style.color = "black";
+    brand.style.color = "black";
+  }
+  if (window.innerWidth < 576) {
+    navbar.classList.remove("navbar-dark");
+    navbar.classList.add("bg-navbar", "navbar-light");
+    signOutButton.classList.remove("primary-button", "custom-button");
+    signOutButton.classList.add("btn", "btn-danger", "mt-3");
+    user.classList.add("btn", "btn-light", "mt-3");
+    cart.classList.add("btn", "btn-light", "mt-3");
+  } else {
+    navbar.classList.add("navbar-dark");
+    navbar.classList.remove("bg-navbar", "navbar-light");
+    signOutButton.classList.add("primary-button", "custom-button");
+    signOutButton.classList.remove("btn", "btn-danger", "mt-3");
+    user.classList.remove("btn", "btn-light", "mt-3");
+    cart.classList.remove("btn", "btn-light", "mt-3");
+  }
+};
+window.addEventListener("resize", () => {
+  mediaQueryRules();
+});
+mediaQueryRules();
+
 

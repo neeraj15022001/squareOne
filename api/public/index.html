@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="./css/fakeloader.css" />
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   </head>
-  <body>
+  <body id="main-body">
     <div id="fakeloader-overlay" class="visible incoming">
       <div class="loader-wrapper-outer">
         <div class="loader-wrapper-inner">
@@ -23,17 +23,54 @@
         </div>
       </div>
     </div>
-    <!-- <div class="svg-container"> -->
-    <nav class="customNavbar">
-      <ul class="customNavbar-list">
-        <li class="brand">Square <span>One</span></li>
-        <li>
-          <button class="custom-button" id="signOutButton">Sign Out</button>
-        </li>
-      </ul>
+    <nav
+      class="navbar navbar-expand-sm navbar-dark py-3 px-3"
+      id="navbar"
+      style="z-index: 10000"
+    >
+      <div class="container-fluid">
+        <a class="navbar-brand brand fs-3 fw-bold" href="#"
+          >Square <span>One</span></a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNavAltMarkup"
+          aria-controls="navbarNavAltMarkup"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav ms-auto">
+            <a class="nav-link" href="./cart.html" id="cart-link">Cart</a>
+            <a class="nav-link ms-sm-3" href="./user.html" id="user-link">User</a>
+            <a
+              class="nav-link ms-sm-3 primary-button custom-button"
+              href="#"
+              tabindex="-1"
+              aria-disabled="true"
+              id="signOutButton"
+              >Sign Out</a
+            >
+          </div>
+        </div>
+      </div>
     </nav>
-    <img src="./images/wave.svg" alt="wave" class="wave" draggable="false" />
-    <img src="./images/food.png" alt="food" class="food" draggable="false" />
+    <img
+      src="./images/wave.svg"
+      alt="wave"
+      class="wave d-none d-xl-flex"
+      draggable="false"
+    />
+    <img
+      src="./images/food.png"
+      alt="food"
+      class="food d-none d-xl-flex"
+      draggable="false"
+    />
     <div class="hero-container">
       <div class="headline">
         <p class="main-headline">
@@ -94,7 +131,11 @@
             >
               Cancel
             </button>
-            <button type="button" class="custom-button primary-button" id="proceed-button">
+            <button
+              type="button"
+              class="custom-button primary-button"
+              id="proceed-button"
+            >
               Proceed
             </button>
           </div>

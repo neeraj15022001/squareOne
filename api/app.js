@@ -367,7 +367,7 @@ async function getDocumentDataFromDb(colName, docName) {
   if (!doc.exists) {
     return 0;
   } else {
-    console.log("Document data:", doc.data());
+    // console.log("Document data:", doc.data());
     return doc.data();
   }
 }
