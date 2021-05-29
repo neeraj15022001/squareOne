@@ -27,7 +27,8 @@ signOutButton.addEventListener("click", () => {
 });
 
 proceedButton.addEventListener("click", () => {
-  const amount = document.getElementById("amount-field").value;
+  let amount = document.getElementById("amount-field").value;
+  amount *= 100;
   console.log(amount);
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
@@ -51,13 +52,19 @@ proceedButton.addEventListener("click", () => {
     .then((result) => {
       const order_id = result.sub.id;
       const options = {
-        "key": "rzp_test_rS3Rd4fFQbZQvT",
-        "order_id": order_id,
-        "name": "Square One",
-        "description": "Square One Test Payment",
+        key: "rzp_test_rS3Rd4fFQbZQvT",
+        order_id: order_id,
+        name: "Square One",
+        description: "Square One Test Payment",
+        handler: (response) => {
+          alert(response.razorpay_payment_id);
+          alert(response.razorpay_order_id);
+          alert(response.razorpay_signature);
+        },
       };
       var rzp1 = new Razorpay(options);
       rzp1.open();
     })
     .catch((error) => console.log("error", error));
 });
+

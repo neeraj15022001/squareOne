@@ -496,8 +496,18 @@ app.post("/removeBalanceFromCard", (req, res) => {
 
 app.post("/getUserData", (req, res) => {
   userEmail = req.body.email;
-  let userData = getDocumentDataFromDb(USERS_TABLE_NAME, userEmail);
-  return res.json(userData);
+  getDocumentDataFromDb(USERS_TABLE_NAME, userEmail)
+  .then((response) => {
+    res.send(JSON.stringify(response))
+    return 
+  })
+  .catch((err) => {
+    console.log(err)
+    res.sendStatus(500)
+    return
+  } )
+
+  // res.json(userData);
 });
 
 app.post("/updateUserName", (req, res) => {
@@ -527,6 +537,8 @@ app.get("/getCardRechargeData", (req, res) => {
   return;
 });
 
+
+
 app.get("/getOrderHistory", (req, res) => {
   let orderHistoryData = getDocumentFromDb(ORDER_HISTORY);
   orderHistoryData.then((response) => res.send(JSON.parse(response)));
@@ -555,7 +567,7 @@ app.post("/order", (req, res) => {
 
 // PORT Listening
 httpServer.listen(8000, () => {
-  console.log("App is now running on PORT 8000");
+  console.log("App is now running on PORT 8000. Click http://localhost:8000 to open");
 });
 // httpsServer.listen(8001, () => {
 //   console.log(`App is now running on port 8001}`);
