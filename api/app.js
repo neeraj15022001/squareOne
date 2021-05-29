@@ -94,6 +94,13 @@ app.get("/admin", (req, res) => {
     res.redirect("/login");
   }
 });
+app.get("/user", (req, res) => {
+  if (req.session.token) {
+    res.sendFile(__dirname + "/public/user.html");
+  } else {
+    res.redirect("/login");
+  }
+});
 app.get("/orderHistory", (req, res) => {
   if (req.session.token) {
     res.sendFile(__dirname + "/public/orderHistory.html");

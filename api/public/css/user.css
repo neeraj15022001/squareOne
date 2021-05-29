@@ -38,3 +38,6 @@ body {
   background-color: var(--themeRed) !important;
   color: white !important;
 }
+.desktop-page-height {
+  height: 80vh;
+}
