@@ -40,7 +40,7 @@ fetch("http://localhost:8000/userTable")
         const balanceData = JSON.parse(allData).balanceData;
         const usersData = JSON.parse(allData).usersData;
         console.log(balanceData);
-        console.log(balanceData);
+        console.log(userData);
         makeActiveCollectionContainer({
           balanceData: balanceData,
           userData: usersData,
@@ -53,6 +53,7 @@ fetch("http://localhost:8000/userTable")
 
 function makeActiveParentContainer({ balanceData, userData }) {
   console.log("in makeActiveParentContainer");
+  console.log(balanceData)
   const selector = "#paymentParentContainer li";
   $(selector).on("click", function () {
     $(selector).removeClass("active");
@@ -96,6 +97,7 @@ function makeActiveSubChildContainer({ activeItemData, userData }) {
 function makeActiveCollectionContainer({ balanceData, userData }) {
   console.log("in makeActiveCollectionContainer");
   const selector = "#paymentCollectionContainer li";
+  console.log(balanceData)
   $(selector).on("click", async function () {
     $(selector).removeClass("active");
     $(this).addClass("active");
