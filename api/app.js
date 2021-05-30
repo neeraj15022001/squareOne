@@ -7,6 +7,7 @@ var session = require("express-session");
 var https = require("https");
 var http = require("http");
 var Razorpay = require("razorpay");
+var dateTime = require("node-datetime");
 const fs = require("fs");
 app.use(express.static(__dirname + "/public"));
 app.use(express.urlencoded({ extended: true }));
@@ -29,8 +30,6 @@ if (app.get("env") === "production") {
 
 app.use(session(sess));
 
-
-
 const CART_TABLE_NAME = "userCart";
 const CART_ITEM_COUNT = "cartItemCount";
 const ITEMS_COUNT = "itemsCount";
@@ -39,10 +38,14 @@ const CURRENT_BALANCE = "CurrentBalance";
 const NAME_STR = "Name";
 const CARD_STR = "Card";
 const EMAIL_STR = "Email";
+const BALANCE_STR = "Balance";
+const ORDER_ID_STR = "OrderIds";
+const IS_ADMIN_STR = "IsAdmin";
 const CARD_RECHARGE_RECORD = "cardRechargeRecord";
 const ORDER_HISTORY = "orderHistory";
 var USER_EMAIL = "";
 const USER_TABLE = "Users";
+const SEPERATOR_STR = "_";
 
 /**
  * Initialize Firestore configuration
@@ -332,6 +335,28 @@ async function removeItemFromDb(colName, docName, fieldName) {
   // console.log(`value of returnResult is ${returnResult}`);
 }
 
+app.post("/signup", (req, res) => {
+  const email = req.body.email;
+  const userName = req.body.userName;
+
+  var timestamp = dateTime.create().format("d-m-Y H:M:S");
+  timestamp = timestamp
+    .replace(/\s/g, "_")
+    .replace(/-/g, "_")
+    .replace(/:/g, "_");
+
+  let data = {
+    [EMAIL_STR]: email,
+    [NAME_STR]: userName,
+    [BALANCE_STR]: 0,
+    [CARD_STR]: userName + SEPERATOR_STR + timestamp,
+    [IS_ADMIN_STR]: false,
+    [ORDER_ID_STR]: [],
+  };
+
+  db.collection(USERS_TABLE_NAME).doc(email).set(data);
+});
+
 async function setDbFieldCount(colName, docName, fieldName, fieldCount) {
   const docRef = db.collection(colName).doc(docName);
 
@@ -360,10 +385,10 @@ async function getFieldDataFromDb(colName, docName, fieldName) {
   if (!doc.exists) {
     return 0;
   } else {
-    console.log("Document data:", doc.data());
+    // console.log("Document data:", doc.data());
     let docData = doc.data();
     let finalResult = docData[fieldName];
-    console.log(finalResult);
+    // console.log(finalResult);
     return finalResult;
   }
 }
@@ -401,6 +426,36 @@ function updateDocumentFieldData(colName, docName, fieldName, fieldData) {
     [fieldName]: fieldData,
   });
 }
+
+app.post("/getParticularUserCartData", (req, res) => {
+  userEmail = req.body.email;
+  let userCartData = getDocumentDataFromDb(CART_TABLE_NAME, userEmail);
+  return res.json(userCartData);
+});
+
+app.post("/getParticularUserOrderHistory", async (req, res) => {
+  userEmail = req.body.email;
+  getFieldDataFromDb(USERS_TABLE_NAME, userEmail, ORDER_ID_STR).then(
+    async (orderResponse) => {
+      console.log(orderResponse);
+      let orderHistoryObj = {};
+      for (const orderID of orderResponse) {
+        await getDocumentDataFromDb(ORDER_HISTORY, orderID).then(
+          (orderHistoryResponse) => {
+            console.log("running in promise");
+            console.log(orderHistoryResponse);
+            orderHistoryObj[orderID] = orderHistoryResponse;
+          }
+        );
+        console.log("i m outside promise");
+      }
+      console.log("i m outside for loop");
+      console.log(orderHistoryObj)
+      res.send(orderHistoryObj)
+      return
+    }
+  );
+});
 
 //Admin Panel Routing
 app.post("/deleteUser", async function (req, res) {
@@ -455,15 +510,6 @@ app.get("/listAllUsers", (req, res) => {
       res.send(Object.values(response));
       return;
     })
-
-    // admin
-    //   .auth()
-    //   .listUsers()
-    //   .then(function (listUsersResult) {
-    //     console.log(listUsersResult);
-    //     res.send(listUsersResult);
-    //     return;
-    //   })
     .catch(function (error) {
       console.log("Error listing users:", error);
       res.sendStatus(500);
@@ -471,10 +517,10 @@ app.get("/listAllUsers", (req, res) => {
     });
 });
 
-app.post("/getParticularUserCartData", (req, res) => {
-  userEmail = req.body.email;
-  let userCartData = getDocumentDataFromDb(CART_TABLE_NAME, userEmail);
-  return res.json(userCartData);
+app.get("/getAllUserCartData", (req, res) => {
+  let userCartData = getDocumentFromDb(CART_TABLE_NAME);
+  userCartData.then((response) => res.send(JSON.parse(response)));
+  return;
 });
 
 app.post("/getCardCurrentBalance", (req, res) => {
@@ -504,15 +550,15 @@ app.post("/removeBalanceFromCard", (req, res) => {
 app.post("/getUserData", (req, res) => {
   userEmail = req.body.email;
   getDocumentDataFromDb(USERS_TABLE_NAME, userEmail)
-  .then((response) => {
-    res.send(JSON.stringify(response))
-    return 
-  })
-  .catch((err) => {
-    console.log(err)
-    res.sendStatus(500)
-    return
-  } )
+    .then((response) => {
+      res.send(JSON.stringify(response));
+      return;
+    })
+    .catch((err) => {
+      console.log(err);
+      res.sendStatus(500);
+      return;
+    });
 
   // res.json(userData);
 });
@@ -544,8 +590,6 @@ app.get("/getCardRechargeData", (req, res) => {
   return;
 });
 
-
-
 app.get("/getOrderHistory", (req, res) => {
   let orderHistoryData = getDocumentFromDb(ORDER_HISTORY);
   orderHistoryData.then((response) => res.send(JSON.parse(response)));
@@ -574,8 +618,10 @@ app.post("/order", (req, res) => {
 
 // PORT Listening
 httpServer.listen(8000, () => {
-  console.log("App is now running on PORT 8000. Click http://localhost:8000 to open");
+  console.log(
+    "App is now running on PORT 8000. Click http://localhost:8000 to open"
+  );
 });
 // httpsServer.listen(8001, () => {
 //   console.log(`App is now running on port 8001}`);
-// });
+// })
