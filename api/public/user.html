@@ -69,13 +69,13 @@
     >
       <div class="row">
         <div class="container col-3 p-0 bg-light" style="height: 80vh">
-          <ul class="list-group list-group-flush h-100">
-            <li class="list-group-item bg-danger text-white">User Details</li>
-            <li class="list-group-item bg-light">Order History</li>
-            <li class="list-group-item bg-light">Payment History</li>
+          <ul class="list-group list-group-flush h-100" id="sidebar-pages">
+            <li class="list-group-item bg-danger text-white" data-name="user-details">User Details</li>
+            <li class="list-group-item bg-light" id="sidebar-order-history" data-name="order-history">Order History</li>
+            <li class="list-group-item bg-light" id="sidebar-payment-history" data-name="payments-history">Payment History</li>
           </ul>
         </div>
-        <div class="container col-9 px-0 py-3 d-none" id="user-details">
+        <div class="container col-9 px-0 py-3 sidebar-items" id="user-details">
           <div class="container-fluid py-3">
             <div
               class="bg-danger rounded-circle mx-auto"
@@ -148,7 +148,7 @@
           </div>
         </div>
 
-        <div class="container col-9 px-0 py-3 h-100 d-none" id="order-history">
+        <div class="container col-9 px-0 py-3 h-100 sidebar-items d-none" id="order-history">
           <div class="container h-100 overflow-auto">
             <div class="row h-100 overflow-auto">
               <div class="col-4 h-100 border-end overflow-auto">
@@ -177,7 +177,7 @@
             </div>
           </div>
         </div>
-        <div class="container col-9 px-0 py-3" id="payments-history">
+        <div class="container col-9 px-0 py-3 sidebar-items d-none" id="payments-history">
           <div class="container h-100 overflow-auto">
             <div class="row h-100 overflow-auto">
               <div class="col-3 h-100 border-end overflow-auto">
@@ -223,7 +223,7 @@
     ></script>
     <script src="./js/userPageResponsive.js"></script>
     <script src="./js/user.js"></script>
-    <!-- <script src="./js/orderHistory.js" defer></script> -->
+    <script src="./js/orderHistory.js" defer></script>
     <script src="./js/paymentHistory.js" defer></script>
   </body>
 </html>
