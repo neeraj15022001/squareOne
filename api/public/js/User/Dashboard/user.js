@@ -33,5 +33,12 @@ function clearActiveClassSidebar() {
     }
   });
 }
+function setUserDetails() {
+  $("#user-name-field").attr("value", localStorage.getItem("name"))
+  $("#user-email-field").attr("value", localStorage.getItem("email"))
+  $("#user-card-field").attr("value", localStorage.getItem("card"))
+  $("#user-balance-field").attr("value", `Rs ${localStorage.getItem("balance")}`)
+}
 mediaQueryRules();
 clearActiveClassSidebar();
+setUserDetails()

@@ -131,11 +131,18 @@ app.get("/checkUser", (req, res) => {
 app.get("/login", (req, res) => {
   if (req.session.token) {
     res.redirect("/home");
+    return
   }
   res.sendFile(__dirname + "/public/login.html");
+  return
 });
 app.get("/register", (req, res) => {
+  if (req.session.token) {
+    res.redirect("/home");
+    return
+  }
   res.sendFile(__dirname + "/public/register.html");
+  return
 });
 app.get("/menu", (req, res) => {
   if (req.session.token) {
