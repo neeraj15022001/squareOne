@@ -450,9 +450,9 @@ app.post("/getParticularUserOrderHistory", async (req, res) => {
         console.log("i m outside promise");
       }
       console.log("i m outside for loop");
-      console.log(orderHistoryObj)
-      res.send(orderHistoryObj)
-      return
+      console.log(orderHistoryObj);
+      res.send(orderHistoryObj);
+      return;
     }
   );
 });

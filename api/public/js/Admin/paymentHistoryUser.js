@@ -37,7 +37,7 @@ fetch("http://localhost:8000/userTable")
         const usersData = JSON.parse(allData).usersData;
         console.log(balanceData);
         console.log(userData);
-        makeActiveCollectionContainer({
+        makePaymentActiveCollectionContainer({
           balanceData: balanceData,
           userData: usersData,
         });
@@ -47,7 +47,7 @@ fetch("http://localhost:8000/userTable")
   })
   .catch((err) => console.log(err));
 
-function makeActiveParentContainer({ balanceData, userData }) {
+function makePaymentActiveParentContainer({ balanceData, userData }) {
   console.log("in makeActiveParentContainer");
   console.log(balanceData);
   const selector = "#paymentParentContainer li";
@@ -65,14 +65,14 @@ function makeActiveParentContainer({ balanceData, userData }) {
       const element = `<li class="list-group-item list-group-item-action cursor-pointer" data-date=${key}>${key}</li>`;
       $("#paymentChildContainer").append(element);
     }
-    makeActiveSubChildContainer({
+    makePaymentActiveSubChildContainer({
       activeItemData: activeItemData,
       userData: userData,
     });
   });
 }
 
-function makeActiveSubChildContainer({ activeItemData, userData }) {
+function makePaymentActiveSubChildContainer({ activeItemData, userData }) {
   const selector = "#paymentChildContainer li";
   $(selector).on("click", function () {
     $(selector).removeClass("active");
@@ -90,7 +90,7 @@ function makeActiveSubChildContainer({ activeItemData, userData }) {
   });
 }
 
-function makeActiveCollectionContainer({ balanceData, userData }) {
+function makePaymentActiveCollectionContainer({ balanceData, userData }) {
   console.log("in makeActiveCollectionContainer");
   const selector = "#paymentCollectionContainer li";
   console.log(balanceData);
@@ -107,7 +107,7 @@ function makeActiveCollectionContainer({ balanceData, userData }) {
     $("#paymentSubChildContainer").empty();
     const element = `<li class="list-group-item list-group-item-action cursor-pointer" data-index=${activeItemData}>${activeItemData}</li>`;
     await $("#paymentParentContainer").append(element);
-    makeActiveParentContainer({
+    makePaymentActiveParentContainer({
       balanceData: balanceData,
       userData: userData,
     });

@@ -1,4 +1,3 @@
-const fakeloader = $("#fakeloader-overlay");
 fakeloader.show();
 
 fetch("http://localhost:8000/userTable")

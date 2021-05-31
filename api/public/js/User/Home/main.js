@@ -73,7 +73,6 @@ proceedButton.addEventListener("click", () => {
     .catch((error) => console.log("error", error));
 });
 
-
 const pageSpecificMediaQueryRules = () => {
   if (window.innerWidth <= 1200) {
     mainHeadline.style.color = "white";
@@ -85,9 +84,7 @@ const pageSpecificMediaQueryRules = () => {
 };
 window.addEventListener("resize", () => {
   mediaQueryRules();
-  pageSpecificMediaQueryRules()
+  pageSpecificMediaQueryRules();
 });
 mediaQueryRules();
-pageSpecificMediaQueryRules()
-
-
+pageSpecificMediaQueryRules();

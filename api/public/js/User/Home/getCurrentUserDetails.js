@@ -26,10 +26,10 @@ const fetchCurrentUserData = async () => {
       const email = result.Email;
       const balance = result.Balance;
       const card = result.Card;
-      localStorage.setItem("name", name)
-      localStorage.setItem("email", email)
-      localStorage.setItem("balance", balance)
-      localStorage.setItem("card", card)
+      localStorage.setItem("name", name);
+      localStorage.setItem("email", email);
+      localStorage.setItem("balance", balance);
+      localStorage.setItem("card", card);
     })
     .catch((error) => console.log("error", error));
 };
