@@ -1,7 +1,9 @@
 console.log("in payment history");
-if (typeof fakeloader === "undefined") {
+// console.log(typeof fakeloader)
+// if ((typeof fakeloader) === "undefined") {
+  console.log("in fakelaoder")
   const fakeloader = $("#fakeloader-overlay");
-}
+// }
 fakeloader.show();
 
 fetch("http://localhost:8000/userTable")
