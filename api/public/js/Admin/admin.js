@@ -8,6 +8,21 @@ const emptyTable = () => {
   $("#user-data-container").empty();
 };
 
+const moreButtonClicked = (e) => {
+  const button = event.target
+  const row = button.parentElement.parentElement.children
+  const name = row[0].innerHTML
+  const email = row[1].innerHTML
+  const card = row[2].innerHTML
+  console.log(name,email,card)
+  localStorage.setItem("detailsPageData", JSON.stringify({
+    'name': name,
+    'email': email,
+    'card': card
+  }))
+  window.location.assign("/userDetails")
+}
+
 const getAllUsersFromDB = () => {
   emptyTable();
   fetch("http://localhost:8000/listAllUsers")
@@ -30,7 +45,7 @@ const addUserDataToTable = (user) => {
   <td>
     <button class="btn btn-themeBlue">Update</button>
     <button class="btn btn-themeRed ms-2" onclick="removeUser(event)">Remove</button>
-    <button class="btn btn-themePurple ms-2">More</button>
+    <button class="btn btn-themePurple ms-2" onclick="moreButtonClicked(event)">More</button>
   </td>
 </tr>
 `;
@@ -68,6 +83,8 @@ const removeUser = (e) => {
     body: raw,
     redirect: "follow",
   };
+
+
 
   fetch("http://localhost:8000/deleteUser", requestOptions)
     .then((response) => {

@@ -104,6 +104,13 @@ app.get("/user", (req, res) => {
     res.redirect("/login");
   }
 });
+app.get("/userDetails", (req, res) => {
+  if (req.session.token) {
+    res.sendFile(__dirname + "/public/userDetails.html");
+  } else {
+    res.redirect("/login");
+  }
+})
 app.get("/orderHistory", (req, res) => {
   if (req.session.token) {
     res.sendFile(__dirname + "/public/orderHistory.html");
