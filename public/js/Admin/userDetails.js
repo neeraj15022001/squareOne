@@ -7,7 +7,7 @@ const paymentHistorySidebar = document.getElementById(
 const active = "bg-danger text-white";
 signOutButton.addEventListener("click", () => {
   fakeloader.show();
-  fetch("http://localhost:8000/signOut").then((res) => {
+  fetch("/signOut").then((res) => {
     const statusCode = res.status;
     if (statusCode === 200) {
       fakeloader.hide();

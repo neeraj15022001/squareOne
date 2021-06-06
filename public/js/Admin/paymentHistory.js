@@ -1,6 +1,6 @@
 fakeloader.show();
 
-fetch("http://localhost:8000/userTable")
+fetch("/userTable")
   .then((res) => res.json())
   .then((res) => {
     console.log("in promise");

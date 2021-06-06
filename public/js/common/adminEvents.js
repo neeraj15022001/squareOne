@@ -8,19 +8,19 @@ $("#dropdownMenuButton").click(() => {
     .toggleClass("bi-caret-down-fill");
 });
 $("#adminUsers").click(() => {
-  window.location.assign("http://localhost:8000/admin");
+  window.location.assign("/admin");
 });
 $("#adminPayment").click(() => {
-  window.location.assign("http://localhost:8000/paymentHistory");
+  window.location.assign("/paymentHistory");
 });
 $("#adminOrder").click(() => {
-  window.location.assign("http://localhost:8000/orderHistory");
+  window.location.assign("/orderHistory");
 });
 
 const signOutButton = document.getElementById("sign-out-button");
 signOutButton.addEventListener("click", () => {
   fakeloader.show();
-  fetch("http://localhost:8000/signOut").then((res) => {
+  fetch("/signOut").then((res) => {
     const statusCode = res.status;
     if (statusCode === 200) {
       fakeloader.hide();

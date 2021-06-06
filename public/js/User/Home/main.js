@@ -11,17 +11,17 @@ const proceedButton = document.getElementById("proceed-button");
 fetch("/checkUser").then((status) => {
   // console.log(status);
   if (status.status == 500) {
-    window.location.assign("http://localhost:8000/login");
+    window.location.assign("/login");
   }
 });
 
 menuButton.addEventListener("click", () => {
-  window.location.assign("http://localhost:8000/menu");
+  window.location.assign("/menu");
 });
 
 signOutButton.addEventListener("click", () => {
   fakeloader.show();
-  fetch("http://localhost:8000/signOut").then((res) => {
+  fetch("/signOut").then((res) => {
     const statusCode = res.status;
     if (statusCode === 200) {
       fakeloader.hide();
@@ -52,7 +52,7 @@ proceedButton.addEventListener("click", () => {
     redirect: "follow",
   };
 
-  fetch("http://localhost:8000/order", requestOptions)
+  fetch("/order", requestOptions)
     .then((response) => response.json())
     .then((result) => {
       const order_id = result.sub.id;

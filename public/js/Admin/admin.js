@@ -25,7 +25,7 @@ const moreButtonClicked = (e) => {
 
 const getAllUsersFromDB = () => {
   emptyTable();
-  fetch("http://localhost:8000/listAllUsers")
+  fetch("/listAllUsers")
     .then((res) => res.json())
     .then((res) => {
       users = res;
@@ -86,7 +86,7 @@ const removeUser = (e) => {
 
 
 
-  fetch("http://localhost:8000/deleteUser", requestOptions)
+  fetch("/deleteUser", requestOptions)
     .then((response) => {
       // console.log(response.status);
       window.location.reload();

@@ -631,9 +631,9 @@ app.post("/order", (req, res) => {
 });
 
 // PORT Listening
-httpServer.listen(8000, () => {
+httpServer.listen(port, () => {
   console.log(
-    "App is now running on PORT 8000. Click http://localhost:8000 to open"
+    "App is now running on PORT " + port
   );
 });
 // httpsServer.listen(8001, () => {

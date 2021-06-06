@@ -19,7 +19,7 @@ const fetchCurrentUserData = async () => {
     redirect: "follow",
   };
 
-  await fetch("http://localhost:8000/getUserData", requestOptions)
+  await fetch("/getUserData", requestOptions)
     .then((response) => response.json())
     .then((result) => {
       const name = result.Name;

@@ -14,7 +14,7 @@ fetch("../json/menuBreakfastIndianBreads.json")
           ...itemsData,
           ...response,
         };
-        fetch("http://localhost:8000/getUserCartData", requestOptions)
+        fetch("/getUserCartData", requestOptions)
           .then((response) => response.json())
           .then((result) => {
             // console.log(result);
@@ -93,7 +93,7 @@ function incrementItem(event) {
     redirect: "follow",
   };
 
-  fetch("http://localhost:8000/addToCart", requestOptions)
+  fetch("/addToCart", requestOptions)
     .then((response) => {
       window.location.reload();
     })
@@ -118,7 +118,7 @@ function decrementItem(event) {
     redirect: "follow",
   };
 
-  fetch("http://localhost:8000/removeFromCart", requestOptions)
+  fetch("/removeFromCart", requestOptions)
     .then((response) => {
       console.log(response.status);
       window.location.reload();
