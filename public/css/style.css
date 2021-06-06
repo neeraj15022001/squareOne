@@ -18,6 +18,12 @@ body {
   width: 100vw;
   overflow: hidden;
 }
+.bg-themeRed {
+  background-color: var(--themeRed) !important;
+}
+.bg-navbar {
+  background-color: rgba(255, 255, 255, 0.3) !important;
+}
 .wave {
   position: absolute;
   right: 0;
@@ -46,11 +52,7 @@ body {
   justify-content: space-between;
   list-style: none;
 }
-.brand {
-  font-size: xx-large;
-  font-weight: bold;
-  padding: 0 3rem;
-}
+
 .brand > span {
   color: var(--themeRed);
 }
@@ -119,15 +121,17 @@ body {
   transition: 0.3s ease-in-out;
   cursor: pointer;
 }
+.bg-custom {
+  background-color: var(--themeWhite) !important;
+}
+.nav-button {
+  color: var(--themeBlack) !important;
+}
 .custom-button:hover {
   background-color: var(--themeLightRed);
   color: var(--themeWhite);
 }
-#signOutButton {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-}
+
 @media screen and (min-device-width: 426px) and (max-device-width: 1000px) {
   .hero-container {
     margin-top: 3rem;
@@ -138,31 +142,11 @@ body {
     margin-top: 4rem;
   }
 }
-@media screen and (max-device-width: 1400px) {
-  .wave {
-    display: none;
-  }
-  .food {
-    display: none;
-  }
-  body {
-    background: url("../images/Home/md.jpg");
-    background-size: cover;
-    background-attachment: fixed;
-  }
-  .main-headline,
-  .sub-headline,
-  .brand {
-    color: var(--themeWhite);
-  }
-}
 @media screen and (max-device-width: 425px) {
   .hero-container {
     left: 2rem;
   }
-  #signOutButton {
-    position: relative;
-  }
+
   .customNavbar {
     position: relative;
   }
@@ -187,11 +171,5 @@ body {
   .customNavbar {
     padding-left: 0;
     padding-right: 0;
-  }
-  #signOutButton {
-    padding: 0.8rem;
-  }
-  .brand {
-    font-size: 2rem;
   }
 }

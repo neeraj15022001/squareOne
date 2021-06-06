@@ -14,7 +14,7 @@ fetch("../json/menuBreakfastIndianBreads.json")
           ...itemsData,
           ...response,
         };
-        fetch("/getUserCartData", requestOptions)
+        fetch("http://localhost:8000/getUserCartData", requestOptions)
           .then((response) => response.json())
           .then((result) => {
             // console.log(result);
@@ -95,7 +95,6 @@ function incrementItem(event) {
 
   fetch("http://localhost:8000/addToCart", requestOptions)
     .then((response) => {
-      response.status;
       window.location.reload();
     })
     .catch((error) => console.log("error", error));

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Register</title>
     <link rel="stylesheet" href="./css/login.css" />
-    <link
+    <!-- <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
@@ -15,8 +15,17 @@
     <script
       src="https://kit.fontawesome.com/dabf4ff9a0.js"
       crossorigin="anonymous"
-    ></script>
+    ></script> -->
     <link rel="stylesheet" href="./css/fakeloader.css" />
+    <link
+      rel="stylesheet"
+      href="node_modules/bootstrap/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="node_modules/bootstrap-icons/font/bootstrap-icons.css"
+    />
+    <!-- <link rel="stylesheet" href="node_modules/fakeloader/fakeLoader.css"> -->
   </head>
   <body>
     <div id="fakeloader-overlay" class="visible incoming">
@@ -49,13 +58,26 @@
             d-flex
             flex-column
             align-items-md-center
+            mt-5
             col-12 col-sm-12 col-md-12 col-lg-7
           "
         >
-          <p class="heading fw-bold text-center">Let's Make Your Order</p>
-          <div class="input-group input-group-lg mt-5 input-main-group">
+          <p class="heading fw-bold text-center mt-5">Let's Make Your Order</p>
+          <div class="input-group input-group-lg input-main-group mt-3">
             <span class="input-group-text bg-customRed text-light border-0"
-              ><i class="fa fa-envelope" aria-hidden="true"></i
+              ><i class="bi bi-envelope" aria-hidden="true"></i
+            ></span>
+            <input
+              name="displayName"
+              type="text"
+              class="form-control input-field input-border"
+              placeholder="Enter your Name"
+              id="displayNameField"
+            />
+          </div>
+          <div class="input-group input-group-lg mt-4 input-main-group">
+            <span class="input-group-text bg-customRed text-light border-0"
+              ><i class="bi bi-envelope" aria-hidden="true"></i
             ></span>
             <input
               name="email"
@@ -67,13 +89,25 @@
           </div>
           <div class="input-group input-group-lg mt-4">
             <span class="input-group-text bg-customRed text-light border-0"
-              ><i class="fa fa-lock" aria-hidden="true"></i
+              ><i class="bi bi-lock" aria-hidden="true"></i
             ></span>
             <input
               name="password"
               type="password"
               class="form-control input-field input-border"
               placeholder="Enter Your Password"
+              id="passwordField"
+            />
+          </div>
+          <div class="input-group input-group-lg mt-4">
+            <span class="input-group-text bg-customRed text-light border-0"
+              ><i class="bi bi-lock" aria-hidden="true"></i
+            ></span>
+            <input
+              name="password"
+              type="password"
+              class="form-control input-field input-border"
+              placeholder="Confirm Your Password"
               id="passwordField"
             />
           </div>
@@ -110,12 +144,13 @@
         "
       ></div>
     </div>
-    <script src="./js/jquery-3.6.0.min.js"></script>
+    <!-- <script src="./js/jquery-3.6.0.min.js"></script> -->
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-auth.js"></script>
     <script src="./js/firebase.js"></script>
-    <script src="./js/inputFieldsCheck.js"></script>
-    <script src="./js/eventListeners.js"></script>
-    <script src="./js/register.js"></script>
+    <script src="./js/common/inputFieldsCheck.js"></script>
+    <script src="./js/common/eventListeners.js"></script>
+    <script src="./js/User/Register/register.js"></script>
   </body>
 </html>

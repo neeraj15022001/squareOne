@@ -1,0 +1,1 @@
+const fakeloader = $("#fakeloader-overlay");

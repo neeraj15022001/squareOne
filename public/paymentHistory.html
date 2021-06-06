@@ -11,7 +11,12 @@
       rel="stylesheet"
       integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
       crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
     /> -->
+    <link rel="stylesheet" href="./css/fakeloader.css" />
     <link
       rel="stylesheet"
       href="node_modules/bootstrap/dist/css/bootstrap.min.css"
@@ -20,11 +25,7 @@
       rel="stylesheet"
       href="node_modules/bootstrap-icons/font/bootstrap-icons.css"
     />
-    <!-- <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
-    /> -->
-    <link rel="stylesheet" href="./css/fakeloader.css" />
+    <!-- <link rel="stylesheet" href="node_modules/fakeloader/fakeLoader.css"> -->
   </head>
   <body class="bg-themeGrey overflow-hidden d-flex align-content-center">
     <div id="fakeloader-overlay" class="visible incoming">
@@ -51,11 +52,9 @@
         </div>
       </div>
       <hr />
-      <div class="p-3 fs-5 activePage cursor-pointer" id="adminUsers">
-        Users
-      </div>
+      <div class="p-3 fs-5 cursor-pointer" id="adminUsers">Users</div>
       <hr class="p-0 m-0" />
-      <div class="p-3 fs-5 cursor-pointer" id="adminPayment">
+      <div class="p-3 fs-5 cursor-pointer activePage" id="adminPayment">
         Payment History
       </div>
       <hr class="p-0 m-0" />
@@ -122,7 +121,7 @@
         </div>
       </nav>
 
-      <div class="content container py-4 overflow-hidden mx-auto">
+      <div class="content container py-4 mx-auto overflow-hidden">
         <div class="contentCard card text-dark bg-white mb-3">
           <div
             class="
@@ -134,68 +133,56 @@
               py-2
             "
           >
-            <p class="fs-2 fw-bold m-0">Users</p>
-            <div class="input-group w-25">
-              <span class="input-group-text" id="search"
-                ><i class="bi bi-search"></i
-              ></span>
-              <input
-                id="searchbar"
-                type="text"
-                class="form-control"
-                placeholder="Search"
-                aria-label="Search"
-                aria-describedby="search"
-                onkeyup="searchUsers(event)"
-              />
-            </div>
+            <p class="fs-2 fw-bold m-0">Payments History</p>
           </div>
-          <div class="card-body py-3 px-4">
-            <table class="table table-striped overflow-auto">
-              <thead>
-                <tr>
-                  <th scope="col">Name</th>
-                  <th scope="col">Email</th>
-                  <th scope="col">Card Number</th>
-                  <th scope="col">Actions</th>
-                </tr>
-              </thead>
-              <tbody id="user-data-container">
-                <!-- <tr>
-                  <td>Neeraj</td>
-                  <td>gneeraj32595@gmail.com</td>
-                  <td>12345678</td>
-                  <td>
-                    <button class="btn btn-themeBlue">Update</button>
-                    <button class="btn btn-themeRed ms-2">Remove</button>
-                    <button class="btn btn-themePurple ms-2">More</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Aman</td>
-                  <td>abansal619@gmail.com</td>
-                  <td>87654321</td>
-                  <td>
-                    <button class="btn btn-themeBlue">Update</button>
-                    <button class="btn btn-themeRed ms-2">Remove</button>
-                    <button class="btn btn-themePurple ms-2">More</button>
-                  </td>
-                </tr> -->
-              </tbody>
-            </table>
+          <div class="card-body py-3 px-4 overflow-auto">
+            <div class="container h-100 overflow-auto">
+              <div class="row h-100 overflow-auto">
+                <div class="col-3 h-100 border-end overflow-auto">
+                  <ul
+                    class="
+                      list-group list-group-flush
+                      h-100
+                      overflow-auto
+                      customList
+                    "
+                    id="paymentCollectionContainer"
+                  ></ul>
+                </div>
+                <div class="col-3 h-100 overflow-auto customList border-end">
+                  <ul
+                    class="list-group list-group-flush"
+                    id="paymentParentContainer"
+                  ></ul>
+                </div>
+                <div class="col-3 h-100 overflow-auto customList border-end">
+                  <ul
+                    class="list-group list-group-flush"
+                    id="paymentChildContainer"
+                  ></ul>
+                </div>
+                <div class="col-3 h-100 overflow-auto customList">
+                  <ul
+                    class="list-group list-group-flush"
+                    id="paymentSubChildContainer"
+                  ></ul>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <!-- <script src="./js/Libraries/jquery-3.6.0.min.js"></script> -->
-    <script src="node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- <script
+    <!-- <script src="./js/jquery-3.6.0.min.js"></script>
+    <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
       crossorigin="anonymous"
     ></script> -->
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="./js/common/adminEvents.js"></script>
-    <script src="./js/Admin/admin.js"></script>
+    <script src="./js/Admin/intializeFakeloader.js"></script>
+    <script src="./js/Admin/paymentHistory.js"></script>
   </body>
 </html>

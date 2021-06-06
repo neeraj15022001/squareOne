@@ -89,7 +89,7 @@ function addToCartClicked(event) {
     redirect: "follow",
   };
 
-  fetch("/addToCart", requestOptions)
+  fetch("http://localhost:8000/addToCart", requestOptions)
     .then((response) => console.log(response))
     .catch((error) => console.log("error", error));
 }
@@ -170,10 +170,10 @@ function getDataFromDB() {
             ...itemsData,
             ...response,
           };
-          fetch("/getUserCartData", requestOptions)
+          fetch("http://localhost:8000/getUserCartData", requestOptions)
             .then((response) => response.json())
             .then((result) => {
-              // console.log(result);
+              console.log(result);
               let keys = Object.keys(result);
               let values = Object.values(result);
               // console.log(keys);
