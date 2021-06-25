@@ -110,7 +110,7 @@ app.get("/userDetails", (req, res) => {
   } else {
     res.redirect("/login");
   }
-})
+});
 app.get("/orderHistory", (req, res) => {
   if (req.session.token) {
     res.sendFile(__dirname + "/public/orderHistory.html");
@@ -138,18 +138,18 @@ app.get("/checkUser", (req, res) => {
 app.get("/login", (req, res) => {
   if (req.session.token) {
     res.redirect("/home");
-    return
+    return;
   }
   res.sendFile(__dirname + "/public/login.html");
-  return
+  return;
 });
 app.get("/register", (req, res) => {
   if (req.session.token) {
     res.redirect("/home");
-    return
+    return;
   }
   res.sendFile(__dirname + "/public/register.html");
-  return
+  return;
 });
 app.get("/menu", (req, res) => {
   if (req.session.token) {
@@ -223,7 +223,7 @@ app.get("/clearCart", (req, res) => {
   }
 });
 
-app.post("/getCartItemCount", async function (req, res) {
+app.get("/getCartItemCount", async function (req, res) {
   try {
     const docRef = db.collection(CART_ITEM_COUNT).doc(USER_EMAIL);
     const doc = await docRef.get();
@@ -239,19 +239,23 @@ app.post("/getCartItemCount", async function (req, res) {
   }
 });
 
-app.post("/getUserCartData", async function (req, res) {
+app.get("/getUserCartData", async function (req, res) {
   try {
     const docRef = db.collection(CART_TABLE_NAME).doc(USER_EMAIL);
     const doc = await docRef.get();
     if (!doc.exists) {
       // console.log("No such document!");
       res.sendStatus(500);
+      return;
     } else {
       // console.log("Document data:", doc.data());
       res.send(doc.data());
+      return;
     }
   } catch (e) {
-    res.end(e.message || e.toString());
+    console.log(e);
+    res.send(e.message || e.toString());
+    return;
   }
 });
 
@@ -401,6 +405,7 @@ async function getFieldDataFromDb(colName, docName, fieldName) {
   } else {
     // console.log("Document data:", doc.data());
     let docData = doc.data();
+    // console.log(docData, fieldName)
     let finalResult = docData[fieldName];
     // console.log(finalResult);
     return finalResult;
@@ -443,8 +448,15 @@ function updateDocumentFieldData(colName, docName, fieldName, fieldData) {
 
 app.post("/getParticularUserCartData", (req, res) => {
   userEmail = req.body.email;
-  let userCartData = getDocumentDataFromDb(CART_TABLE_NAME, userEmail);
-  return res.json(userCartData);
+  getDocumentDataFromDb(CART_TABLE_NAME, userEmail)
+    .then((userCartData) => {
+      res.send(userCartData);
+      return;
+    })
+    .catch((err) => {
+      res.send(err);
+      return;
+    });
 });
 
 app.post("/getParticularUserOrderHistory", async (req, res) => {
@@ -539,26 +551,34 @@ app.get("/getAllUserCartData", (req, res) => {
 
 app.post("/getCardCurrentBalance", (req, res) => {
   userEmail = req.body.email;
-  let balance = getFieldDataFromDb(
-    USERS_TABLE_NAME,
-    userEmail,
-    CURRENT_BALANCE
-  );
-  return res.send(balance.toJSON);
+  getFieldDataFromDb(USERS_TABLE_NAME, userEmail, BALANCE_STR)
+    .then((balance) => {
+      res.send(balance.toString());
+      return;
+    })
+    .catch((err) => {
+      res.send(err);
+      return;
+    });
+  return;
+  // res.send(balance.toJSON);
+  // return
 });
 
 app.post("/addBalanceToCard", (req, res) => {
   userEmail = req.body.email;
   balanceToAdd = req.body.amount;
   setDbFieldCount(USERS_TABLE_NAME, userEmail, CURRENT_BALANCE, balanceToAdd);
-  return res.sendStatus(200);
+  res.sendStatus(200);
+  return;
 });
 
 app.post("/removeBalanceFromCard", (req, res) => {
   userEmail = req.body.email;
   balanceToAdd = -req.body.amount;
   setDbFieldCount(USERS_TABLE_NAME, userEmail, CURRENT_BALANCE, balanceToAdd);
-  return res.sendStatus(200);
+  res.sendStatus(200);
+  return;
 });
 
 app.post("/getUserData", (req, res) => {

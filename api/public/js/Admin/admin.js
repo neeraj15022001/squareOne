@@ -9,19 +9,22 @@ const emptyTable = () => {
 };
 
 const moreButtonClicked = (e) => {
-  const button = event.target
-  const row = button.parentElement.parentElement.children
-  const name = row[0].innerHTML
-  const email = row[1].innerHTML
-  const card = row[2].innerHTML
-  console.log(name,email,card)
-  localStorage.setItem("detailsPageData", JSON.stringify({
-    'name': name,
-    'email': email,
-    'card': card
-  }))
-  window.location.assign("/userDetails")
-}
+  const button = event.target;
+  const row = button.parentElement.parentElement.children;
+  const name = row[0].innerHTML;
+  const email = row[1].innerHTML;
+  const card = row[2].innerHTML;
+  console.log(name, email, card);
+  localStorage.setItem(
+    "detailsPageData",
+    JSON.stringify({
+      name: name,
+      email: email,
+      card: card,
+    })
+  );
+  window.location.assign("/userDetails");
+};
 
 const getAllUsersFromDB = () => {
   emptyTable();
@@ -83,8 +86,6 @@ const removeUser = (e) => {
     body: raw,
     redirect: "follow",
   };
-
-
 
   fetch("http://localhost:8000/deleteUser", requestOptions)
     .then((response) => {

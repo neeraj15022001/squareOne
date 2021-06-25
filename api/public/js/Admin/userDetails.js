@@ -34,12 +34,12 @@ function clearActiveClassSidebar() {
   });
 }
 function setUserDetails() {
-  const data = JSON.parse(localStorage.getItem("detailsPageData"))
-  $("#user-name-field").attr("value", data.name)
-  $("#user-email-field").attr("value", data.email)
-  $("#user-card-field").attr("value", data.card)
-  $("#user-balance-field").attr("value", data.balance)
+  const data = JSON.parse(localStorage.getItem("detailsPageData"));
+  $("#user-name-field").attr("value", data.name);
+  $("#user-email-field").attr("value", data.email);
+  $("#user-card-field").attr("value", data.card);
+  $("#user-balance-field").attr("value", data.balance);
 }
 mediaQueryRules();
 clearActiveClassSidebar();
-setUserDetails()
+setUserDetails();
