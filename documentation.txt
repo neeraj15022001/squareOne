@@ -1,0 +1,24 @@
+Backend Routes
+
+getCurrentUser -> Get current logged in user email
+signOut -> Signout current logged in user
+addToCart -> Add item passed to cart for current user
+removeFromCart -> Remove item passed from cart for current user
+clearCart -> Clear Current user cart 
+getCartItemCount -> Return Items count in cart of current User
+getUserCartData -> Return Items in cart of current user
+getParticularUserCartData -> Return object of objects of item name and quantity
+getParticularUserOrderHistory -> Return object of order Id objects with previous order history of user email provided
+deleteUser -> Will delete user with given email id
+listAllUsers -> Return Array of all user objects from User Collection
+getAllUserCartData -> Return userCart Collection -> Return items in cart to corresponding user
+getCardCurrentBalance -> Take email and return balance corresponding to that email
+addBalanceToCard -> Add Amount provided to current user wallet
+removeBalanceFromCard -> Deduct Amount provided from current user wallet
+getUserData -> Return details corresponding to user provided
+updateUserName -> Update Username cooresponding to provided email
+updateCardNo -> Update Card Number corresponding to provided email
+updateUserEmail -> Update user email of provided email
+getCardRechargeData -> Returning cardRechargeRecord Collection from Db -> Return Recharge done on all cards registered
+getOrderHistory -> Returning orderHistory Collection from Db -> Return Order Hsitory corresponding to order ID's
+userTable -> Returning Users Collection from Db -> Return All User's Details
