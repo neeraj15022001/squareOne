@@ -483,6 +483,28 @@ app.post("/getParticularUserOrderHistory", async (req, res) => {
   );
 });
 
+app.post("/getParticularPaymentHistory", async (req, res) => {
+  userEmail = req.body.email;
+  getFieldDataFromDb(USERS_TABLE_NAME, userEmail, CARD_STR).then(
+    async (paymentResponse) => {
+      console.log(paymentResponse);
+      let paymentHistoryObj = {};
+      await getDocumentDataFromDb(CARD_RECHARGE_RECORD, paymentResponse).then(
+        (paymentHistoryResponse) => {
+          console.log("running in promise");
+          console.log(paymentHistoryResponse);
+          paymentHistoryObj[paymentResponse] = paymentHistoryResponse;
+        }
+      );
+      console.log("i m outside promise");
+      console.log("i m outside for loop");
+      console.log(paymentHistoryObj);
+      res.send(paymentHistoryObj);
+      return;
+    }
+  );
+});
+
 //Admin Panel Routing
 app.post("/deleteUser", async function (req, res) {
   var email = req.body.email;
