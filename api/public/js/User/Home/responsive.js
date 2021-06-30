@@ -4,7 +4,6 @@ const user = document.getElementById("user-link");
 const cart = document.getElementById("cart-link");
 
 const mediaQueryRules = () => {
-  console.log("calling function");
   if (window.innerWidth <= 1200) {
     body.style.background = "url('../images/Home/md.jpg')";
     body.style.backgroundSize = "cover";
