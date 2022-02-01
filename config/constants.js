@@ -1,0 +1,16 @@
+module.exports.CART_TABLE_NAME = "userCart";
+module.exports.CART_ITEM_COUNT = "cartItemCount";
+module.exports.ITEMS_COUNT = "itemsCount";
+module.exports.USERS_TABLE_NAME = "Users";
+module.exports.CURRENT_BALANCE = "CurrentBalance";
+module.exports.NAME_STR = "Name";
+module.exports.CARD_STR = "Card";
+module.exports.EMAIL_STR = "Email";
+module.exports.BALANCE_STR = "Balance";
+module.exports.ORDER_ID_STR = "OrderIds";
+module.exports.IS_ADMIN_STR = "IsAdmin";
+module.exports.CARD_RECHARGE_RECORD = "cardRechargeRecord";
+module.exports.ORDER_HISTORY = "orderHistory";
+module.exports.USER_EMAIL = "";
+module.exports.USER_TABLE = "Users";
+module.exports.SEPERATOR_STR = "_";

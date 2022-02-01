@@ -30,22 +30,7 @@ if (app.get("env") === "production") {
 
 app.use(session(sess));
 
-const CART_TABLE_NAME = "userCart";
-const CART_ITEM_COUNT = "cartItemCount";
-const ITEMS_COUNT = "itemsCount";
-const USERS_TABLE_NAME = "Users";
-const CURRENT_BALANCE = "CurrentBalance";
-const NAME_STR = "Name";
-const CARD_STR = "Card";
-const EMAIL_STR = "Email";
-const BALANCE_STR = "Balance";
-const ORDER_ID_STR = "OrderIds";
-const IS_ADMIN_STR = "IsAdmin";
-const CARD_RECHARGE_RECORD = "cardRechargeRecord";
-const ORDER_HISTORY = "orderHistory";
-var USER_EMAIL = "";
-const USER_TABLE = "Users";
-const SEPERATOR_STR = "_";
+
 
 /**
  * Initialize Firestore configuration
