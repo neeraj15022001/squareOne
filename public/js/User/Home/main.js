@@ -1,4 +1,3 @@
-//jshint:esversion:6
 const fakeloader = $("#fakeloader-overlay");
 const body = document.getElementById("main-body");
 const mainHeadline = document.querySelector(".main-headline");
@@ -10,7 +9,7 @@ var signOutButton = document.getElementById("signOutButton");
 const proceedButton = document.getElementById("proceed-button");
 fetch("/checkUser").then((status) => {
   // console.log(status);
-  if (status.status == 500) {
+  if (status.status === 500) {
     window.location.assign("/login");
   }
 });
@@ -32,17 +31,17 @@ signOutButton.addEventListener("click", () => {
 });
 
 proceedButton.addEventListener("click", () => {
-  let amount = document.getElementById("amount-field").value;
+  let amount = parseInt(document.getElementById("amount-field").value);
   amount *= 100;
-  console.log(amount);
+  console.log(amount.toString());
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
 
   var raw = JSON.stringify({
-    amount: amount,
+    amount: amount.toString(),
     currency: "INR",
     receipt: "su001",
-    payment_capture: "1",
+    timeout: "60,000"
   });
 
   var requestOptions = {
@@ -57,7 +56,7 @@ proceedButton.addEventListener("click", () => {
     .then((result) => {
       const order_id = result.sub.id;
       const options = {
-        key: "rzp_test_rS3Rd4fFQbZQvT",
+        key: "rzp_test_rm8G18UStPM9AU",
         order_id: order_id,
         name: "Square One",
         description: "Square One Test Payment",

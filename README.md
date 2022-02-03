@@ -1,3 +1,7 @@
+# Note
+Website is still under development
+
+Some Known Bugs - Crashing while opening cart
 # Cafeteria Menu
 
 This is app made for college cafeteria with modern UI
